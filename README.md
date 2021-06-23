@@ -7,4 +7,4 @@ Vue 2 + Vuetify + Firebase with Cypress, TypeScript
 // By Default
 Vue add Vuetify
 </pre>
-Vuetify 설치하고, 기본 세팅 완료했습니다.
+Vuetify 설치하고, package.json 약간의 수정 등의 기본 세팅 완료했습니다.

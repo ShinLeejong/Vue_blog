@@ -1,34 +1,10 @@
-# vue_blog
+# Vue_blog
 
-## Project setup
-```
-npm install
-```
+Vue 2 + Vuetify + Firebase with Cypress, TypeScript
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Run your unit tests
-```
-npm run test:unit
-```
-
-### Run your end-to-end tests
-```
-npm run test:e2e
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## 20210623
+<pre>
+// By Default
+Vue add Vuetify
+</pre>
+Vuetify 설치하고, 기본 세팅 완료했습니다.

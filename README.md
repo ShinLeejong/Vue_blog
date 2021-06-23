@@ -6,6 +6,8 @@ Vue 2 + Vuetify + Firebase with Cypress, TypeScript
 v-btn과 v-icon을 익혔습니다.
 mdi(Material Design Icons)와 fa(Font Awesome)라는 것들은 처음 들어보는데, 
 유용하게 사용할 수 있을 것 같습니다.
+반응형 웹과 관련이 있는 Breakpoint, 그에 따른 Visibility에 대하여 배웠습니다.
+toolbar와 spacer에 대하여 학습하였는데, v-toolbar는 v-app-bar로 이름이 바뀌었네요.
 
 ## 20210623
 <pre>

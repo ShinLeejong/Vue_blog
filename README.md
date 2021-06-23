@@ -2,6 +2,11 @@
 
 Vue 2 + Vuetify + Firebase with Cypress, TypeScript
 
+## 20210624
+v-btn과 v-icon을 익혔습니다.
+mdi(Material Design Icons)와 fa(Font Awesome)라는 것들은 처음 들어보는데, 
+유용하게 사용할 수 있을 것 같습니다.
+
 ## 20210623
 <pre>
 // By Default

@@ -1,5 +1,5 @@
 import { shallowMount, createLocalVue } from "@vue/test-utils";
-import Vuetify from 'vuetify'
+import Vuetify from "vuetify";
 import HelloWorld from "../../src/components/HelloWorld.vue";
 
 // register Vuetify globally to let Jest know

@@ -1,12 +1,29 @@
 <template>
   <div class="home">
     <h1>home</h1>
-    <article class="orange lighten-2 blue--text text--darken-3">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Exercitationem, libero harum? Fugiat, eaque fugit praesentium nemo quod voluptas iure soluta? Nesciunt facere magnam cupiditate, maiores illum omnis vitae sit architecto.</article>
-    <h1 class="display-2">How big am I?</h1>
-    <h2 class="display-1">How about me?</h2>
-    <h1>I'm the normal h1</h1>
-    <p class="headline">This is headline</p>
-    <p class="text-capitalize">capitalize these texts!</p>
+    <v-btn color="indigo">이렇게 만들거나</v-btn>
+    <v-btn depressed color="indigo">이렇게 해도 되고</v-btn>
+    <v-btn flat class="indigo yellow--text">이렇게 해도 된다</v-btn>
+
+    <v-btn depressed class="pink black--text">
+      <v-icon left>mdi-email</v-icon>
+      <span>메일</span>
+    </v-btn>
+
+    <v-btn depressed small class="red black--text">
+      <v-icon left small>mdi-email</v-icon>
+      <span>메일</span>
+    </v-btn>
+    
+    <v-btn depressed large class="green black--text">
+      <v-icon right large>mdi-email</v-icon>
+      <span>메일</span>
+    </v-btn>
+    
+    <v-btn fab depressed large class="blue black--text">
+      <v-icon large>mdi-mouse</v-icon>
+    </v-btn>
+
   </div>
 </template>
 
@@ -14,7 +31,13 @@
 import Vue from "vue";
 
 export default Vue.extend({
-  components: {
-  },
+  components: {},
 });
 </script>
+
+<style scoped>
+button {
+  display: block;
+  margin: .5rem auto;
+}  
+</style>

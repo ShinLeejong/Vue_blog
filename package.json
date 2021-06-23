@@ -2,13 +2,15 @@
   "name": "vue_blog",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://github.com/iiy4383/Vue_blog",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
     "lint": "vue-cli-service lint",
-    "start": "npm run lint -- --fix && vue-cli-service serve"
+    "start": "npm run lint -- --fix && vue-cli-service serve",
+    "deploy": "node ./node_modules/vue-gh-pages/index.js -p"
   },
   "dependencies": {
     "@mdi/font": "^5.9.55",

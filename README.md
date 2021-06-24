@@ -19,6 +19,7 @@ v-container, v-card, v-layout, v-flex, etcs & props(xs12, md6, row, wrap 등)
 Vuetify에서의 Grid System에 대하여 공부했습니다. 거의 디자인적으로 불가능이
 없어보일 만큼의 많은 color 종류들과 props가 있는 것을 알게 되었고,
 더욱 더 Vuetify를 통해 많은 것을 할 수 있을 것이란 기대감을 얻게 되었습니다.
+SelectBar와 v-btn을 만들어 Sorting할 수 있도록 아주 간단하게 만들었습니다.
 
 ## 20210623
 <pre>

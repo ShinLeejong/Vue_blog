@@ -24,7 +24,7 @@ Tooltip에 대하여 익혔습니다. 좀 복잡한가 싶었는데 이해되었
 <br />
 Team.vue를 꾸미기 시작했습니다. 그러면서 다음 내용을 익혔습니다.
 <pre>
-<v-responsive> <v-card-text> <v-card-actions>
+v-responsive, v-card-text, v-card-actions
 </pre>
 
 ## 20210623

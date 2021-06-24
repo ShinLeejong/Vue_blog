@@ -12,6 +12,13 @@ v-app-bar-nav-icon 까지 배웠습니다. 개발이 굉장히 편리하네요.
 또한 Theme에 대하여 익혔습니다. 이것만 써도 잘 만들 수 있을 것 같습니다.
 v-list-item에 대해서 익히는 중입니다. Navbar를 먼저 잘 작성해 볼 예정입니다.
 Navbar에서 v-for를 이용해 list를 나열하였고, 그에 따라 Route를 설정했습니다.
+<br />
+<pre>
+v-container, v-card, v-layout, v-flex, etcs & props(xs12, md6, row, wrap 등)
+</pre>
+Vuetify에서의 Grid System에 대하여 공부했습니다. 거의 디자인적으로 불가능이
+없어보일 만큼의 많은 color 종류들과 props가 있는 것을 알게 되었고,
+더욱 더 Vuetify를 통해 많은 것을 할 수 있을 것이란 기대감을 얻게 되었습니다.
 
 ## 20210623
 <pre>

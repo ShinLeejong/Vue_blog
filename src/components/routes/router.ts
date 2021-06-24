@@ -19,6 +19,6 @@ export default [
     path: "/team",
     name: "Team",
     component: () =>
-      import(/* webpackChunkName: "about" */ "../../views/Team.vue")
+      import(/* webpackChunkName: "about" */ "../../views/Team.vue"),
   },
 ];

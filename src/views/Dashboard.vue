@@ -1,9 +1,28 @@
 <template>
   <div class="home">
-    <h1>home</h1>
-    <v-btn class="hidden-md-and-down">Hello?</v-btn>
-    <v-btn class="hidden-md-and-up">Anybody Here?</v-btn>
-    <v-btn class="hidden-md-only">Anybody There~!</v-btn>
+    <h1 class="subheading grey--text">Home</h1>
+    <v-container class="my-5">
+      <v-card flat class="indigo lighten-5 pa-3">
+        <v-layout row wrap>
+          <v-flex xs12 md6>
+            <div class="caption grey--text">This is the dashboard</div>
+            <div>How cool is it</div>
+          </v-flex>
+          <v-flex xs6 sm4 md2>
+            <div class="caption grey--text">This is the dashboard</div>
+            <div>How cool is it</div>
+          </v-flex>
+          <v-flex xs6 sm4 md2>
+            <div class="caption grey--text">This is the dashboard</div>
+            <div>How cool is it</div>
+          </v-flex>
+          <v-flex xs6 sm4 md2>
+            <div class="caption grey--text">This is the dashboard</div>
+            <div>How cool is it</div>
+          </v-flex>
+        </v-layout>
+      </v-card>
+    </v-container>
   </div>
 </template>
 

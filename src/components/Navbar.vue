@@ -11,12 +11,20 @@
       </v-app-bar-title>
       <v-spacer></v-spacer>
       <v-btn text>
-        <span> Sign Out </span>
-        <v-icon right> mdi-exit-to-app </v-icon>
+        <span>Sign Out</span>
+        <v-icon right>mdi-exit-to-app</v-icon>
       </v-btn>
     </v-app-bar>
 
     <v-navigation-drawer app v-model="drawer" class="success">
+      <v-layout column align-center>
+        <v-flex class="mt-5">
+          <v-avatar size="100" class="center">
+            <img :src="myAvatar" alt="">
+          </v-avatar>
+          <p class="white--text subheading text-capitalize mt-6 text-center">Lee's Blog</p>
+        </v-flex>
+      </v-layout>
       <v-list>
         <v-list-item
           v-for="link in links"
@@ -38,10 +46,13 @@
   </div>
 </template>
 <script>
+import myAvatar from "../assets/team_avatars/Lee.jpg"
+
 export default {
   data() {
     return {
       drawer: false,
+      myAvatar,
       links: [
         {
           icon: "mdi-view-dashboard",

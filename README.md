@@ -2,6 +2,12 @@
 
 Vue 2 + Vuetify + Firebase with Cypress, TypeScript
 
+## 20210625
+Avatar에 대하여 익혔습니다. 이미지를 예쁘게 사용할 수 있게 하네요.
+Navbar를 조금 더 꾸몄습니다.
+Projects.vue를 시작했습니다. expansion-panel에 대해 익혔습니다.
+
+
 ## 20210624
 v-btn과 v-icon을 익혔습니다.
 mdi(Material Design Icons)와 fa(Font Awesome)라는 것들은 처음 들어보는데, 

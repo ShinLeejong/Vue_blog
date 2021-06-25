@@ -2,26 +2,25 @@
   <div class="home my-5">
     <h1 class="subheading grey--text ml-6">Home</h1>
     <v-container class="my-5">
-
       <v-layout row>
-          <v-flex xs6 md11>
-            <v-select
-              :items="['title', 'author', 'date', 'masterpiece']"
-              v-model="item"
-              v-on:input="sort(`${item}`, true)"
-            ></v-select>    
-          </v-flex>
-          <v-flex xs6 md1>
-            <v-tooltip top>
-              <template v-slot:activator="{on}">
-                <v-btn color="pink" v-on:click="sort(`${item}`, false)" v-on="on">
-                  <v-icon>mdi-folder</v-icon>
-                  Reverse
-                </v-btn>                
-              </template>
-              <span class="caption">Sort Reverse</span>
-            </v-tooltip>
-          </v-flex>
+        <v-flex xs6 md2 class="offset-md-8">
+          <v-select
+            :items="['title', 'author', 'date', 'masterpiece']"
+            v-model="item"
+            v-on:input="sort(`${item}`, true)"
+          ></v-select>
+        </v-flex>
+        <v-flex xs6 md1 class="d-flex ml-6 mb-4 align-center">
+          <v-tooltip top>
+            <template v-slot:activator="{ on }">
+              <v-btn color="pink" v-on:click="sort(`${item}`, false)" v-on="on">
+                <v-icon>mdi-folder</v-icon>
+                Reverse
+              </v-btn>
+            </template>
+            <span class="caption">Sort Reverse</span>
+          </v-tooltip>
+        </v-flex>
       </v-layout>
 
       <v-card

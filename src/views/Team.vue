@@ -9,8 +9,11 @@
             <v-responsive class="pt-4">
               <v-avatar size="104" class="purple lighten-3">
                 <v-avatar size="100">
-                  <img :src="mate.avatar" alt="his/her avatar or Wendy if their pic is null"/>
-                </v-avatar>                
+                  <img
+                    :src="mate.avatar"
+                    alt="his/her avatar or Wendy if their pic is null"
+                  />
+                </v-avatar>
               </v-avatar>
             </v-responsive>
             <v-card-text>
@@ -39,9 +42,9 @@
 </template>
 
 <script>
-import Lee from '../assets/team_avatars/Lee.jpg';
-import Yein from '../assets/team_avatars/Yiniddo.jpg';
-import Wendy from '../assets/team_avatars/Wendy.jpg';
+import Lee from "../assets/team_avatars/Lee.jpg";
+import Yein from "../assets/team_avatars/Yiniddo.jpg";
+import Wendy from "../assets/team_avatars/Wendy.jpg";
 
 export default {
   data() {
@@ -56,7 +59,7 @@ export default {
           birth: "Oct 25, 1995",
           hobby: "Singing",
           email: "spinburgjexer@gmail.com",
-          avatar: Lee
+          avatar: Lee,
         },
         {
           name: "Lee Yein",
@@ -67,7 +70,7 @@ export default {
           birth: "Mar 29, 1997",
           hobby: "Killing Lee",
           email: "dlduaqls@naver.com",
-          avatar: Yein
+          avatar: Yein,
         },
         {
           name: "Shin Youngjin",
@@ -78,7 +81,7 @@ export default {
           birth: "Sep 17, 1970",
           hobby: "Prunning Hwanggies",
           email: "gumjalove@for.ever",
-          avatar: Wendy
+          avatar: Wendy,
         },
         {
           name: "Yoo Geumja",
@@ -89,7 +92,7 @@ export default {
           birth: "Dec 16, 1975",
           hobby: "Yelling in home",
           email: "Youngjinis@under.my.feet",
-          avatar: Wendy
+          avatar: Wendy,
         },
         {
           name: "Bae Yangsoon",
@@ -100,7 +103,7 @@ export default {
           birth: "Aug 28, 1935",
           hobby: "Being back-seat driver",
           email: "Jinji@japswa.yah",
-          avatar: Wendy
+          avatar: Wendy,
         },
       ],
     };

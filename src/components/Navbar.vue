@@ -10,6 +10,21 @@
         <span>Lee's Blog!</span>
       </v-app-bar-title>
       <v-spacer></v-spacer>
+      <v-menu offset-y>
+        <template v-slot:activator="{on}">
+          <v-btn text v-on="on" color="grey">
+            <v-icon left>mdi-chevron-down</v-icon>
+            <span class="text-capitalize">Menu</span>
+          </v-btn>
+        </template>
+        <v-list>
+          <v-list-item v-for="link in links" :key="link.text" router :to="link.route">
+            <v-list-item-title>
+              {{link.text}}
+            </v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
       <v-btn text>
         <span>Sign Out</span>
         <v-icon right>mdi-exit-to-app</v-icon>
@@ -20,9 +35,14 @@
       <v-layout column align-center>
         <v-flex class="mt-5">
           <v-avatar size="100" class="center">
-            <img :src="myAvatar" alt="">
+            <img :src="myAvatar" alt="" />
           </v-avatar>
-          <p class="white--text subheading text-capitalize mt-6 text-center">Lee's Blog</p>
+          <p class="white--text subheading text-capitalize mt-6 text-center">
+            Lee's Blog
+          </p>
+        </v-flex>
+        <v-flex class="mt-4 mb-4">
+          <Popup />
         </v-flex>
       </v-layout>
       <v-list>
@@ -46,7 +66,8 @@
   </div>
 </template>
 <script>
-import myAvatar from "../assets/team_avatars/Lee.jpg"
+import myAvatar from "../assets/team_avatars/Lee.jpg";
+import popup from "../views/Popup.vue";
 
 export default {
   data() {
@@ -71,6 +92,9 @@ export default {
         },
       ],
     };
+  },
+  components: {
+    Popup: popup
   },
   methods: {
     onNavIconClicked: function () {

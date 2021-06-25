@@ -6,7 +6,9 @@ Vue 2 + Vuetify + Firebase with Cypress, TypeScript
 Avatar에 대하여 익혔습니다. 이미지를 예쁘게 사용할 수 있게 하네요.
 Navbar를 조금 더 꾸몄습니다.
 Projects.vue를 시작했습니다. expansion-panel에 대해 익혔습니다.
-
+<br />
+Navbar에 Dropdown을 구현하였습니다(v-menu).
+v-dialog를 이용해 Popup을 구현하였습니다.
 
 ## 20210624
 v-btn과 v-icon을 익혔습니다.

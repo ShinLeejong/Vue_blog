@@ -15,6 +15,7 @@ Firebase를 적용하기 시작했습니다. 다음을 수행했습니다.
 <pre>
 npm install firebase
 </pre>
+Vuetify Tutorial을 마쳤습니다.
 
 ## 20210624
 v-btn과 v-icon을 익혔습니다.

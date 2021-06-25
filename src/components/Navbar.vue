@@ -1,5 +1,11 @@
 <template>
   <div>
+
+    <v-snackbar v-model="submitDone" :timeout="4000" top>
+      <span>글이 추가되었습니다.</span>
+      <v-btn text color="white" @click="snackbarBtnClicked" right>Close</v-btn>
+    </v-snackbar>
+
     <v-app-bar app>
       <v-app-bar-nav-icon
         class="grey--text"
@@ -47,7 +53,7 @@
           </p>
         </v-flex>
         <v-flex class="mt-4 mb-4">
-          <Popup />
+          <Popup @stuffSubmitted="submitDone = true" />
         </v-flex>
       </v-layout>
       <v-list>
@@ -78,6 +84,7 @@ export default {
   data() {
     return {
       drawer: false,
+      submitDone: false,
       myAvatar,
       links: [
         {
@@ -105,6 +112,9 @@ export default {
     onNavIconClicked: function () {
       this.drawer = !this.drawer;
     },
+    snackbarBtnClicked: function () {
+      this.submitDone = false;
+    }
   },
 };
 </script>

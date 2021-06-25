@@ -22,7 +22,9 @@
               prepend-icon="mdi-content-paste"
               :rules="rules"
             ></v-textarea>
-            <v-btn text class="success" @click="submit" :loading="loading">추가</v-btn>
+            <v-btn text class="success" @click="submit" :loading="loading"
+              >추가</v-btn
+            >
           </v-form>
         </v-card-text>
       </v-card>
@@ -39,7 +41,7 @@ export default {
       content: "",
       rules: [(length) => length.length >= 3 || "3자 이상 입력해야 합니다."],
       loading: false,
-      dialog: false
+      dialog: false,
     };
   },
   methods: {
@@ -50,16 +52,17 @@ export default {
           title: this.title,
           content: this.content,
         };
-        db.collection("stuffs").add(stuff)
-            .then(data => {
-                console.log(data);
-                this.loading = false;
-                this.dialog = false;
-                this.title = "";
-                this.content = "";
-                alert("추가되었습니다!")
-            })
-
+        db.collection("stuffs")
+          .add(stuff)
+          .then((data) => {
+            console.log(data);
+            this.loading = false;
+            this.dialog = false;
+            this.title = "";
+            this.content = "";
+            this.$emit('stuffSubmitted')
+            alert("추가되었습니다!");
+          });
       } else {
         alert("게시물을 추가할 조건을 만족하지 않습니다.");
       }

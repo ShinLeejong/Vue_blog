@@ -1,15 +1,15 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "18523bd9e6997f0f089f",
+    "revision": "4d62ce199419c02aff58",
     "url": "/Vue_blog/css/about.606a46d3.css"
   },
   {
-    "revision": "e6c32c8ff40efb8d6cfd",
-    "url": "/Vue_blog/css/app.606ab04e.css"
+    "revision": "ee254d146b8b836051ac",
+    "url": "/Vue_blog/css/app.dde6cdf0.css"
   },
   {
-    "revision": "a36434aad94963300773",
-    "url": "/Vue_blog/css/chunk-vendors.88612ec4.css"
+    "revision": "39dfa78b1761b0eed55a",
+    "url": "/Vue_blog/css/chunk-vendors.4afd7e65.css"
   },
   {
     "revision": "7c5049603ff9f58b771f313e8d886593",
@@ -24,20 +24,20 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Vue_blog/img/Yiniddo.4b6ed65a.jpg"
   },
   {
-    "revision": "ff28f6e29d5d8d7842bee739095a6db6",
+    "revision": "2369c6dc13421da8c8d52c6c392aeb13",
     "url": "/Vue_blog/index.html"
   },
   {
-    "revision": "18523bd9e6997f0f089f",
-    "url": "/Vue_blog/js/about.ecde73c6.js"
+    "revision": "4d62ce199419c02aff58",
+    "url": "/Vue_blog/js/about.7815d3d8.js"
   },
   {
-    "revision": "e6c32c8ff40efb8d6cfd",
-    "url": "/Vue_blog/js/app.23ac0eb1.js"
+    "revision": "ee254d146b8b836051ac",
+    "url": "/Vue_blog/js/app.e86f3ac7.js"
   },
   {
-    "revision": "a36434aad94963300773",
-    "url": "/Vue_blog/js/chunk-vendors.2d6c5360.js"
+    "revision": "39dfa78b1761b0eed55a",
+    "url": "/Vue_blog/js/chunk-vendors.f0268000.js"
   },
   {
     "revision": "dfd3d0f4c771777e37b7aff16b61030f",

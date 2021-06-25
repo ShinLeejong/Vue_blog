@@ -9,6 +9,7 @@ Projects.vue를 시작했습니다. expansion-panel에 대해 익혔습니다.
 <br />
 Navbar에 Dropdown을 구현하였습니다(v-menu).
 v-dialog를 이용해 Popup을 구현하였습니다.
+Popup을 통해 form을 작성하고 submit하도록 했습니다.
 
 ## 20210624
 v-btn과 v-icon을 익혔습니다.

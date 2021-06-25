@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-dialog max-width="20rem">
+    <v-dialog max-width="20rem" v-model="dialog">
       <template v-slot:activator="{ on }">
         <v-btn text v-on="on" class="error"> Add new stuff </v-btn>
       </template>
@@ -22,7 +22,7 @@
               prepend-icon="mdi-content-paste"
               :rules="rules"
             ></v-textarea>
-            <v-btn text class="success" @click="submit">추가</v-btn>
+            <v-btn text class="success" @click="submit" :loading="loading">추가</v-btn>
           </v-form>
         </v-card-text>
       </v-card>
@@ -38,16 +38,28 @@ export default {
       title: "",
       content: "",
       rules: [(length) => length.length >= 3 || "3자 이상 입력해야 합니다."],
+      loading: false,
+      dialog: false
     };
   },
   methods: {
     submit: function (e) {
       if (this.$refs.form.validate()) {
+        this.loading = true;
         const stuff = {
           title: this.title,
           content: this.content,
         };
-        db.collection("stuffs").add(stuff);
+        db.collection("stuffs").add(stuff)
+            .then(data => {
+                console.log(data);
+                this.loading = false;
+                this.dialog = false;
+                this.title = "";
+                this.content = "";
+                alert("추가되었습니다!")
+            })
+
       } else {
         alert("게시물을 추가할 조건을 만족하지 않습니다.");
       }

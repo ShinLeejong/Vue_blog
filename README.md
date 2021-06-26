@@ -8,6 +8,12 @@ Vue 2 + Vuetify + Firebase with Cypress, TypeScript
 더불어 몇몇 게임에 편리함을 제공할 수 있도록 하고 싶습니다.
 PWA 기반으로 만들어졌기 때문에 설치 가능한 웹이므로
 다각적으로 UI를 신경써야할 것 같습니다.
+<pre>
+// /src/components/weather.js
+navigator.geolocation.getCurrentPosition(onSuccess, onFail);
+</pre>
+Navbar의 Sign out 옆에 geolocation에 따른 날씨 정보를 주고 싶어서
+만들어 openweathermap.org 의 API를 이용해 만들어보았습니다.
 
 ## 20210625
 Avatar에 대하여 익혔습니다. 이미지를 예쁘게 사용할 수 있게 하네요.

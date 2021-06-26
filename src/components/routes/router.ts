@@ -1,24 +1,28 @@
-import Home from "../../views/Dashboard.vue";
+import Dashboard from "../../views/Dashboard.vue";
 
 export default [
   {
     path: "/",
-    name: "Home",
-    component: Home,
+    name: "Dashboard",
+    component: Dashboard,
   },
   {
-    path: "/project",
-    name: "Project",
+    path: "/Home",
+    name: "Home",
+    component: (): Promise<typeof import("*.vue")> =>
+      import("../../views/Home.vue"),
+  },
+  {
+    path: "/board",
+    name: "Board",
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../../views/Projects.vue"),
+    component: () => import("../../views/Boards.vue"),
   },
   {
     path: "/team",
     name: "Team",
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../../views/Team.vue"),
+    component: () => import("../../views/Team.vue"),
   },
 ];

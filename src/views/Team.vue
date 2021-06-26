@@ -47,6 +47,7 @@ import Yein from "../assets/team_avatars/Yiniddo.jpg";
 import Wendy from "../assets/team_avatars/Wendy.jpg";
 
 export default {
+  // eslint-disable-next-line
   data() {
     return {
       team: [

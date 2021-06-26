@@ -26,3 +26,4 @@ pnpm-debug.log*
 *.sw?
 
 /src/firebase.js
+/src/constants.ts

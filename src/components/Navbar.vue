@@ -15,6 +15,11 @@
         <span>Lee's Blog!</span>
       </v-app-bar-title>
       <v-spacer></v-spacer>
+      <v-btn text color="grey">
+        <v-icon left>mdi-white-balance-sunny</v-icon>
+        <span id="geolocation" v-bind="geolocation">{{getGeoInfo}}</span>
+        <span id="weather" v-bind="weather"></span>
+      </v-btn>
       <v-menu offset-y>
         <template v-slot:activator="{ on }">
           <v-btn text v-on="on" color="grey">
@@ -76,9 +81,10 @@
   </div>
 </template>
 <script>
+import {mapGetters} from 'vuex';
 import myAvatar from "../assets/team_avatars/Lee.jpg";
 import popup from "../views/Popup.vue";
-import weather from './weather.js';
+import { getGeoInfo } from "./weather.js";
 
 export default {
   data() {
@@ -86,17 +92,23 @@ export default {
       drawer: false,
       submitDone: false,
       myAvatar,
-      geolocation: undefined,
+      geolocation: '',
+      weather: '',
       links: [
         {
           icon: "mdi-view-dashboard",
           text: "Dashboard",
-          route: "/",
+          route: "/"
         },
         {
-          icon: "mdi-folder-outline",
-          text: "My Projects",
-          route: "/project",
+          icon: "mdi-home",
+          text: "Home",
+          route: "/Home",
+        },
+        {
+          icon: "mdi-bulletin-board",
+          text: "Board",
+          route: "/board",
         },
         {
           icon: "mdi-microsoft-teams",
@@ -115,12 +127,16 @@ export default {
     },
     snackbarBtnClicked: function () {
       this.submitDone = false;
-    }
+    },
   },
-  create() {
-    this.geolocation = weather();
-    console.log(this.geolocation);
-  }
+  computed: {
+    ...mapGetters([
+      'getGeoInfo'
+    ])
+  },
+  created() {
+    getGeoInfo();
+  },
 };
 </script>
 <style scoped>

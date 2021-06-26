@@ -35,6 +35,7 @@
 import db from "../firebase.js";
 
 export default {
+  /* eslint-disable */
   data() {
     return {
       title: "",

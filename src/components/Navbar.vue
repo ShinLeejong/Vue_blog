@@ -17,7 +17,7 @@
       <v-spacer></v-spacer>
       <v-btn text color="grey">
         <v-icon left>mdi-white-balance-sunny</v-icon>
-        <span id="geolocation" v-bind="geolocation">{{getGeoInfo}}</span>
+        <span id="geolocation" v-bind="geolocation"></span>
         <span id="weather" v-bind="weather"></span>
       </v-btn>
       <v-menu offset-y>
@@ -81,7 +81,7 @@
   </div>
 </template>
 <script>
-import {mapGetters} from 'vuex';
+import { mapGetters } from "vuex";
 import myAvatar from "../assets/team_avatars/Lee.jpg";
 import popup from "../views/Popup.vue";
 import { getGeoInfo } from "./weather.js";
@@ -92,13 +92,13 @@ export default {
       drawer: false,
       submitDone: false,
       myAvatar,
-      geolocation: '',
-      weather: '',
+      geolocation: "",
+      weather: "",
       links: [
         {
           icon: "mdi-view-dashboard",
           text: "Dashboard",
-          route: "/"
+          route: "/",
         },
         {
           icon: "mdi-home",
@@ -130,9 +130,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters([
-      'getGeoInfo'
-    ])
+    ...mapGetters(["getGeoInfo"]),
   },
   created() {
     getGeoInfo();

@@ -1,7 +1,7 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "3f92c5c8af9ccb3244f8",
-    "url": "/Vue_blog/css/app.b19d0b0d.css"
+    "revision": "94a1bd5454f2f519c673",
+    "url": "/Vue_blog/css/app.702f8f74.css"
   },
   {
     "revision": "9c4a97958d24cf01cc27",
@@ -28,12 +28,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Vue_blog/img/Yiniddo.4b6ed65a.jpg"
   },
   {
-    "revision": "3ff975b4218ce31de4400c5dd457fb0b",
+    "revision": "f0293600e0b81608248f15af8d49537b",
     "url": "/Vue_blog/index.html"
   },
   {
-    "revision": "3f92c5c8af9ccb3244f8",
-    "url": "/Vue_blog/js/app.b574ef11.js"
+    "revision": "94a1bd5454f2f519c673",
+    "url": "/Vue_blog/js/app.0c38728a.js"
   },
   {
     "revision": "745a954b198a9f492e7e",

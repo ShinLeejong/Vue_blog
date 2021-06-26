@@ -60,7 +60,7 @@ export default {
             this.dialog = false;
             this.title = "";
             this.content = "";
-            this.$emit('stuffSubmitted')
+            this.$emit("stuffSubmitted");
             alert("추가되었습니다!");
           });
       } else {

@@ -53,7 +53,7 @@ import Vue from "vue";
 import db from "../firebase.js";
 
 export default Vue.extend({
-  data(){
+  data() {
     return {
       item: "title",
       stuffs: [],
@@ -68,17 +68,17 @@ export default Vue.extend({
     },
   },
   created() {
-    db.collection('stuffs').onSnapshot(res => {
+    db.collection("stuffs").onSnapshot((res) => {
       const changes = res.docChanges();
-      changes.forEach(item => {
-        if (item.type === 'added') {
+      changes.forEach((item) => {
+        if (item.type === "added") {
           this.stuffs.push({
             ...item.doc.data(),
-            id: item.doc.id
+            id: item.doc.id,
           });
         }
-      })
-    })
-  }
+      });
+    });
+  },
 });
 </script>

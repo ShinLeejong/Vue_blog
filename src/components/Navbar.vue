@@ -1,6 +1,5 @@
 <template>
   <div>
-
     <v-snackbar v-model="submitDone" :timeout="4000" top>
       <span>글이 추가되었습니다.</span>
       <v-btn text color="white" @click="snackbarBtnClicked" right>Close</v-btn>
@@ -79,6 +78,7 @@
 <script>
 import myAvatar from "../assets/team_avatars/Lee.jpg";
 import popup from "../views/Popup.vue";
+import weather from './weather.js';
 
 export default {
   data() {
@@ -86,6 +86,7 @@ export default {
       drawer: false,
       submitDone: false,
       myAvatar,
+      geolocation: undefined,
       links: [
         {
           icon: "mdi-view-dashboard",
@@ -116,6 +117,10 @@ export default {
       this.submitDone = false;
     }
   },
+  create() {
+    this.geolocation = weather();
+    console.log(this.geolocation);
+  }
 };
 </script>
 <style scoped>

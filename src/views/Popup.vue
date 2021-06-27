@@ -2,7 +2,7 @@
   <div>
     <v-dialog max-width="20rem" v-model="dialog">
       <template v-slot:activator="{ on }">
-        <v-btn text v-on="on" class="error"> Add new stuff </v-btn>
+        <v-btn text v-on="on" class="error">Add new stuff</v-btn>
       </template>
       <v-card>
         <v-card-title class="headline">

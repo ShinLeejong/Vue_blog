@@ -18,6 +18,7 @@
             </v-responsive>
             <v-card-text>
               <div class="subheading">{{ mate.name }}</div>
+              <div class="black--text">{{ mate.nickname }}</div>
               <div class="grey--text">{{ mate.role }}</div>
               <div class="grey--text">{{ mate.age }}</div>
               <div class="grey--text">{{ mate.sex }}</div>
@@ -37,13 +38,19 @@
           </v-card>
         </v-flex>
       </v-layout>
+      <v-container>
+        <v-row justify="center" class="mt-8 mb-4">
+          <SignUp @stuffSubmitted="submitDone = true" />
+        </v-row>
+      </v-container>
     </v-container>
   </div>
 </template>
 
 <script>
+import SignUp from "./SignUp.vue";
 import { db } from "../firebase.js";
-import { storage } from "../firebase.js";
+// import { storage } from "../firebase.js";
 
 export default {
   // eslint-disable-next-line
@@ -52,6 +59,9 @@ export default {
       teams: [],
     };
   },
+  components: {
+    SignUp,
+  },
   created() {
     db.collection("Team").onSnapshot((res) => {
       const changes = res.docChanges();
@@ -59,13 +69,13 @@ export default {
         if (item.type === "added") {
           this.teams.push({
             ...item.doc.data(),
-            id: item.doc.data().nickname
-          }
-        )
-      }});
-    });      
+            id: item.doc.data().nickname,
+          });
+        }
+      });
+    });
     // const id = team.id;
     // const ref = storage.ref().child(`Team/${id}/${id}`);
-  }
-}
+  },
+};
 </script>

@@ -4,7 +4,7 @@
   "private": true,
   "homepage": "https://github.com/iiy4383/Vue_blog",
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "serve": "vue-cli-service serve --host localhost",
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",

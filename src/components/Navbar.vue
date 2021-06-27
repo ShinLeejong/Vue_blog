@@ -17,9 +17,9 @@
       <v-spacer></v-spacer>
       <v-btn text color="grey">
         <v-icon left>mdi-white-balance-sunny</v-icon>
-        <span id="geolocation" v-bind="geolocation"></span>
-        <span id="weather" v-bind="weather"></span>
-      </v-btn>
+        <span>{{geoInfos.name || ''}}</span>
+        <span>{{geoInfos.main === undefined ? '' : geoInfos.main.temp}}℃</span>
+      </v-btn>      
       <v-menu offset-y>
         <template v-slot:activator="{ on }">
           <v-btn text v-on="on" color="grey">
@@ -81,10 +81,10 @@
   </div>
 </template>
 <script>
-import { mapGetters } from "vuex";
 import myAvatar from "../assets/team_avatars/Lee.jpg";
 import popup from "../views/Popup.vue";
 import { getGeoInfo } from "./weather.js";
+// import { mapGetters } from 'vuex';
 
 export default {
   data() {
@@ -94,6 +94,7 @@ export default {
       myAvatar,
       geolocation: "",
       weather: "",
+      geoInfos: {},
       links: [
         {
           icon: "mdi-view-dashboard",
@@ -130,10 +131,12 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(["getGeoInfo"]),
   },
-  created() {
+  beforeCreate () {
     getGeoInfo();
+    setTimeout(() => {
+      this.geoInfos = this.$store.state.geoData
+    }, 1000);
   },
 };
 </script>

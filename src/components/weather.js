@@ -12,10 +12,6 @@ const onSuccess = (position) => {
     .then((res) => {
       console.log(res.data);
       store.commit("getWeather", res.data);
-      document.getElementById("geolocation").innerHTML = res.data.name;
-      document.getElementById(
-        "weather"
-      ).innerHTML = `${res.data.main.temp.toFixed(1)}℃`;
     })
     .catch(() => "Error");
 };

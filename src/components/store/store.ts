@@ -1,9 +1,13 @@
 import Vue from "vue";
-import Vuex from "vuex";
+import Vuex, { Store } from "vuex";
 
 Vue.use(Vuex); // Register
 
-export const store = new Vuex.Store({
+interface StoreState {
+  geoData: Record<string, never>;
+}
+
+export const store: Store<StoreState> = new Vuex.Store({
   strict: true,
   state: {
     geoData: {},
@@ -16,15 +20,13 @@ export const store = new Vuex.Store({
     // ]
   },
   getters: {
-    getGeoInfo: (geoData) => geoData.name,
+    getGeoInfo: (geoData) => geoData,
   },
   mutations: {
     // reducePrice: (state, payload) =>
     //   state.products.forEach(ele => (ele.price -= payload))
     getWeather: (state, payload) => {
       state.geoData = payload;
-      console.log(payload);
-      console.log(state.geoData.name);
     },
   },
   actions: {

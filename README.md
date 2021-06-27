@@ -5,6 +5,7 @@ Vue 2 + Vuetify + Firebase with Cypress, TypeScript
 ## 20210627
 회원 정보의 스키마 구조를 다시 다듬어야겠다고 생각했고,
 SignUp.vue를 통해 회원 가입을 구현하고 있습니다.
+id duplicate 검사, id & password validation, datepicker bug fix 필요
 
 ## 20210626
 본격적으로 만들어진 프로젝트를 재설계하기 시작합니다.

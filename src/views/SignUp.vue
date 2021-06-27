@@ -1,12 +1,12 @@
 <template>
   <div>
-    <v-dialog max-width="20rem" v-model="team.dialog">
+    <v-dialog max-width="20rem" v-model="dialog">
       <template v-slot:activator="{ on }">
         <v-btn text v-on="on" class="error">회원가입</v-btn>
       </template>
       <v-card>
         <v-card-title class="headline">
-            <h2 class="text-subtitle-4 text-center">회원정보 등록</h2>  
+          <h2 class="text-subtitle-4 text-center">회원정보 등록</h2>
         </v-card-title>
         <v-card-text>
           <v-form class="pa-2" ref="form">
@@ -18,12 +18,19 @@
             <v-text-field
               label="별명"
               v-model="team.nickname"
+              placeholder="후에 아이디처럼 사용됩니다."
               prepend-icon="mdi-format-title"
+            ></v-text-field>
+            <v-text-field
+              label="비밀번호"
+              :type="'password'"
+              v-model="team.password"
+              prepend-icon="mdi-form-textbox-password"
             ></v-text-field>
             <v-text-field
               label="내 역할"
               v-model="team.role"
-              prepend-icon="mdi-key-chain-variant"
+              prepend-icon="mdi-play"
             ></v-text-field>
             <v-radio-group
               label="성별"
@@ -31,20 +38,19 @@
               prepend-icon="mdi-gender-male-female"
               row
             >
-                <v-radio
-                label="남성"
-                value="Male">
-                </v-radio>
-                <v-radio
-                label="여성"
-                value="Female">
-                </v-radio>
+              <v-radio label="남성" value="Male"> </v-radio>
+              <v-radio label="여성" value="Female"> </v-radio>
             </v-radio-group>
             <v-menu max-width="290">
-                <template v-slot:activator="{ on }">
-                    <v-text-field :value="team.birth" label="생일" prepend-icon="mdi-calendar-range" v-on="on"></v-text-field>
-                </template>
-                <v-date-picker v-model="team.birth"></v-date-picker>
+              <template v-slot:activator="{ on }">
+                <v-text-field
+                  :value="team.birth"
+                  label="생일"
+                  prepend-icon="mdi-calendar-range"
+                  v-on="on"
+                ></v-text-field>
+              </template>
+              <v-date-picker v-model="team.birth"></v-date-picker>
             </v-menu>
             <v-text-field
               label="이메일"
@@ -77,6 +83,7 @@ export default {
         email: '',
         hobby: '',
         name: '',
+        password: '',
         nickname: '',
         role: '',
         sex: '',
@@ -87,18 +94,30 @@ export default {
   },
   methods: {
     submit: function () {
+      const match = /[0-9]+/;
+      const getYear = new Date().getFullYear();
+      const age = getYear - this.team.birth.match(match) + 1;
+      console.log(age, this.age);
+      console.log(this.team);
       if (this.$refs.form.validate()) {
         this.loading = true;
         const stuff = {
-          title: this.title,
-          content: this.content,
+          name: this.team.name,
+          nickname: this.team.nickname,
+          password: this.team.password,
+          role: this.team.role,
+          sex: this.team.sex,
+          email: this.team.email,
+          hobby: this.team.hobby,
+          birth: this.team.birth,
+          age
         };
-        db.collection("stuffs")
+        db.collection("Team")
           .add(stuff)
           .then((data) => {
-            console.log(data);
             this.loading = false;
             this.dialog = false;
+            console.log(data);
             this.title = "";
             this.content = "";
             this.$emit("stuffSubmitted");

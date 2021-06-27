@@ -50,7 +50,7 @@
 
 <script>
 import Vue from "vue";
-import db from "../firebase.js";
+import { db } from "../firebase.js";
 
 export default Vue.extend({
   data() {
@@ -73,8 +73,8 @@ export default Vue.extend({
       changes.forEach((item) => {
         if (item.type === "added") {
           this.stuffs.push({
-            ...item.doc.data(),
             id: item.doc.id,
+            ...item.doc.data(),
           });
         }
       });

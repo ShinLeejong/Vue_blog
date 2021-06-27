@@ -32,7 +32,7 @@
   </div>
 </template>
 <script>
-import db from "../firebase.js";
+import { db } from "../firebase.js";
 
 export default {
   /* eslint-disable */
@@ -46,7 +46,7 @@ export default {
     };
   },
   methods: {
-    submit: function (e) {
+    submit: function () {
       if (this.$refs.form.validate()) {
         this.loading = true;
         const stuff = {

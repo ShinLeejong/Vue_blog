@@ -27,3 +27,9 @@ pnpm-debug.log*
 
 /src/firebase.js
 /src/constants.ts
+
+# misc
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local

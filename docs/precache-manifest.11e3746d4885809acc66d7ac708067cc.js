@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "d9743da9505610ae0269",
+    "revision": "031a4dd9bdfa99ae52a5",
     "url": "/Vue_blog/css/app.de0d237d.css"
   },
   {
-    "revision": "f7c6c8e4c202c911996d",
+    "revision": "7d611d8ab4e26eb4b5dc",
     "url": "/Vue_blog/css/chunk-08444f64.1e4b9ae7.css"
   },
   {
@@ -24,16 +24,16 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Vue_blog/img/Lee.7c504960.jpg"
   },
   {
-    "revision": "20a030358832fd666b613ee1e672c756",
+    "revision": "601949b984429a4b5d9c89fe6d843c40",
     "url": "/Vue_blog/index.html"
   },
   {
-    "revision": "d9743da9505610ae0269",
-    "url": "/Vue_blog/js/app.6e4b8fc2.js"
+    "revision": "031a4dd9bdfa99ae52a5",
+    "url": "/Vue_blog/js/app.74bbdad5.js"
   },
   {
-    "revision": "f7c6c8e4c202c911996d",
-    "url": "/Vue_blog/js/chunk-08444f64.d4581ac3.js"
+    "revision": "7d611d8ab4e26eb4b5dc",
+    "url": "/Vue_blog/js/chunk-08444f64.59916940.js"
   },
   {
     "revision": "40998d2c1ddcb5602cbe",

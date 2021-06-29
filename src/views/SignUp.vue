@@ -9,7 +9,7 @@
           <h2 class="text-subtitle-4 text-center">회원정보 등록</h2>
         </v-card-title>
         <v-card-text>
-          <v-form class="pa-2" ref="form">
+          <v-form class="pa-1" ref="form">
             <v-text-field
               label="이름"
               v-model="team.name"
@@ -26,6 +26,12 @@
               :type="'password'"
               v-model="team.password"
               prepend-icon="mdi-form-textbox-password"
+            ></v-text-field>
+            <v-text-field
+              label="비밀번호 확인"
+              :type="'password'"
+              v-model="team.checkPassword"
+              prepend-icon="mdi-lock-open-check-outline"
             ></v-text-field>
             <v-text-field
               label="내 역할"
@@ -84,6 +90,7 @@ export default {
         hobby: '',
         name: '',
         password: '',
+        checkPassword: '',
         nickname: '',
         role: '',
         sex: '',
@@ -101,6 +108,13 @@ export default {
       console.log(this.team);
       if (this.$refs.form.validate()) {
         this.loading = true;
+        if(this.team.password !== this.team.checkPassword) {
+          alert("비밀번호가 일치하지 않습니다.");
+          this.team.password = '';
+          this.team.checkPassword = '';
+          this.loading = false;
+          return;
+        }
         const stuff = {
           name: this.team.name,
           nickname: this.team.nickname,

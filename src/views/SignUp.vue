@@ -5,7 +5,7 @@
         <v-btn text v-on="on" class="error">회원가입</v-btn>
       </template>
       <v-card>
-        <v-card-title class="headline">
+        <v-card-title class="headline ma-4">
           <h2 class="text-subtitle-4 text-center">회원정보 등록</h2>
         </v-card-title>
         <v-card-text>
@@ -43,9 +43,10 @@
               v-model="team.sex"
               prepend-icon="mdi-gender-male-female"
               row
+              class="mr-8"
             >
-              <v-radio label="남성" value="Male"> </v-radio>
-              <v-radio label="여성" value="Female"> </v-radio>
+              <v-radio label="남자" value="Male"> </v-radio>
+              <v-radio label="여자" value="Female"> </v-radio>
             </v-radio-group>
             <v-menu max-width="290">
               <template v-slot:activator="{ on }">
@@ -68,7 +69,10 @@
               v-model="team.hobby"
               prepend-icon="mdi-play"
             ></v-text-field>
-            <v-btn text class="success" @click="submit" :loading="loading"
+            <v-btn text class="error ma-2" @click="reset"
+              >리셋</v-btn
+            >
+            <v-btn text class="success ma-2" @click="submit" :loading="loading"
               >등록</v-btn
             >
           </v-form>
@@ -100,6 +104,17 @@ export default {
     };
   },
   methods: {
+    reset: function () {
+      this.team.name = '';
+      this.team.nickname = '';
+      this.team.password = '';
+      this.team.checkPassword = '';
+      this.team.role = '';
+      this.team.sex = '';
+      this.team.email = '';
+      this.team.hobby = '';
+      this.team.birth = '';
+    },
     submit: function () {
       const match = /[0-9]+/;
       const getYear = new Date().getFullYear();

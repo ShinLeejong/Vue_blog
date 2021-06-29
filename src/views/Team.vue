@@ -11,7 +11,6 @@
                 <v-avatar size="100">
                   <img
                     :src="mate.avatar"
-                    alt="his/her avatar or Wendy if their pic is null"
                   />
                 </v-avatar>
               </v-avatar>
@@ -31,9 +30,6 @@
                 <span class="text-lowercase">{{ mate.email }}</span>
               </v-btn>
               <v-spacer></v-spacer>
-              <v-btn text color="grey">
-                <v-icon small right>mdi-phone</v-icon>
-              </v-btn>
             </v-card-actions>
           </v-card>
         </v-flex>
@@ -61,16 +57,23 @@ export default {
   components: {
     SignUp,
   },
-  created() {
-    db.collection("Team").onSnapshot((res) => {
+  created: async function () {
+    await db.collection("Team").onSnapshot((res) => {
       const changes = res.docChanges();
-      changes.forEach((item) => {
+      changes.forEach((item, idx) => {
         if (item.type === "added") {
           this.teams.push({
             ...item.doc.data(),
             id: item.doc.data().nickname,
-            avatar: storage.ref(`Team/${item.doc.data().profilePicture}`)
           });
+          storage.ref(`Team/${item.doc.data().profilePicture}`)
+            .getDownloadURL()
+            .then(url => {
+              this.teams[idx].avatar = url;
+              console.log(url);
+              console.log(this.teams[idx]);
+            })
+            .catch(err => console.error(err));
         }
       });
     });

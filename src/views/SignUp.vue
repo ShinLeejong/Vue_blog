@@ -47,6 +47,7 @@
               prepend-icon="mdi-face-recognition"
               chips
               show-size
+              @change="onProfilePictureChange"
             ></v-file-input>
             <v-text-field
               label="내 역할"
@@ -111,7 +112,7 @@
   </div>
 </template>
 <script>
-import { db } from "../firebase.js";
+import { db, storage } from "../firebase.js";
 // 나이 will be auto-generated in logic part
 export default {
   /* eslint-disable */
@@ -124,13 +125,16 @@ export default {
         name: '',
         password: '',
         checkPassword: '',
-        profilePicture: '',
+        profilePicture: {
+
+        },
         nickname: '',
         role: '',
         sex: '',
       },
         loading: false,
         dialog: false,
+        photo: '',
     };
   },
   methods: {
@@ -139,12 +143,27 @@ export default {
       this.team.nickname = '';
       this.team.password = '';
       this.team.checkPassword = '';
-      this.team.profilePicture = '';
       this.team.role = '';
       this.team.sex = '';
       this.team.email = '';
       this.team.hobby = '';
       this.team.birth = '';
+    },
+    onProfilePictureChange: function (e) {
+      console.log(e.target);
+        const {target:{files}} = e;
+        if(files[1]){
+            window.alert("한 개의 사진만 등록해주세요!");
+            return;
+        }
+        const file = files[0];
+        const reader = new FileReader();
+        reader.onloadend = onloadevent => {
+            console.log(onloadevent);
+            const {srcElement:{result}} = onloadevent;
+            this.photo = result;
+        };
+        reader.readAsDataURL(file);
     },
     submit: function () {
       const match = /[0-9]+/;
@@ -159,13 +178,14 @@ export default {
           this.team.password = '';
           this.team.checkPassword = '';
           this.loading = false;
+          console.log(this.photo);
           return;
         }
         const stuff = {
           name: this.team.name,
           nickname: this.team.nickname,
           password: this.team.password,
-          profilePicture: this.team.profilePicture,
+          profilePicture: `Team/${this.team.nickname}.jpg`,
           role: this.team.role,
           sex: this.team.sex,
           email: this.team.email,
@@ -178,6 +198,13 @@ export default {
           .then((data) => {
             this.loading = false;
             this.dialog = false;
+            const ref = storage.ref();
+            const go = ref.child("Team")
+                          .child(stuff.profilePicture)
+                          .put(this.profilePicture);
+            go.on('state_changed', snapshot => {
+              console.log(snapshot);
+            })
             console.log(data);
             this.title = "";
             this.content = "";

@@ -9,10 +9,10 @@
           <v-list-item-content>
             <v-list-item-title class="ma-2">
               <p class="text-h5 text-center">회원정보 등록</p>
-            </v-list-item-title>    
+            </v-list-item-title>
             <v-list-item-subtitle>
               <p class="subheading text-center">정보를 입력하여 회원가입</p>
-            </v-list-item-subtitle>        
+            </v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
         <v-card-text>
@@ -59,22 +59,16 @@
               prepend-icon="mdi-gender-male-female"
             >
               <template v-slot:label>
-                <div>
-                  성별
-                </div>
+                <div>성별</div>
               </template>
               <v-radio value="Male">
                 <template v-slot:label>
-                  <div>
-                    남자
-                  </div>
+                  <div>남자</div>
                 </template>
               </v-radio>
               <v-radio value="Female">
                 <template v-slot:label>
-                  <div>
-                    여자
-                  </div>
+                  <div>여자</div>
                 </template>
               </v-radio>
             </v-radio-group>
@@ -99,9 +93,7 @@
               v-model="team.hobby"
               prepend-icon="mdi-play"
             ></v-text-field>
-            <v-btn text class="error ma-2" @click="reset"
-              >리셋</v-btn
-            >
+            <v-btn text class="error ma-2" @click="reset">리셋</v-btn>
             <v-btn text class="success ma-2" @click="submit" :loading="loading"
               >등록</v-btn
             >
@@ -169,8 +161,19 @@ export default {
       const match = /[0-9]+/;
       const getYear = new Date().getFullYear();
       const age = getYear - this.team.birth.match(match) + 1;
-      console.log(age, this.age);
-      console.log(this.team);
+      const stuff = {
+        name: this.team.name,
+        nickname: this.team.nickname,
+        password: this.team.password,
+        profilePicture: `${this.team.nickname}/${this.team.nickname}.jpg`,
+        role: this.team.role,
+        sex: this.team.sex,
+        email: this.team.email,
+        hobby: this.team.hobby,
+        birth: this.team.birth,
+        age
+      };
+      if (formValidator(stuff) === false) return;
       if (this.$refs.form.validate()) {
         this.loading = true;
         if(this.team.password !== this.team.checkPassword) {
@@ -179,20 +182,9 @@ export default {
           this.team.checkPassword = '';
           this.loading = false;
           console.log(this.photo);
+          console.log(this.profilePicture);
           return;
         }
-        const stuff = {
-          name: this.team.name,
-          nickname: this.team.nickname,
-          password: this.team.password,
-          profilePicture: `Team/${this.team.nickname}.jpg`,
-          role: this.team.role,
-          sex: this.team.sex,
-          email: this.team.email,
-          hobby: this.team.hobby,
-          birth: this.team.birth,
-          age
-        };
         db.collection("Team")
           .add(stuff)
           .then((data) => {
@@ -201,7 +193,7 @@ export default {
             const ref = storage.ref();
             const go = ref.child("Team")
                           .child(stuff.profilePicture)
-                          .put(this.profilePicture);
+                          .put(this.photo);
             go.on('state_changed', snapshot => {
               console.log(snapshot);
             })

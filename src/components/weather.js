@@ -10,7 +10,6 @@ const onSuccess = (position) => {
   axios
     .get(URL)
     .then((res) => {
-      console.log(res.data);
       store.commit("getWeather", res.data);
     })
     .catch(() => "Error");

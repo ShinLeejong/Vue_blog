@@ -5,9 +5,13 @@
         <v-btn text v-on="on" class="error">Add new stuff</v-btn>
       </template>
       <v-card>
-        <v-card-title class="headline">
-          <h2>Add a new stuff!</h2>
-        </v-card-title>
+        <v-list-item>
+          <v-list-item-content>
+            <v-list-item-title class="ma-2">
+              <p class="text-h5 text-center">글쓰기</p>
+            </v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
         <v-card-text>
           <v-form class="pa-3" ref="form">
             <v-text-field

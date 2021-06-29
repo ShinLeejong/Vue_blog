@@ -90,7 +90,7 @@
                   v-on="on"
                 ></v-text-field>
               </template>
-              <v-date-picker 
+              <v-date-picker
                 v-model="team.birth"
                 min="1921-01-01"
                 max="2021-12-31"
@@ -100,21 +100,15 @@
                 prev-icon="mdi-skip-previous"
                 next-icon="mdi-skip-next"
               >
-              <v-spacer></v-spacer>
-              <v-btn
-                text
-                color="error"
-                @click="modal = false"
-              >
-              취소
-              </v-btn>
-              <v-btn
-                text
-                color="primary"
-                @click="$refs.dialog.save(team.birth)"
-              >
-              선택
-              </v-btn>
+                <v-spacer></v-spacer>
+                <v-btn text color="error" @click="modal = false"> 취소 </v-btn>
+                <v-btn
+                  text
+                  color="primary"
+                  @click="$refs.dialog.save(team.birth)"
+                >
+                  선택
+                </v-btn>
               </v-date-picker>
             </v-menu>
             <v-text-field
@@ -139,7 +133,7 @@
 </template>
 <script>
 import { db, storage } from "../firebase.js";
-import { formValidator } from './formValidater';
+import { formValidator } from "./formValidater";
 // 나이 will be auto-generated in logic part
 export default {
   /* eslint-disable */

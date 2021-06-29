@@ -22,7 +22,9 @@
           </v-tooltip>
         </v-flex>
       </v-layout>
-
+      <v-flex class="mt-4 mb-4">
+        <Popup @stuffSubmitted="submitDone = true" />
+      </v-flex>
       <v-card
         flat
         class="silver lighten-5 pa-3"
@@ -44,6 +46,7 @@
           </v-flex>
         </v-layout>
       </v-card>
+      <v-spacer></v-spacer>
     </v-container>
   </div>
 </template>
@@ -51,15 +54,19 @@
 <script>
 import Vue from "vue";
 import { db } from "../firebase.js";
+import popup from "../views/Popup.vue";
 
 export default Vue.extend({
   data() {
     return {
       item: "title",
       stuffs: [],
+      submitDone: false,
     };
   },
-  components: {},
+  components: {
+    Popup: popup,
+  },
   methods: {
     sort(selection, reversion) {
       if (reversion === true)

@@ -9,9 +9,7 @@
             <v-responsive class="pt-4">
               <v-avatar size="104" class="purple lighten-3">
                 <v-avatar size="100">
-                  <img 
-                    :src="mate.avatar"
-                   />
+                  <img :src="mate.avatar" />
                 </v-avatar>
               </v-avatar>
             </v-responsive>
@@ -66,10 +64,11 @@ export default {
             ...item.doc.data(),
             id: item.doc.data().nickname,
           });
-          storage.ref(`Team/${item.doc.data().profilePicture}`)
+          storage
+            .ref(`Team/${item.doc.data().profilePicture}`)
             .getDownloadURL()
-            .then(url => this.teams[idx].avatar = url)
-            .catch(err => console.error(err));
+            .then((url) => (this.teams[idx].avatar = url))
+            .catch((err) => console.error(err));
         }
       });
     });

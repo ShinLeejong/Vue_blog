@@ -58,9 +58,6 @@
             Lee's Blog
           </p>
         </v-flex>
-        <v-flex class="mt-4 mb-4">
-          <Popup @stuffSubmitted="submitDone = true" />
-        </v-flex>
       </v-layout>
       <v-list>
         <v-list-item
@@ -84,7 +81,6 @@
 </template>
 <script>
 import myAvatar from "../assets/team_avatars/Lee.jpg";
-import popup from "../views/Popup.vue";
 import { getGeoInfo } from "./weather.js";
 // import { mapGetters } from 'vuex';
 
@@ -121,9 +117,7 @@ export default {
       ],
     };
   },
-  components: {
-    Popup: popup,
-  },
+  components: {},
   methods: {
     onNavIconClicked: function () {
       this.drawer = !this.drawer;

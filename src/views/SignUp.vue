@@ -74,7 +74,14 @@
                 </template>
               </v-radio>
             </v-radio-group>
-            <v-menu max-width="290">
+            <v-menu
+              ref="dialog"
+              :close-on-content-click="false"
+              :return-value.sync="team.birth"
+              offset-y
+              min-width="auto"
+              transition="scale-transition"
+            >
               <template v-slot:activator="{ on }">
                 <v-text-field
                   :value="team.birth"
@@ -83,7 +90,32 @@
                   v-on="on"
                 ></v-text-field>
               </template>
-              <v-date-picker v-model="team.birth"></v-date-picker>
+              <v-date-picker 
+                v-model="team.birth"
+                min="1921-01-01"
+                max="2021-12-31"
+                color="green lighten-1"
+                header-color="primary"
+                year-icon="mdi-calendar-blank"
+                prev-icon="mdi-skip-previous"
+                next-icon="mdi-skip-next"
+              >
+              <v-spacer></v-spacer>
+              <v-btn
+                text
+                color="error"
+                @click="modal = false"
+              >
+              취소
+              </v-btn>
+              <v-btn
+                text
+                color="primary"
+                @click="$refs.dialog.save(team.birth)"
+              >
+              선택
+              </v-btn>
+              </v-date-picker>
             </v-menu>
             <v-text-field
               label="이메일"
@@ -114,7 +146,7 @@ export default {
   data() {
     return {
       team: {
-        birth: '',
+        birth: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
         email: '',
         hobby: '',
         name: '',

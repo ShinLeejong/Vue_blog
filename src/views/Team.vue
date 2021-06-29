@@ -9,9 +9,9 @@
             <v-responsive class="pt-4">
               <v-avatar size="104" class="purple lighten-3">
                 <v-avatar size="100">
-                  <img
+                  <img 
                     :src="mate.avatar"
-                  />
+                   />
                 </v-avatar>
               </v-avatar>
             </v-responsive>
@@ -57,8 +57,8 @@ export default {
   components: {
     SignUp,
   },
-  created: async function () {
-    await db.collection("Team").onSnapshot((res) => {
+  created() {
+    db.collection("Team").onSnapshot((res) => {
       const changes = res.docChanges();
       changes.forEach((item, idx) => {
         if (item.type === "added") {
@@ -68,11 +68,7 @@ export default {
           });
           storage.ref(`Team/${item.doc.data().profilePicture}`)
             .getDownloadURL()
-            .then(url => {
-              this.teams[idx].avatar = url;
-              console.log(url);
-              console.log(this.teams[idx]);
-            })
+            .then(url => this.teams[idx].avatar = url)
             .catch(err => console.error(err));
         }
       });

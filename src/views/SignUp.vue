@@ -5,9 +5,16 @@
         <v-btn text v-on="on" class="error">회원가입</v-btn>
       </template>
       <v-card>
-        <v-card-title class="headline ma-4">
-          <h2 class="text-subtitle-4 text-center">회원정보 등록</h2>
-        </v-card-title>
+        <v-list-item two-line>
+          <v-list-item-content>
+            <v-list-item-title class="ma-2">
+              <p class="text-h5 text-center">회원정보 등록</p>
+            </v-list-item-title>    
+            <v-list-item-subtitle>
+              <p class="subheading text-center">정보를 입력하여 회원가입</p>
+            </v-list-item-subtitle>        
+          </v-list-item-content>
+        </v-list-item>
         <v-card-text>
           <v-form class="pa-1" ref="form">
             <v-text-field
@@ -33,20 +40,42 @@
               v-model="team.checkPassword"
               prepend-icon="mdi-lock-open-check-outline"
             ></v-text-field>
+            <v-file-input
+              label="프로필 사진"
+              accept="image/*"
+              v-model="team.profilePicture"
+              prepend-icon="mdi-face-recognition"
+              chips
+              show-size
+            ></v-file-input>
             <v-text-field
               label="내 역할"
               v-model="team.role"
               prepend-icon="mdi-play"
             ></v-text-field>
             <v-radio-group
-              label="성별"
               v-model="team.sex"
               prepend-icon="mdi-gender-male-female"
-              row
-              class="mr-8"
             >
-              <v-radio label="남자" value="Male"> </v-radio>
-              <v-radio label="여자" value="Female"> </v-radio>
+              <template v-slot:label>
+                <div>
+                  성별
+                </div>
+              </template>
+              <v-radio value="Male">
+                <template v-slot:label>
+                  <div>
+                    남자
+                  </div>
+                </template>
+              </v-radio>
+              <v-radio value="Female">
+                <template v-slot:label>
+                  <div>
+                    여자
+                  </div>
+                </template>
+              </v-radio>
             </v-radio-group>
             <v-menu max-width="290">
               <template v-slot:activator="{ on }">
@@ -95,6 +124,7 @@ export default {
         name: '',
         password: '',
         checkPassword: '',
+        profilePicture: '',
         nickname: '',
         role: '',
         sex: '',
@@ -109,6 +139,7 @@ export default {
       this.team.nickname = '';
       this.team.password = '';
       this.team.checkPassword = '';
+      this.team.profilePicture = '';
       this.team.role = '';
       this.team.sex = '';
       this.team.email = '';
@@ -134,6 +165,7 @@ export default {
           name: this.team.name,
           nickname: this.team.nickname,
           password: this.team.password,
+          profilePicture: this.team.profilePicture,
           role: this.team.role,
           sex: this.team.sex,
           email: this.team.email,

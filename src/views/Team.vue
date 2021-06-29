@@ -49,8 +49,7 @@
 
 <script>
 import SignUp from "./SignUp.vue";
-import { db } from "../firebase.js";
-// import { storage } from "../firebase.js";
+import { db, storage } from "../firebase.js";
 
 export default {
   // eslint-disable-next-line
@@ -70,12 +69,11 @@ export default {
           this.teams.push({
             ...item.doc.data(),
             id: item.doc.data().nickname,
+            avatar: storage.ref(`Team/${item.doc.data().profilePicture}`)
           });
         }
       });
     });
-    // const id = team.id;
-    // const ref = storage.ref().child(`Team/${id}/${id}`);
   },
 };
 </script>

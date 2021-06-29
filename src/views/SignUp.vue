@@ -40,15 +40,17 @@
               v-model="team.checkPassword"
               prepend-icon="mdi-lock-open-check-outline"
             ></v-text-field>
-            <v-file-input
-              label="프로필 사진"
-              accept="image/*"
-              v-model="team.profilePicture"
-              prepend-icon="mdi-face-recognition"
-              chips
-              show-size
-              @change="onProfilePictureChange"
-            ></v-file-input>
+            <!-- mdi-face-recognition -->
+            <v-flex xs12 sm6 offset-sm3>
+              <v-btn raised class="primary" @click="onPickFile">업로드</v-btn>
+              <input
+                type="file"
+                style="display: none"
+                ref="fileInput"
+                accept="image/jpg"
+                @change="onProfilePictureChange"
+              />
+            </v-flex>
             <v-text-field
               label="내 역할"
               v-model="team.role"
@@ -142,21 +144,26 @@ export default {
       this.team.hobby = '';
       this.team.birth = '';
     },
+    onPickFile: function () {
+      this.$refs.fileInput.click();
+    },
     onProfilePictureChange: function (e) {
-      console.log(e.target);
-        const {target:{files}} = e;
-        if(files[1]){
-            window.alert("한 개의 사진만 등록해주세요!");
-            return;
-        }
-        const file = files[0];
-        const reader = new FileReader();
-        reader.onloadend = onloadevent => {
-            console.log(onloadevent);
-            const {srcElement:{result}} = onloadevent;
-            this.photo = result;
-        };
-        reader.readAsDataURL(file);
+      const {target: {files}} = e;
+      if(files[1]) {
+        alert("이미지는 하나만 등록해주세요.");
+        return;
+      }
+      const filename = files[0].name;
+      if (filename.lastIndexOf('.') <= 0) {
+        alert("올바르지 않은 파일입니다.");
+        return;
+      }
+      const fileReader = new FileReader();
+      fileReader.addEventListener('load', () => {
+        this.photo = fileReader.result;
+      })
+      fileReader.readAsDataURL(files[0]);
+      this.photo = files[0];
     },
     submit: function () {
       const match = /[0-9]+/;
@@ -172,6 +179,7 @@ export default {
         email: this.team.email,
         hobby: this.team.hobby,
         birth: this.team.birth,
+        date: new Date(),
         age
       };
       if (formValidator(stuff) === false) return;
@@ -194,7 +202,7 @@ export default {
             const ref = storage.ref();
             const go = ref.child("Team")
                           .child(stuff.profilePicture)
-                          .put(this.photo);
+                          .putString(this.photo, "data_url");
             go.on('state_changed', snapshot => {
               console.log(snapshot);
             })

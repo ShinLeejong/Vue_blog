@@ -50,7 +50,7 @@
               <v-btn raised class="primary" @click="onPickFile">업로드</v-btn>
             </v-layout>
             <span id="filename" class="offset-md-1" @click="preview"></span>
-            <span id="removePhoto" @click="removePhoto" class="ml-2">
+            <span id="removePhoto" @click="removePhoto" class="ml-2 hidden">
               <v-icon>mdi-cancel</v-icon>
             </span>
             <input
@@ -202,6 +202,8 @@ export default {
       this.photo = undefined;
       const p = document.querySelector("#filename");
       p.innerText = '';
+      const removePhoto = document.querySelector("#removePhoto");
+      removePhoto.classList.add("hidden");
     },
     onPickFile: function () {
       this.$refs.fileInput.click();
@@ -231,6 +233,9 @@ export default {
 
       const p = document.querySelector("#filename");
       p.innerText = filename;
+
+      const removePhoto = document.querySelector("#removePhoto");
+      removePhoto.classList.remove("hidden");
     },
     submit: function () {
       const match = /[0-9]+/;
@@ -285,7 +290,11 @@ export default {
 </script>
 <style>
   #filename:hover
-  #removePhoto {
+  #removePhoto:hover {
     opacity: 0.8;
+  }
+
+  .hidden {
+    display: none;
   }
 </style>

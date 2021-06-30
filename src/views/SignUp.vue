@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-dialog max-width="20rem" v-model="dialog">
+    <v-dialog max-width="28rem" v-model="dialog">
       <template v-slot:activator="{ on }">
         <v-btn text v-on="on" class="error">회원가입</v-btn>
       </template>
@@ -40,17 +40,23 @@
               v-model="team.checkPassword"
               prepend-icon="mdi-lock-open-check-outline"
             ></v-text-field>
-            <v-flex xs12 sm6 offset-sm1>
+            <v-layout xs12 md6 lg4 sm3>
+              <v-text-field
+                label="프로필 사진"
+                prepend-icon="mdi-lock-open-check-outline"
+                readonly
+              >
+              </v-text-field>
               <v-btn raised class="primary" @click="onPickFile">업로드</v-btn>
-              <input
-                type="file"
-                style="display: none"
-                ref="fileInput"
-                accept="image/jpg"
-                @change="onProfilePictureChange"
-              />
-              <p id="image_title" class="mt-2"></p>
-            </v-flex>
+            </v-layout>
+            <p id="filename" class="offset-md-1" @click="preview"></p>
+            <input
+              type="file"
+              style="display: none"
+              ref="fileInput"
+              accept="image/jpg"
+              @change="onProfilePictureChange"
+            />
             <v-text-field
               label="내 역할"
               v-model="team.role"
@@ -155,7 +161,10 @@ export default {
       },
         loading: false,
         dialog: false,
-        photo: '',
+        photo: {
+          name: '',
+        },
+        // preview: '',
     };
   },
   methods: {
@@ -188,11 +197,15 @@ export default {
       fileReader.addEventListener('load', () => {
         this.photo = fileReader.result;
       })
+      fileReader.onloadend = e => {
+        const {srcElement: {result}} = e;
+        // this.preview = result;
+      }
       fileReader.readAsDataURL(files[0]);
       this.photo = files[0];
-      
-      const image_title = document.querySelector("#image_title");
-      image_title.innerText = `등록됨: ${this.photo.name}`
+
+      const p = document.querySelector("#filename");
+      p.innerText = filename;
     },
     submit: function () {
       const match = /[0-9]+/;

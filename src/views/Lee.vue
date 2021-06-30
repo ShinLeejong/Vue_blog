@@ -2,7 +2,7 @@
   <v-card
     :loading="loading"
     class="my-12"
-    max-width="374"
+    max-width="320"
   >
     <template slot="progress">
       <v-progress-linear
@@ -34,7 +34,7 @@
       >
         <v-icon left>mdi-location-enter</v-icon>
         <div class="grey--text">
-          충청북도 제천시 의림대로 4길 89 A동 302호
+          충청북도 제천시
         </div>
       </v-row>
       <v-row

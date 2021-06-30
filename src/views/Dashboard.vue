@@ -2,16 +2,6 @@
   <v-container class="grey lighten-5 ma-10">
     <v-row no-gutters>
       <Lee />
-      <!-- <template v-for="n in 4">
-        <v-col :key="n">
-          <v-card class="pa-8" outlined tile> Column </v-card>
-        </v-col>
-        <v-responsive
-          v-if="n === 2"
-          :key="`width-${n}`"
-          width="100%"
-        ></v-responsive>
-      </template> -->
       <v-col class="mx-12 my-12">
         <v-card class="mb-8">
           <v-card-title class="mx-2 mb-2">
@@ -20,28 +10,32 @@
           <v-divider class="mx-4"></v-divider>
           <div class="v-list-item-group" role="listbox">
             <div 
-            v-for="team in teams" 
+            v-for="team in teams.slice(0, 2)" 
             :key="team.nickname"
             role="listitem"
             class="v-list-item"
              >
               <template>
                 <v-card
-                  class="mx-auto mb-4"
+                  class="ml-2 my-4"
                   outlined
                 >
                   <v-list-item three-line>
                     <v-list-item-content>
-                      <v-list-item-subtitle class="mb-1">
-                        {{team.nickname}}
+                      <v-list-item-subtitle class="">
+                        {{team.name}}, {{team.age}}세, {{team.sex === 'Male' ? '남' : '여'}}
                       </v-list-item-subtitle>
-                      <v-list-item-title class="text-h5 mb-1">
-                        Headline 5
+                      <v-list-item-title class="text-h5">
+                        {{team.nickname}}
                       </v-list-item-title>
-                      <v-list-item-subtitle>Greyhound divisely hello coldly fonwderfully</v-list-item-subtitle>
+                      <v-list-item-subtitle>
+                        <div id="team_role">{{team.role}} 담당</div>
+                        <div id="team_hobby">{{team.hobby}}을(를) 좋아함</div>
+                      </v-list-item-subtitle>
                     </v-list-item-content>
                     <v-list-item-avatar
-                      size="80"
+                      tile
+                      size="120"
                       color="grey"
                     >
                       <img :src="team.avatar" />
@@ -69,7 +63,7 @@
           </div>
         </v-card>
       </v-col>
-      <v-col class="mx-6 my-12">
+      <v-col class="mx-6 my-12" max-width="160px">
         <v-card class="mb-8">
           <v-card-title class="mx-2 mb-2">
             Notice

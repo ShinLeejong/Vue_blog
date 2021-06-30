@@ -5,7 +5,7 @@
       <v-btn text color="white" @click="snackbarBtnClicked" right>Close</v-btn>
     </v-snackbar>
 
-    <v-app-bar app>
+    <v-app-bar app :color="randomColor" dark>
       <v-app-bar-nav-icon
         class="grey--text"
         @click="onNavIconClicked"
@@ -15,16 +15,13 @@
         <span>Lee's Blog!</span>
       </v-app-bar-title>
       <v-spacer></v-spacer>
-      <v-btn text color="grey">
+      <v-btn text>
         <v-icon left>mdi-white-balance-sunny</v-icon>
-        <span>{{ geoInfos.name || "" }}</span>
-        <span
-          >{{ geoInfos.main === undefined ? "" : geoInfos.main.temp }}℃</span
-        >
+        <span>{{ geoInfos.name || "" }} {{ geoInfos.main === undefined ? "" : geoInfos.main.temp }} &#8451;</span>
       </v-btn>
       <v-menu offset-y>
         <template v-slot:activator="{ on }">
-          <v-btn text v-on="on" color="grey">
+          <v-btn text v-on="on">
             <v-icon left>mdi-chevron-down</v-icon>
             <span class="text-capitalize">Menu</span>
           </v-btn>
@@ -126,7 +123,35 @@ export default {
       this.submitDone = false;
     },
   },
-  computed: {},
+  computed: {
+    randomColor() {
+      const random = Math.floor(Math.random() * 6);
+      let color;
+      switch(random) {
+        case 5:
+          color = "error";
+          break;
+        case 4:
+          color = "indigo";
+          break;
+        case 3:
+          color = "success";
+          break;
+        case 2:
+          color = "primary";
+          break;
+        case 1:
+          color = "info";
+          break;
+        case 0:
+          color = "deeppurple";
+          break;
+        default:
+          color = "dark";
+      }
+      return color;
+    }
+  },
   beforeCreate() {
     getGeoInfo();
     setTimeout(() => {

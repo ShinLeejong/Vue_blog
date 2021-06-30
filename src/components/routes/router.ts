@@ -7,18 +7,18 @@ export default [
     component: Dashboard,
   },
   {
-    path: "/Home",
-    name: "Home",
-    component: (): Promise<typeof import("*.vue")> =>
-      import("../../views/Home.vue"),
+    path: "/notice",
+    name: "Notice",
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import("../../views/Notice.vue"),
   },
   {
     path: "/board",
     name: "Board",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import("../../views/Boards.vue"),
+    component: (): Promise<typeof import("*.vue")> =>
+      import("../../views/Board.vue"),
   },
   {
     path: "/team",

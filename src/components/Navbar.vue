@@ -100,14 +100,14 @@ export default {
           route: "/",
         },
         {
-          icon: "mdi-home",
-          text: "Home",
-          route: "/Home",
-        },
-        {
           icon: "mdi-bulletin-board",
           text: "Board",
           route: "/board",
+        },
+        {
+          icon: "mdi-developer-board",
+          text: "Notice",
+          route: "/Notice",
         },
         {
           icon: "mdi-microsoft-teams",

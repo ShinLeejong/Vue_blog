@@ -15,10 +15,10 @@
             <template v-slot:activator="{ on }">
               <v-btn color="pink" v-on:click="sort(`${item}`, false)" v-on="on">
                 <v-icon>mdi-folder</v-icon>
-                Reverse
+                선택
               </v-btn>
             </template>
-            <span class="caption">Sort Reverse</span>
+            <span class="caption">게시판 골라보기</span>
           </v-tooltip>
         </v-flex>
       </v-layout>
@@ -54,7 +54,7 @@
 <script>
 import Vue from "vue";
 import { db } from "../firebase.js";
-import popup from "../views/Popup.vue";
+import popup from "./Popup.vue";
 
 export default Vue.extend({
   data() {

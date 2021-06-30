@@ -1,7 +1,8 @@
 <template>
-  <v-container class="grey lighten-5 my-5">
+  <v-container class="grey lighten-5 ma-10">
     <v-row no-gutters>
-      <template v-for="n in 4">
+      <Lee />
+      <!-- <template v-for="n in 4">
         <v-col :key="n">
           <v-card class="pa-8" outlined tile> Column </v-card>
         </v-col>
@@ -10,11 +11,21 @@
           :key="`width-${n}`"
           width="100%"
         ></v-responsive>
-      </template>
+      </template> -->
     </v-row>
   </v-container>
 </template>
 <script>
-export default {};
+import Lee from "./Lee.vue"
+export default {
+  data() {
+    return {
+      
+    }
+  },
+  components: {
+    Lee
+  }
+};
 </script>
 <style></style>

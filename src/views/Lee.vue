@@ -1,0 +1,116 @@
+<template>
+  <v-card
+    :loading="loading"
+    class="mx-auto my-12"
+    max-width="374"
+  >
+    <template slot="progress">
+      <v-progress-linear
+        color="deep-purple"
+        height="10"
+        indeterminate
+      ></v-progress-linear>
+    </template>
+
+    <v-img
+      height="250"
+      :src="Lee_avatar"
+    ></v-img>
+
+    <v-card-title class="mx-2 mb-2">Lee, Shin Leejong</v-card-title>
+    <v-card-text>
+      <v-row
+        align="center"
+        class="mx-0 mb-2"
+      >
+        <v-icon left>mdi-phone-in-talk</v-icon>
+        <div class="grey--text">
+          +82 10) 5314-4325
+        </div>
+      </v-row>
+      <v-row
+        align="center"
+        class="mx-0 my-2"
+      >
+        <v-icon left>mdi-location-enter</v-icon>
+        <div class="grey--text">
+          충청북도 제천시 의림대로 4길 89 A동 302호
+        </div>
+      </v-row>
+      <v-row
+        align="center"
+        class="mx-0 my-2"
+      >
+        <v-icon left>mdi-discord</v-icon>
+        <div class="grey--text">
+            신돼지#9788
+        </div>
+      </v-row>
+      <v-row
+        align="center"
+        class="mx-0 my-2"
+      >
+        <v-icon left>mdi-email</v-icon>
+        <div class="grey--text">
+            spinburgjexer@gmail.com
+        </div>
+      </v-row>
+      <div class="mt-3 mx-2">Lee's Blog의 개발자입니다.</div>
+      <div class="mx-2">부족한 점 하단을 통해 많은 메시지 보내주세요.</div>
+    </v-card-text>
+    <v-divider class="mx-4"></v-divider>
+    <v-card-title class="mx-2">취미</v-card-title>
+    <v-card-text>
+      <v-chip-group
+        v-model="selection"
+        active-class="deep-purple accent-4 white--text"
+        column
+      >
+        <v-chip color="primary">음악 감상, 노래 부르기</v-chip>
+        <v-chip color="success">게임 하기</v-chip>
+        <v-chip color="green">꿀잠 자기</v-chip>
+        <v-chip color="info">맛집 탐방</v-chip>
+        <v-chip color="error">SNS 하기</v-chip>
+      </v-chip-group>
+    </v-card-text>
+    <v-divider class="mx-4"></v-divider>
+    <v-card-action>
+      <v-btn
+        right
+        color="deep-purple lighten-2 text-center"
+        class="mx-auto"
+        text
+        @click="message"
+      >
+        메시지 보내기
+      </v-btn>        
+    </v-card-action>
+  </v-card>
+</template>
+<script>
+import { storage } from '../firebase';
+
+  export default {
+    data: () => ({
+      loading: false,
+      selection: 1,
+      Lee_avatar: '',
+    }),
+
+    methods: {
+      message() {
+        this.loading = true
+        setTimeout(() => (this.loading = false), 2000)
+        /* some popup logic to message */
+      },
+    },
+    
+    mounted() {
+        storage
+            .ref(`Team/이종뚜/이종뚜.jpg`)
+            .getDownloadURL()
+            .then((url) => (this.Lee_avatar = url))
+            .catch((err) => console.error(err));
+    }
+  }
+</script>

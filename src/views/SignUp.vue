@@ -49,7 +49,10 @@
               </v-text-field>
               <v-btn raised class="primary" @click="onPickFile">업로드</v-btn>
             </v-layout>
-            <p id="filename" class="offset-md-1" @click="preview"></p>
+            <span id="filename" class="offset-md-1" @click="preview"></span>
+            <span id="removePhoto" @click="removePhoto" class="ml-2">
+              <v-icon>mdi-cancel</v-icon>
+            </span>
             <input
               type="file"
               style="display: none"
@@ -179,6 +182,27 @@ export default {
       this.team.hobby = '';
       this.team.birth = '';
     },
+    preview: function() {
+      if(!photo.name) return;
+      alert("미리보기는 개발중입니다.");
+      return;
+      // const img = new Image();
+      // console.log(this.photo);
+      // const url = this.photo.webkitRelativePath;
+      // img.src = url;
+      // const open = window.open("", this.photo.name, `width=${img.width}px,
+      //                           height=${img.height}px`);
+      // open.document.write("<html><body style='margin:0'>");
+      // open.document.write("<a href=javascript:window.close()>");
+      // open.document.write(`<img src='${url}' border=0 /> </a>`);
+      // open.document.write("</body></html>");
+    },
+    removePhoto() {
+      this.team.profilePicture = '';
+      this.photo = undefined;
+      const p = document.querySelector("#filename");
+      p.innerText = '';
+    },
     onPickFile: function () {
       this.$refs.fileInput.click();
     },
@@ -203,6 +227,7 @@ export default {
       }
       fileReader.readAsDataURL(files[0]);
       this.photo = files[0];
+      console.log(this.photo);
 
       const p = document.querySelector("#filename");
       p.innerText = filename;
@@ -258,4 +283,9 @@ export default {
   },
 };
 </script>
-<style></style>
+<style>
+  #filename:hover
+  #removePhoto {
+    opacity: 0.8;
+  }
+</style>

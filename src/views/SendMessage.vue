@@ -121,7 +121,6 @@ export default {
       
       const image_title = document.querySelector("#image_title");
       image_title.innerText = `등록됨: ${this.message.photo.name}`
-      console.log(this.message.photo);
     },
     submit: function () {
       const stuff = {
@@ -144,7 +143,7 @@ export default {
         this.loading = true;
         db.collection("Personal Message")
           .add(stuff)
-          .then((data) => {
+          .then(() => {
             alert("메시지 전송을 완료하였습니다!");
             this.loading = false;
             this.dialog = false;

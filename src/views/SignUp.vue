@@ -40,8 +40,7 @@
               v-model="team.checkPassword"
               prepend-icon="mdi-lock-open-check-outline"
             ></v-text-field>
-            <!-- mdi-face-recognition -->
-            <v-flex xs12 sm6 offset-sm3>
+            <v-flex xs12 sm6 offset-sm1>
               <v-btn raised class="primary" @click="onPickFile">업로드</v-btn>
               <input
                 type="file"
@@ -50,6 +49,7 @@
                 accept="image/jpg"
                 @change="onProfilePictureChange"
               />
+              <p id="image_title" class="mt-2"></p>
             </v-flex>
             <v-text-field
               label="내 역할"
@@ -190,6 +190,9 @@ export default {
       })
       fileReader.readAsDataURL(files[0]);
       this.photo = files[0];
+      
+      const image_title = document.querySelector("#image_title");
+      image_title.innerText = `등록됨: ${this.photo.name}`
     },
     submit: function () {
       const match = /[0-9]+/;
@@ -216,13 +219,11 @@ export default {
           this.team.password = '';
           this.team.checkPassword = '';
           this.loading = false;
-          console.log(this.photo);
-          console.log(this.profilePicture);
           return;
         }
         db.collection("Team")
           .add(stuff)
-          .then((data) => {
+          .then(() => {
             this.loading = false;
             this.dialog = false;
             const ref = storage.ref();
@@ -232,7 +233,6 @@ export default {
             go.on('state_changed', snapshot => {
               console.log(snapshot);
             })
-            console.log(data);
             this.title = "";
             this.content = "";
             this.$emit("stuffSubmitted");

@@ -17,7 +17,11 @@
       <v-spacer></v-spacer>
       <v-btn text>
         <v-icon left>mdi-white-balance-sunny</v-icon>
-        <span>{{ geoInfos.name || "" }} {{ geoInfos.main === undefined ? "" : geoInfos.main.temp }} &#8451;</span>
+        <span
+          >{{ geoInfos.name || "" }}
+          {{ geoInfos.main === undefined ? "" : geoInfos.main.temp }}
+          &#8451;</span
+        >
       </v-btn>
       <v-menu offset-y>
         <template v-slot:activator="{ on }">
@@ -29,6 +33,7 @@
         <v-list>
           <v-list-item
             v-for="link in links"
+            :id="link.text"
             :key="link.text"
             router
             :to="link.route"
@@ -127,7 +132,7 @@ export default {
     randomColor() {
       const random = Math.floor(Math.random() * 6);
       let color;
-      switch(random) {
+      switch (random) {
         case 5:
           color = "error";
           break;
@@ -150,7 +155,7 @@ export default {
           color = "dark";
       }
       return color;
-    }
+    },
   },
   beforeCreate() {
     getGeoInfo();

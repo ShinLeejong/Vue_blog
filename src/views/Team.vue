@@ -67,9 +67,9 @@ export default {
             .then((url) => {
               avatar = url;
               this.teams.push({
-              ...item.doc.data(),
-              avatar
-            });
+                ...item.doc.data(),
+                avatar,
+              });
             })
             .catch((err) => console.error(err));
         }

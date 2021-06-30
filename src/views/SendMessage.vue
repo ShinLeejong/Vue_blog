@@ -2,7 +2,9 @@
   <div>
     <v-dialog max-width="32rem" v-model="dialog">
       <template v-slot:activator="{ on }">
-        <v-btn text v-on="on" class="purple white--text ma-2 ml-4">메시지 보내기</v-btn>
+        <v-btn text v-on="on" class="purple white--text ma-2 ml-4"
+          >메시지 보내기</v-btn
+        >
       </template>
       <v-card>
         <v-list-item two-line>
@@ -14,7 +16,7 @@
               <p class="subheading text-center">
                 Lee에게 개인적으로 쪽지를 전달합니다. <br />
                 회신받을 이메일 혹은 전화번호를 적어주세요.
-                </p>
+              </p>
             </v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
@@ -41,10 +43,11 @@
               prepend-icon="mdi-text-box-outline"
               required
             >
-
             </v-textarea>
             <v-flex xs12 sm6 offset-sm1>
-              <v-btn raised class="primary" @click="onPickFile">이미지 업로드</v-btn>
+              <v-btn raised class="primary" @click="onPickFile"
+                >이미지 업로드</v-btn
+              >
               <input
                 type="file"
                 style="display: none"

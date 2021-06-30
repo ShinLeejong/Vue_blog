@@ -74,7 +74,8 @@
       </v-chip-group>
     </v-card-text>
     <v-divider class="mx-4"></v-divider>
-    <v-card-action>
+    <SendMessage />
+    <!-- <v-card-action>
       <v-btn
         right
         color="deep-purple lighten-2 text-center"
@@ -84,11 +85,12 @@
       >
         메시지 보내기
       </v-btn>        
-    </v-card-action>
+    </v-card-action> -->
   </v-card>
 </template>
 <script>
 import { storage } from '../firebase';
+import SendMessage from './SendMessage.vue';
 
   export default {
     data: () => ({
@@ -96,6 +98,10 @@ import { storage } from '../firebase';
       selection: 1,
       Lee_avatar: '',
     }),
+
+    components: {
+        SendMessage
+    },
 
     methods: {
       message() {

@@ -25,7 +25,30 @@
             role="listitem"
             class="v-list-item"
              >
-
+              <template>
+                <v-card
+                  class="mx-auto mb-4"
+                  outlined
+                >
+                  <v-list-item three-line>
+                    <v-list-item-content>
+                      <v-list-item-subtitle class="mb-1">
+                        {{team.nickname}}
+                      </v-list-item-subtitle>
+                      <v-list-item-title class="text-h5 mb-1">
+                        Headline 5
+                      </v-list-item-title>
+                      <v-list-item-subtitle>Greyhound divisely hello coldly fonwderfully</v-list-item-subtitle>
+                    </v-list-item-content>
+                    <v-list-item-avatar
+                      size="80"
+                      color="grey"
+                    >
+                      <img :src="team.avatar" />
+                    </v-list-item-avatar>
+                  </v-list-item>
+                </v-card>
+              </template>
             </div>
           </div>
         </v-card>
@@ -76,6 +99,7 @@
 </template>
 <script>
 import Lee from "./Lee.vue"
+import { db, storage } from "../firebase.js"
 export default {
   data() {
     return {
@@ -88,8 +112,32 @@ export default {
     Lee
   },
   created() {
-    console.log(true);
-  }
+    // Teams
+    db.collection("Team").onSnapshot((res) => {
+      const changes = res.docChanges();
+      let avatar;
+      changes.forEach((item) => {
+        if (item.type === "added") {
+          storage
+          .ref(`Team/${item.doc.data().profilePicture}`)
+          .getDownloadURL()
+          .then((url) => {
+            avatar = url;
+            this.teams.push({
+              ...item.doc.data(),
+              avatar
+            });
+          })
+          .catch((err) => console.error(err));            
+        }
+      })
+    });
+    
+    // Notice
+
+
+    // Board
+  },
 };
 </script>
 <style></style>

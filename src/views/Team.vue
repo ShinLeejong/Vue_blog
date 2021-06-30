@@ -58,16 +58,19 @@ export default {
   created() {
     db.collection("Team").onSnapshot((res) => {
       const changes = res.docChanges();
-      changes.forEach((item, idx) => {
+      let avatar;
+      changes.forEach((item) => {
         if (item.type === "added") {
-          this.teams.push({
-            ...item.doc.data(),
-            id: item.doc.data().nickname,
-          });
           storage
             .ref(`Team/${item.doc.data().profilePicture}`)
             .getDownloadURL()
-            .then((url) => (this.teams[idx].avatar = url))
+            .then((url) => {
+              avatar = url;
+              this.teams.push({
+              ...item.doc.data(),
+              avatar
+            });
+            })
             .catch((err) => console.error(err));
         }
       });

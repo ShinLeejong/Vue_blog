@@ -75,17 +75,6 @@
     </v-card-text>
     <v-divider class="mx-4"></v-divider>
     <SendMessage />
-    <!-- <v-card-action>
-      <v-btn
-        right
-        color="deep-purple lighten-2 text-center"
-        class="mx-auto"
-        text
-        @click="message"
-      >
-        메시지 보내기
-      </v-btn>        
-    </v-card-action> -->
   </v-card>
 </template>
 <script>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-dialog max-width="20rem" v-model="dialog">
+    <v-dialog max-width="32rem" v-model="dialog">
       <template v-slot:activator="{ on }">
         <v-btn text v-on="on" class="purple white--text ma-2 ml-4">메시지 보내기</v-btn>
       </template>
@@ -11,38 +11,40 @@
               <p class="text-h5 text-center">메시지 보내기</p>
             </v-list-item-title>
             <v-list-item-subtitle>
-              <p class="subheading text-center">Lee에게 개인적으로 쪽지를 전달합니다.</p>
+              <p class="subheading text-center">
+                Lee에게 개인적으로 쪽지를 전달합니다. <br />
+                회신받을 이메일 혹은 전화번호를 적어주세요.
+                </p>
             </v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
         <v-card-text>
           <v-form class="pa-1" ref="form">
             <v-text-field
-              label="이름"
-              v-model="team.name"
+              label="성함"
+              v-model="message.name"
+              placeholder="보내는 분의 성함"
               prepend-icon="mdi-id-card"
+              required
             ></v-text-field>
             <v-text-field
-              label="별명"
-              v-model="team.nickname"
-              placeholder="후에 아이디처럼 사용됩니다."
+              label="제목"
+              v-model="message.title"
+              placeholder="제목"
               prepend-icon="mdi-format-title"
+              required
             ></v-text-field>
-            <v-text-field
-              label="비밀번호"
-              :type="'password'"
-              v-model="team.password"
-              prepend-icon="mdi-form-textbox-password"
-            ></v-text-field>
-            <v-text-field
-              label="비밀번호 확인"
-              :type="'password'"
-              v-model="team.checkPassword"
-              prepend-icon="mdi-lock-open-check-outline"
-            ></v-text-field>
-            <!-- mdi-face-recognition -->
-            <v-flex xs12 sm6 offset-sm3>
-              <v-btn raised class="primary" @click="onPickFile">업로드</v-btn>
+            <v-textarea
+              label="내용"
+              v-model="message.content"
+              placeholder="내용"
+              prepend-icon="mdi-text-box-outline"
+              required
+            >
+
+            </v-textarea>
+            <v-flex xs12 sm6 offset-sm1>
+              <v-btn raised class="primary" @click="onPickFile">이미지 업로드</v-btn>
               <input
                 type="file"
                 style="display: none"
@@ -50,76 +52,13 @@
                 accept="image/jpg"
                 @change="onProfilePictureChange"
               />
+              <p id="image_title" class="mt-2"></p>
             </v-flex>
             <v-text-field
-              label="내 역할"
-              v-model="team.role"
-              prepend-icon="mdi-play"
-            ></v-text-field>
-            <v-radio-group
-              v-model="team.sex"
-              prepend-icon="mdi-gender-male-female"
-            >
-              <template v-slot:label>
-                <div>성별</div>
-              </template>
-              <v-radio value="Male">
-                <template v-slot:label>
-                  <div>남자</div>
-                </template>
-              </v-radio>
-              <v-radio value="Female">
-                <template v-slot:label>
-                  <div>여자</div>
-                </template>
-              </v-radio>
-            </v-radio-group>
-            <v-menu
-              ref="dialog"
-              :close-on-content-click="false"
-              :return-value.sync="team.birth"
-              offset-y
-              min-width="auto"
-              transition="scale-transition"
-            >
-              <template v-slot:activator="{ on }">
-                <v-text-field
-                  :value="team.birth"
-                  label="생일"
-                  prepend-icon="mdi-calendar-range"
-                  v-on="on"
-                ></v-text-field>
-              </template>
-              <v-date-picker
-                v-model="team.birth"
-                min="1921-01-01"
-                max="2021-12-31"
-                color="green lighten-1"
-                header-color="primary"
-                year-icon="mdi-calendar-blank"
-                prev-icon="mdi-skip-previous"
-                next-icon="mdi-skip-next"
-              >
-                <v-spacer></v-spacer>
-                <v-btn text color="error" @click="modal = false"> 취소 </v-btn>
-                <v-btn
-                  text
-                  color="primary"
-                  @click="$refs.dialog.save(team.birth)"
-                >
-                  선택
-                </v-btn>
-              </v-date-picker>
-            </v-menu>
-            <v-text-field
-              label="이메일"
-              v-model="team.email"
+              label="회신받을 이메일 혹은 연락처"
+              v-model="message.contact"
               prepend-icon="mdi-email"
-            ></v-text-field>
-            <v-text-field
-              label="취미"
-              v-model="team.hobby"
-              prepend-icon="mdi-play"
+              required
             ></v-text-field>
             <v-btn text class="error ma-2" @click="reset">리셋</v-btn>
             <v-btn text class="success ma-2" @click="submit" :loading="loading"
@@ -133,42 +72,30 @@
 </template>
 <script>
 import { db, storage } from "../firebase.js";
-import { formValidator } from "./formValidater";
 // 나이 will be auto-generated in logic part
 export default {
   /* eslint-disable */
   data() {
     return {
-      team: {
-        birth: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
-        email: '',
-        hobby: '',
+      message: {
+        contact: '',
         name: '',
-        password: '',
-        checkPassword: '',
-        profilePicture: {
-
-        },
-        nickname: '',
-        role: '',
-        sex: '',
+        title: '',
+        content: '',
+        photo: '',
+        photo_name: '',
       },
         loading: false,
         dialog: false,
-        photo: '',
     };
   },
   methods: {
     reset: function () {
-      this.team.name = '';
-      this.team.nickname = '';
-      this.team.password = '';
-      this.team.checkPassword = '';
-      this.team.role = '';
-      this.team.sex = '';
-      this.team.email = '';
-      this.team.hobby = '';
-      this.team.birth = '';
+      this.message.contact = '';
+      this.message.name = '';
+      this.message.title = '';
+      this.message.content = '';
+      this.message.photo = undefined;
     },
     onPickFile: function () {
       this.$refs.fileInput.click();
@@ -176,7 +103,7 @@ export default {
     onProfilePictureChange: function (e) {
       const {target: {files}} = e;
       if(files[1]) {
-        alert("이미지는 하나만 등록해주세요.");
+        alert("죄송합니다. 이미지는 하나만 등록해주세요.");
         return;
       }
       const filename = files[0].name;
@@ -184,62 +111,55 @@ export default {
         alert("올바르지 않은 파일입니다.");
         return;
       }
+      this.photo_name = filename;
       const fileReader = new FileReader();
       fileReader.addEventListener('load', () => {
-        this.photo = fileReader.result;
+        this.message.photo = fileReader.result;
       })
       fileReader.readAsDataURL(files[0]);
-      this.photo = files[0];
+      this.message.photo = files[0];
+      
+      const image_title = document.querySelector("#image_title");
+      image_title.innerText = `등록됨: ${this.message.photo.name}`
+      console.log(this.message.photo);
     },
     submit: function () {
-      const match = /[0-9]+/;
-      const getYear = new Date().getFullYear();
-      const age = getYear - this.team.birth.match(match) + 1;
       const stuff = {
-        name: this.team.name,
-        nickname: this.team.nickname,
-        password: this.team.password,
-        profilePicture: `${this.team.nickname}/${this.team.nickname}.jpg`,
-        role: this.team.role,
-        sex: this.team.sex,
-        email: this.team.email,
-        hobby: this.team.hobby,
-        birth: this.team.birth,
+        contact: this.message.contact,
+        name: this.message.name,
+        title: this.message.title,
+        content: this.message.content,
+        photo: this.message.photo,
         date: new Date(),
-        age
       };
-      if (formValidator(stuff) === false) return;
+      if (stuff?.contact === ''
+            || stuff.name === ''
+            || stuff.title === ''
+            || stuff.content === '') {
+                alert("입력되지 않은 내용이 있습니다.\n" +
+                        "이미지는 필수 입력사항이 아닙니다.");
+                return;
+            }
       if (this.$refs.form.validate()) {
         this.loading = true;
-        if(this.team.password !== this.team.checkPassword) {
-          alert("비밀번호가 일치하지 않습니다.");
-          this.team.password = '';
-          this.team.checkPassword = '';
-          this.loading = false;
-          console.log(this.photo);
-          console.log(this.profilePicture);
-          return;
-        }
         db.collection("Personal Message")
           .add(stuff)
           .then((data) => {
+            alert("메시지 전송을 완료하였습니다!");
             this.loading = false;
             this.dialog = false;
-            const ref = storage.ref();
-            const go = ref.child("Team")
-                          .child(stuff.profilePicture)
-                          .putString(this.photo, "data_url");
-            go.on('state_changed', snapshot => {
-              console.log(snapshot);
-            })
-            console.log(data);
-            this.title = "";
-            this.content = "";
-            this.$emit("stuffSubmitted");
-            alert("추가되었습니다!");
+            if(stuff.photo) {
+                const ref = storage.ref();
+                const go = ref.child("Personal Message")
+                                .child(`${stuff.name}/${stuff.date}/${this.photo_name}`)
+                                .putString(stuff.photo, "data_url");
+                go.on('state_changed', snapshot => {
+                    console.log(snapshot);
+                })                
+            }
           });
       } else {
-        alert("게시물을 추가할 조건을 만족하지 않습니다.");
+        alert("메시지를 전송할 조건을 만족하지 않습니다.");
       }
     },
   },

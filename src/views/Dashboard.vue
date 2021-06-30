@@ -37,7 +37,7 @@
               </template>
             </div>
             <v-card-text class="text-right blue--text" @click="Team_more_clicked">
-              더 보기
+              More
             </v-card-text>              
           </div>
         </v-card>
@@ -93,7 +93,7 @@ export default {
   },
   methods: {
     Team_more_clicked() {
-      this.$refs.Team.click();
+      /* console.log("hmm"); */
     },
   },
   created() {

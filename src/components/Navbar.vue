@@ -14,7 +14,7 @@
         <span class="font-weight-light">Welcome to</span>
         <span>Lee's Blog!</span>
       </v-app-bar-title>
-      <v-spacer></v-spacer>
+      <v-spacer class="navbar_v-spacer"></v-spacer>
       <v-btn text class="weather-btn">
         <v-icon left>mdi-white-balance-sunny</v-icon>
         <span
@@ -25,7 +25,7 @@
       </v-btn>
       <v-menu offset-y>
         <template v-slot:activator="{ on }">
-          <v-btn text v-on="on">
+          <v-btn text v-on="on" class="navbar_v-menu_v-btn">
             <v-icon left>mdi-chevron-down</v-icon>
             <span class="text-capitalize">Menu</span>
           </v-btn>
@@ -44,7 +44,7 @@
           </v-list-item>
         </v-list>
       </v-menu>
-      <v-btn text>
+      <v-btn text right>
         <span>Sign Out</span>
         <v-icon right>mdi-exit-to-app</v-icon>
       </v-btn>
@@ -172,7 +172,8 @@ span {
 
 @media (orientation: portrait) {
   .weather-btn,
-  .app-bar-title-navbar {
+  .app-bar-title-navbar,
+  .navbar_v-menu_v-btn{
     display: none;
   }
 }

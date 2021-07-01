@@ -24,21 +24,21 @@
           <v-form class="pa-1" ref="form">
             <v-text-field
               label="성함"
-              v-model="message.name"
+              v-model.lazy="message.name"
               placeholder="보내는 분의 성함"
               prepend-icon="mdi-id-card"
               required
             ></v-text-field>
             <v-text-field
               label="제목"
-              v-model="message.title"
+              v-model.lazy="message.title"
               placeholder="제목"
               prepend-icon="mdi-format-title"
               required
             ></v-text-field>
             <v-textarea
               label="내용"
-              v-model="message.content"
+              v-model.lazy="message.content"
               placeholder="내용"
               prepend-icon="mdi-text-box-outline"
               required
@@ -59,7 +59,7 @@
             </v-flex>
             <v-text-field
               label="회신받을 이메일 혹은 연락처"
-              v-model="message.contact"
+              v-model.lazy="message.contact"
               prepend-icon="mdi-email"
               required
             ></v-text-field>

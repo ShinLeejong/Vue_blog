@@ -1,9 +1,9 @@
 <template>
-  <v-container class="grey lighten-5 ma-10">
-    <v-row no-gutters>
+  <v-container :class="[isMobile ? '' : 'ma-10', 'grey lighten-5']">
+    <v-row no-gutters :class="[isMobile ? 'justify-center': '']">
       <Lee />
-      <v-col class="mx-12 my-12 dashboard-v-col">
-        <v-card class="mb-8">
+      <v-col :class="[ isMobile ? 'my-4' : 'mx-12 my-12']">
+        <v-card :class="[ isMobile ? 'mx-auto mb-8' : 'mb-8']" max-width="320">
           <v-card-title class="mx-2 mb-2"> Teams </v-card-title>
           <v-divider class="mx-4"></v-divider>
           <div class="v-list-item-group" role="listbox">
@@ -44,7 +44,7 @@
             </v-card-text>
           </div>
         </v-card>
-        <v-card>
+        <v-card :class="[ isMobile ? 'mx-auto mb-8' : 'mb-8']" max-width="320">
           <v-card-title class="mx-2 mb-2"> Board </v-card-title>
           <v-divider class="mx-4"></v-divider>
           <div class="v-list-item-group">
@@ -57,8 +57,8 @@
           </div>
         </v-card>
       </v-col>
-      <v-col class="mx-6 my-12" max-width="160px">
-        <v-card class="mb-8">
+      <v-col class="mx-6 my-12">
+        <v-card :class="[ isMobile ? 'mx-auto mb-8' : 'mb-8']" max-width="320">
           <v-card-title class="mx-2 mb-2"> Notice </v-card-title>
           <v-divider class="mx-4"></v-divider>
           <div class="v-list-item-group">
@@ -99,6 +99,19 @@ export default {
       /* console.log("hmm"); */
     },
   },
+  computed: {
+    isMobile() {
+      switch (this.$vuetify.breakpoint.name) {
+        case 'xs': return true
+        case 'sm': return true
+        case 'md': return false
+        case 'lg': return false
+        case 'xl': return false
+        default:
+        return false;
+      }
+    }
+  },
   created() {
     // Teams
     db.collection("Team").onSnapshot((res) => {
@@ -125,6 +138,7 @@ export default {
 
     // Board
   },
+
 };
 </script>
 <style>

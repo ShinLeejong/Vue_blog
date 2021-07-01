@@ -1,5 +1,5 @@
 <template>
-  <v-card :loading="loading" class="my-12" max-width="320">
+  <v-card :loading="loading" :class="[isMobile ? '' : 'my-12']" max-width="320">
     <template slot="progress">
       <v-progress-linear
         color="deep-purple"
@@ -63,6 +63,20 @@ export default {
 
   components: {
     SendMessage,
+  },
+
+  computed: {
+    isMobile() {
+      switch (this.$vuetify.breakpoint.name) {
+        case 'xs': return true
+        case 'sm': return true
+        case 'md': return false
+        case 'lg': return false
+        case 'xl': return false
+        default:
+        return false;
+      }
+    },    
   },
 
   methods: {

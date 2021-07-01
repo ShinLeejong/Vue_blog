@@ -16,13 +16,13 @@
           <v-form class="pa-3" ref="form">
             <v-text-field
               label="제목"
-              v-model="title"
+              v-model.lazy="title"
               prepend-icon="mdi-table-of-contents"
               :rules="rules"
             ></v-text-field>
             <v-textarea
               label="내용"
-              v-model="content"
+              v-model.lazy="content"
               prepend-icon="mdi-content-paste"
               :rules="rules"
             ></v-textarea>

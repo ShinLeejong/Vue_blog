@@ -9,7 +9,7 @@
             <v-responsive class="pt-4">
               <v-avatar size="104" class="purple lighten-3">
                 <v-avatar size="100">
-                  <img :src="mate.avatar" />
+                  <img :src="mate.avatar" :alt="mate.name + '\'s avatar'" />
                 </v-avatar>
               </v-avatar>
             </v-responsive>

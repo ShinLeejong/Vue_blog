@@ -30,7 +30,7 @@
                       </v-list-item-subtitle>
                     </v-list-item-content>
                     <v-list-item-avatar size="120" color="grey">
-                      <img :src="team.avatar" />
+                      <img :src="team.avatar" :alt="team.name + '\'s avatar'" />
                     </v-list-item-avatar>
                   </v-list-item>
                 </v-card>
@@ -96,7 +96,7 @@ export default {
       boards: [],
       link: {
         icon: "mdi-link",
-        text: "More",
+        text: "See the whole team members...",
         route: "/team"
       }
     };

@@ -88,7 +88,6 @@
 <script>
 import Lee from "./Lee.vue";
 import { db, storage } from "../firebase.js";
-import router from '../router/index';
 export default {
   data() {
     return {
@@ -121,7 +120,7 @@ export default {
         default:
         return false;
       }
-    }
+    },
   },
   created() {
     // Teams

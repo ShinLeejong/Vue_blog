@@ -45,8 +45,8 @@
         </v-list>
       </v-menu>
       <v-btn text right>
-        <span>Sign Out</span>
-        <v-icon right>mdi-exit-to-app</v-icon>
+        <span>{{login.text}}</span>
+        <v-icon right>{{login.icon}}</v-icon>
       </v-btn>
     </v-app-bar>
 
@@ -54,13 +54,21 @@
       <v-layout column align-center>
         <v-flex class="mt-5">
           <v-avatar size="100" class="center">
-            <img :src="myAvatar" alt="" />
+            <img :src="status.avatar" alt="" />
           </v-avatar>
           <p class="white--text subheading text-capitalize mt-6 text-center">
-            Lee's Blog
+            {{status.name}}
           </p>
         </v-flex>
       </v-layout>
+      <v-flex :class="[isMobile ? 'ma-4' : 'none']">
+        <v-icon left>mdi-weather-cloudy</v-icon>
+        <span class="white--text">
+          {{ geoInfos.name || "" }}
+          {{ geoInfos.main === undefined ? "" : geoInfos.main.temp }}
+          &#8451;
+        </span>
+      </v-flex>
       <v-list>
         <v-list-item
           v-for="link in links"
@@ -82,7 +90,7 @@
   </div>
 </template>
 <script>
-import myAvatar from "../assets/team_avatars/Lee.jpg";
+import Guest from "../assets/team_avatars/Guest.jpg";
 import { getGeoInfo } from "./weather.js";
 // import { mapGetters } from 'vuex';
 
@@ -91,7 +99,6 @@ export default {
     return {
       drawer: false,
       submitDone: false,
-      myAvatar,
       geolocation: "",
       weather: "",
       geoInfos: {},
@@ -117,6 +124,14 @@ export default {
           route: "/team",
         },
       ],
+      login: {
+        text: "Sign in",
+        icon: "mdi-exit-to-app",
+      },
+      status: {
+        avatar: Guest,
+        name: "Guest"
+      }
     };
   },
   components: {},
@@ -156,6 +171,17 @@ export default {
       }
       return color;
     },
+    isMobile() {
+      switch (this.$vuetify.breakpoint.name) {
+        case 'xs': return true
+        case 'sm': return true
+        case 'md': return false
+        case 'lg': return false
+        case 'xl': return false
+        default:
+        return false;
+      }
+    },
   },
   beforeCreate() {
     getGeoInfo();
@@ -168,6 +194,10 @@ export default {
 <style scoped>
 span {
   margin: 0 0.25rem;
+}
+
+.none {
+  display: none;
 }
 
 @media (orientation: portrait) {

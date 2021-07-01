@@ -54,7 +54,7 @@
             <img :src="status.avatar" alt="" />
           </v-avatar>
           <p class="white--text subheading text-capitalize mt-6 text-center">
-            {{status.name}}
+            {{status.name.stringValue}}
           </p>
         </v-flex>
       </v-layout>
@@ -87,7 +87,6 @@
   </div>
 </template>
 <script>
-import Guest from "../assets/team_avatars/Guest.jpg";
 import { getGeoInfo } from "./weather.js";
 import Login from "./../views/Login.vue";
 // import { mapGetters } from 'vuex';
@@ -122,10 +121,6 @@ export default {
           route: "/team",
         },
       ],
-      status: {
-        avatar: Guest,
-        name: "Guest"
-      }
     };
   },
   components: {
@@ -178,6 +173,9 @@ export default {
         return false;
       }
     },
+    status() {
+      return this.$store.state.status;
+    }
   },
   beforeCreate() {
     getGeoInfo();

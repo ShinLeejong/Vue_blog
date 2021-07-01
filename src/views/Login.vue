@@ -48,6 +48,7 @@
 </template>
 <script>
 import { db } from "../firebase.js";
+import { store } from '../components/store/store';
 // 나이 will be auto-generated in logic part
 export default {
   /* eslint-disable */
@@ -89,31 +90,18 @@ export default {
         }
         const doc = getData.docs[0];
         const {_delegate: {_document: {data: {value: {mapValue: {fields}}}}}} = doc;
-        console.log(fields);
         if(fields.password.stringValue !== stuff.password) {
             alert("비밀번호가 일치하지 않습니다.");
             this.loading = false;
             return;
-        } else {
-            this.loading = false;
-            this.dialog = false;
-            this.login.text = "Sign out";
-            this.isLoggedIn = true;
-        }
-        // db.collection("Login Tries")
-        //   .add(stuff)
-        //   .then(() => {
-        //     alert("로그인에 성공하였습니다!");
-        //     this.loading = false;
-        //     this.dialog = false;
-        //     this.login.text = "Sign out";
-        //     this.isLoggedIn = true;
-        //   })
-        //   .catch(() => {
-        //     alert("정보를 확인해주세요.");
-        //     this.data.nickname = '';
-        //     this.data.password = '';
-        //   })
+        } 
+
+        this.$store.dispatch('updateStatus', fields);
+        this.loading = false;
+        this.dialog = false;
+        this.login.text = "Sign out";
+        this.isLoggedIn = true;
+    
       } else {
         alert("메시지를 전송할 조건을 만족하지 않습니다.");
       }

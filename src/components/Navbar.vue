@@ -44,10 +44,7 @@
           </v-list-item>
         </v-list>
       </v-menu>
-      <v-btn text right>
-        <span>{{login.text}}</span>
-        <v-icon right>{{login.icon}}</v-icon>
-      </v-btn>
+      <Login />
     </v-app-bar>
 
     <v-navigation-drawer app v-model="drawer" class="success">
@@ -92,6 +89,7 @@
 <script>
 import Guest from "../assets/team_avatars/Guest.jpg";
 import { getGeoInfo } from "./weather.js";
+import Login from "./../views/Login.vue";
 // import { mapGetters } from 'vuex';
 
 export default {
@@ -124,17 +122,15 @@ export default {
           route: "/team",
         },
       ],
-      login: {
-        text: "Sign in",
-        icon: "mdi-exit-to-app",
-      },
       status: {
         avatar: Guest,
         name: "Guest"
       }
     };
   },
-  components: {},
+  components: {
+    Login,
+  },
   methods: {
     onNavIconClicked: function () {
       this.drawer = !this.drawer;

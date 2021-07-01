@@ -36,12 +36,17 @@
                 </v-card>
               </template>
             </div>
-            <v-card-text
-              class="text-right blue--text"
-              @click="Team_more_clicked"
-            >
-              More
-            </v-card-text>
+            <div justify="right">
+              <v-list-item
+                router
+                :to="link.route"
+              >
+                <v-icon>
+                  {{link.icon}}
+                </v-icon>
+                <span class="ml-2">{{link.text}}</span>
+              </v-list-item>              
+            </div>
           </div>
         </v-card>
         <v-card :class="[ isMobile ? 'mx-auto mb-8' : 'mb-8']" min-width="320">
@@ -83,12 +88,18 @@
 <script>
 import Lee from "./Lee.vue";
 import { db, storage } from "../firebase.js";
+import router from '../router/index';
 export default {
   data() {
     return {
       teams: [],
       notices: [],
       boards: [],
+      link: {
+        icon: "mdi-link",
+        text: "More",
+        route: "/team"
+      }
     };
   },
   components: {

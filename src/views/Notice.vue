@@ -46,7 +46,7 @@
         <v-btn class="ma-2">1</v-btn>
         <v-btn class="ma-2">2</v-btn>
       </v-container>
-      <v-btn>글쓰기</v-btn>
+      <v-btn>글쓰기</v-btn> <!-- todo -->
     </v-container>
   </div>
 </template>

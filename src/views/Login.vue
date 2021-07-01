@@ -110,7 +110,7 @@ export default {
         if(this.isLoggedIn === true) {
             e.preventDefault();
             alert("로그아웃 되었습니다.");
-            if(window?.location) window.location.replace("/");
+            if(window?.location) window.location.replace(window.location.href);
             else location.reload();
         }
     }

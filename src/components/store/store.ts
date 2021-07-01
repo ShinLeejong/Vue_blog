@@ -8,6 +8,7 @@ Vue.use(Vuex); // Register
 interface StoreState {
   geoData: Record<string, never>;
   status: {
+    isLoggedIn: boolean,
     name: {
       stringValue: string
     },
@@ -27,6 +28,7 @@ export const store: Store<StoreState> = new Vuex.Store({
     //   { name: "potato", price: 350 }
     // ]
     status: {
+      isLoggedIn: false,
       name: {
         stringValue: "Guest",
       },
@@ -47,6 +49,7 @@ export const store: Store<StoreState> = new Vuex.Store({
         .then(url => {
           const upload = payload;
           upload.avatar = url;
+          upload.isLoggedIn = true;
           state.status = upload;
         })
         .catch(err => console.error(err));

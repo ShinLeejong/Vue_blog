@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-dialog max-width="20rem" v-model="dialog">
+    <v-dialog max-width="20rem" v-model="dialog" v-if="show">
       <template v-slot:activator="{ on }">
         <v-btn text v-on="on" class="error">Add new stuff</v-btn>
       </template>
@@ -73,6 +73,12 @@ export default {
       }
     },
   },
+  computed: {
+    show() {
+      console.log(this.$store.state.status.isLoggedIn)
+      return this.$store.state.status.isLoggedIn;
+    }
+  }
 };
 </script>
 <style></style>

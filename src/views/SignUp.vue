@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="show">
     <v-dialog max-width="28rem" v-model="dialog">
       <template v-slot:activator="{ on }">
         <v-btn text v-on="on" class="error">회원가입</v-btn>
@@ -286,6 +286,11 @@ export default {
       }
     },
   },
+  computed: {
+    show() {
+      return !this.$store.state.status.isLoggedIn;
+    }
+  }
 };
 </script>
 <style>

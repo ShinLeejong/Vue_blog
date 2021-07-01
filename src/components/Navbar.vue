@@ -6,8 +6,12 @@
     </v-snackbar>
 
     <v-app-bar app :color="randomColor" dark>
-      <v-app-bar-nav-icon class="grey--text" @click="onNavIconClicked" alt="
-        app-bar-nav-icon">
+      <v-app-bar-nav-icon
+        class="grey--text"
+        @click="onNavIconClicked"
+        alt="
+        app-bar-nav-icon"
+      >
       </v-app-bar-nav-icon>
       <v-app-bar-title class="text-capitalize app-bar-title-navbar">
         <span class="font-weight-light">Welcome to</span>
@@ -82,6 +86,20 @@
           </v-list-item-content>
         </v-list-item>
       </v-list>
+      <v-list>
+        <v-list-item class="v-list-item-setting" @click="onSettingClicked">
+          <v-list-item-action>
+            <v-icon class="white--text">
+              mdi-image-filter-tilt-shift
+            </v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title class="white--text">
+              Settings
+            </v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
     </v-navigation-drawer>
   </div>
 </template>
@@ -132,6 +150,9 @@ export default {
     snackbarBtnClicked: function () {
       this.submitDone = false;
     },
+    onSettingClicked: function () {
+      console.log("HI")
+    }
   },
   computed: {
     randomColor() {
@@ -204,5 +225,9 @@ span {
   .navbar_v-menu_v-btn {
     display: none;
   }
+}
+
+.v-list-item-setting:hover {
+  opacity: 0.9;
 }
 </style>

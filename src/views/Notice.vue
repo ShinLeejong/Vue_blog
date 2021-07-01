@@ -1,11 +1,11 @@
 <template>
   <div class="stuffs my-5">
-    <h1 class="subheading grey--text ml-6">stuff</h1>
+    <h1 class="subheading grey--text ml-6">Notice</h1>
 
     <v-container class="my-5">
       <v-expansion-panels>
         <v-expansion-panel
-          v-for="stuff in stuffs.slice(0, 6)"
+          v-for="stuff in stuffs.slice(0 + (6 * (page - 1)), 6 + (6 * (page - 1)))"
           :key="stuff.title"
         >
           <v-expansion-panel-header>
@@ -43,10 +43,10 @@
         </v-expansion-panel>
       </v-expansion-panels>
       <v-container>
-        <v-btn class="ma-2">1</v-btn>
-        <v-btn class="ma-2">2</v-btn>
+        <v-btn class="ma-2" @click="page = 1">1</v-btn>
+        <v-btn class="ma-2" @click="page = 2">2</v-btn>
       </v-container>
-      <v-btn>글쓰기</v-btn> <!-- todo -->
+      <v-btn v-if="show">글쓰기</v-btn> <!-- todo -->
     </v-container>
   </div>
 </template>
@@ -56,6 +56,7 @@
 export default {
   data() {
     return {
+      page: 1,
       stuffs: [
         {
           title: "My First Vue stuff with Vuetify",
@@ -122,6 +123,9 @@ export default {
         (stuff) => stuff.author === "신이종" || "Shin Leejong"
       );
     },
+    show() {
+      return this.$store.state.status.isLoggedIn;
+    }
   },
 };
 </script>

@@ -75,8 +75,7 @@ export default {
   },
   computed: {
     show() {
-      console.log(this.$store.state.status.isLoggedIn)
-      return this.$store.state.status.isLoggedIn;
+      return this.$store.state.status.isLoggedIn
     }
   }
 };

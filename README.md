@@ -1,6 +1,20 @@
 # Vue_blog
 
-Vue 2 + Vuetify + Firebase with Cypress, TypeScript
+Vue 2 + Vuetify + Firebase with Cypress, TypeScript <br />
+PWA <br />
+gh-pages: <a href="https://iiy4383.github.io/Vue_blog">https://iiy4383.github.io/Vue_blog</a>
+
+## 20210701
+테스트는 거의 수행하지 않고 있는 상태지만, 많이 개발이 되고 있습니다. <br />
+꾸준히 기능을 강화하고 늘려가고 있고, <br />
+모바일과의 Responsive를 잘 어울리게 만들 수 있도록 <br />
+신경써서 반응형으로 개발하고 있습니다. <br />
+![Screenshot_1](https://user-images.githubusercontent.com/56120315/124095176-646fde00-da94-11eb-9859-9f9baccc36d3.png)
+![Screenshot_2](https://user-images.githubusercontent.com/56120315/124095182-65a10b00-da94-11eb-88d4-625c69766f19.png)
+![Screenshot_3](https://user-images.githubusercontent.com/56120315/124095184-6639a180-da94-11eb-9916-8a318e07b99d.png)
+![Screenshot_4](https://user-images.githubusercontent.com/56120315/124095193-66d23800-da94-11eb-989a-329e326c07ed.png)
+![Screenshot_5](https://user-images.githubusercontent.com/56120315/124095196-676ace80-da94-11eb-9c37-65e4741c8c45.png)
+
 
 ## 20210627
 회원 정보의 스키마 구조를 다시 다듬어야겠다고 생각했고,

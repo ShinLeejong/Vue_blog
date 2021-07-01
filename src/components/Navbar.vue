@@ -10,18 +10,18 @@
         class="grey--text"
         @click="onNavIconClicked"
       ></v-app-bar-nav-icon>
-      <v-app-bar-title class="text-capitalize">
+      <v-app-bar-title class="text-capitalize app-bar-title-navbar">
         <span class="font-weight-light">Welcome to</span>
         <span>Lee's Blog!</span>
       </v-app-bar-title>
       <v-spacer></v-spacer>
-      <v-btn text>
+      <v-btn text class="weather-btn">
         <v-icon left>mdi-white-balance-sunny</v-icon>
         <span
           >{{ geoInfos.name || "" }}
           {{ geoInfos.main === undefined ? "" : geoInfos.main.temp }}
-          &#8451;</span
-        >
+          &#8451;
+        </span>
       </v-btn>
       <v-menu offset-y>
         <template v-slot:activator="{ on }">
@@ -168,5 +168,12 @@ export default {
 <style scoped>
 span {
   margin: 0 0.25rem;
+}
+
+@media (orientation: portrait) {
+  .weather-btn,
+  .app-bar-title-navbar {
+    display: none;
+  }
 }
 </style>

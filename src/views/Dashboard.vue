@@ -2,7 +2,7 @@
   <v-container class="grey lighten-5 ma-10">
     <v-row no-gutters>
       <Lee />
-      <v-col class="mx-12 my-12">
+      <v-col class="mx-12 my-12 dashboard-v-col">
         <v-card class="mb-8">
           <v-card-title class="mx-2 mb-2"> Teams </v-card-title>
           <v-divider class="mx-4"></v-divider>
@@ -36,9 +36,12 @@
                 </v-card>
               </template>
             </div>
-            <v-card-text class="text-right blue--text" @click="Team_more_clicked">
+            <v-card-text
+              class="text-right blue--text"
+              @click="Team_more_clicked"
+            >
               More
-            </v-card-text>              
+            </v-card-text>
           </div>
         </v-card>
         <v-card>
@@ -124,4 +127,6 @@ export default {
   },
 };
 </script>
-<style></style>
+<style>
+
+</style>

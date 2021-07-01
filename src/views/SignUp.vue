@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-dialog max-width="28rem" v-model="dialog">
+    <v-dialog max-width="28rem" v-model.lazy="dialog">
       <template v-slot:activator="{ on }">
         <v-btn text v-on="on" class="error">회원가입</v-btn>
       </template>
@@ -19,25 +19,25 @@
           <v-form class="pa-1" ref="form">
             <v-text-field
               label="이름"
-              v-model="team.name"
+              v-model.lazy="team.name"
               prepend-icon="mdi-id-card"
             ></v-text-field>
             <v-text-field
               label="별명"
-              v-model="team.nickname"
+              v-model.lazy="team.nickname"
               placeholder="후에 아이디처럼 사용됩니다."
               prepend-icon="mdi-format-title"
             ></v-text-field>
             <v-text-field
               label="비밀번호"
               :type="'password'"
-              v-model="team.password"
+              v-model.lazy="team.password"
               prepend-icon="mdi-form-textbox-password"
             ></v-text-field>
             <v-text-field
               label="비밀번호 확인"
               :type="'password'"
-              v-model="team.checkPassword"
+              v-model.lazy="team.checkPassword"
               prepend-icon="mdi-lock-open-check-outline"
             ></v-text-field>
             <v-layout xs12 md6 lg4 sm3>
@@ -62,11 +62,11 @@
             />
             <v-text-field
               label="내 역할"
-              v-model="team.role"
+              v-model.lazy="team.role"
               prepend-icon="mdi-play"
             ></v-text-field>
             <v-radio-group
-              v-model="team.sex"
+              v-model.lazy="team.sex"
               prepend-icon="mdi-gender-male-female"
             >
               <template v-slot:label>
@@ -100,7 +100,7 @@
                 ></v-text-field>
               </template>
               <v-date-picker
-                v-model="team.birth"
+                v-model.lazy="team.birth"
                 min="1921-01-01"
                 max="2021-12-31"
                 color="green lighten-1"
@@ -122,12 +122,12 @@
             </v-menu>
             <v-text-field
               label="이메일"
-              v-model="team.email"
+              v-model.lazy="team.email"
               prepend-icon="mdi-email"
             ></v-text-field>
             <v-text-field
               label="취미"
-              v-model="team.hobby"
+              v-model.lazy="team.hobby"
               prepend-icon="mdi-play"
             ></v-text-field>
             <v-btn text class="error ma-2" @click="reset">리셋</v-btn>

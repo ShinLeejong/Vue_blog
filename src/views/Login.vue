@@ -1,54 +1,54 @@
 <template>
-    <v-dialog max-width="24rem" v-model="dialog">
-      <template v-slot:activator="{ on }">
-        <v-btn text right v-on="on" @click="clicked">
-            <span>{{login.text}}</span>
-            <v-icon right>{{login.icon}}</v-icon>
-        </v-btn>
-      </template>
-      <v-card>
-        <v-list-item two-line>
-          <v-list-item-content>
-            <v-list-item-title class="ma-2">
-              <p class="text-h5 text-center">로그인</p>
-            </v-list-item-title>
-            <v-list-item-subtitle>
-              <p class="subheading text-center">
-                회원가입은 Team에서 할 수 있습니다.
-              </p>
-            </v-list-item-subtitle>
-          </v-list-item-content>
-        </v-list-item>
-        <v-card-text>
-          <v-form ref="form">
-            <v-text-field
-              label="별명"
-              v-model.lazy="data.nickname"
-              placeholder="별명"
-              prepend-icon="mdi-id-card"
-              required
-            ></v-text-field>
-            <v-text-field
-              label="비밀번호"
-              :type="'password'"
-              v-model.lazy="data.password"
-              placeholder="비밀번호"
-              prepend-icon="mdi-form-textbox-password"
-              required
-            ></v-text-field>
-            <v-row justify="center">
-                <v-btn text class="success ma-2" @click="submit" :loading="loading">
-                    로그인
-                </v-btn>
-            </v-row>
-          </v-form>
-        </v-card-text>
-      </v-card>
-    </v-dialog>
+  <v-dialog max-width="24rem" v-model="dialog">
+    <template v-slot:activator="{ on }">
+      <v-btn text right v-on="on" @click="clicked">
+        <span>{{ login.text }}</span>
+        <v-icon right>{{ login.icon }}</v-icon>
+      </v-btn>
+    </template>
+    <v-card>
+      <v-list-item two-line>
+        <v-list-item-content>
+          <v-list-item-title class="ma-2">
+            <p class="text-h5 text-center">로그인</p>
+          </v-list-item-title>
+          <v-list-item-subtitle>
+            <p class="subheading text-center">
+              회원가입은 Team에서 할 수 있습니다.
+            </p>
+          </v-list-item-subtitle>
+        </v-list-item-content>
+      </v-list-item>
+      <v-card-text>
+        <v-form ref="form">
+          <v-text-field
+            label="별명"
+            v-model.lazy="data.nickname"
+            placeholder="별명"
+            prepend-icon="mdi-id-card"
+            required
+          ></v-text-field>
+          <v-text-field
+            label="비밀번호"
+            :type="'password'"
+            v-model.lazy="data.password"
+            placeholder="비밀번호"
+            prepend-icon="mdi-form-textbox-password"
+            required
+          ></v-text-field>
+          <v-row justify="center">
+            <v-btn text class="success ma-2" @click="submit" :loading="loading">
+              로그인
+            </v-btn>
+          </v-row>
+        </v-form>
+      </v-card-text>
+    </v-card>
+  </v-dialog>
 </template>
 <script>
 import { db } from "../firebase.js";
-import { store } from '../components/store/store';
+import { store } from "../components/store/store";
 // 나이 will be auto-generated in logic part
 export default {
   /* eslint-disable */

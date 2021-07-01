@@ -6,10 +6,9 @@
     </v-snackbar>
 
     <v-app-bar app :color="randomColor" dark>
-      <v-app-bar-nav-icon
-        class="grey--text"
-        @click="onNavIconClicked"
-      ></v-app-bar-nav-icon>
+      <v-app-bar-nav-icon class="grey--text" @click="onNavIconClicked" alt="
+        app-bar-nav-icon">
+      </v-app-bar-nav-icon>
       <v-app-bar-title class="text-capitalize app-bar-title-navbar">
         <span class="font-weight-light">Welcome to</span>
         <span>Lee's Blog!</span>
@@ -54,7 +53,7 @@
             <img :src="status.avatar" alt="" />
           </v-avatar>
           <p class="white--text subheading text-capitalize mt-6 text-center">
-            {{status.name.stringValue}}
+            {{ status.name.stringValue }}
           </p>
         </v-flex>
       </v-layout>
@@ -164,18 +163,23 @@ export default {
     },
     isMobile() {
       switch (this.$vuetify.breakpoint.name) {
-        case 'xs': return true
-        case 'sm': return true
-        case 'md': return false
-        case 'lg': return false
-        case 'xl': return false
+        case "xs":
+          return true;
+        case "sm":
+          return true;
+        case "md":
+          return false;
+        case "lg":
+          return false;
+        case "xl":
+          return false;
         default:
-        return false;
+          return false;
       }
     },
     status() {
       return this.$store.state.status;
-    }
+    },
   },
   beforeCreate() {
     getGeoInfo();
@@ -197,7 +201,7 @@ span {
 @media (orientation: portrait) {
   .weather-btn,
   .app-bar-title-navbar,
-  .navbar_v-menu_v-btn{
+  .navbar_v-menu_v-btn {
     display: none;
   }
 }

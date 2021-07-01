@@ -23,7 +23,7 @@ export default Vue.extend({
 </script>
 
 <style>
-  body {
-    background-color: #EAEAEA;
-  }
+body {
+  background-color: #eaeaea;
+}
 </style>

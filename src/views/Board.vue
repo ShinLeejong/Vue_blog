@@ -6,10 +6,7 @@
     <v-container class="my-5">
       <v-layout row>
         <v-flex xs6 md2 class="offset-md-8">
-          <v-select
-            :items="teams"
-            v-model="team"
-          ></v-select>
+          <v-select :items="teams" v-model="team"></v-select>
         </v-flex>
         <v-flex xs6 md1 class="d-flex ml-6 mb-4 align-center">
           <v-tooltip top>
@@ -62,7 +59,7 @@ export default Vue.extend({
       boards: [],
       submitDone: false,
       teams: [],
-      team: '',
+      team: "",
     };
   },
   components: {
@@ -70,8 +67,8 @@ export default Vue.extend({
   },
   methods: {
     sort: function (selection) {
-      return this.boards.filter(ele => ele.author === selection);
-    }
+      return this.boards.filter((ele) => ele.author === selection);
+    },
   },
   created() {
     db.collection("boards").onSnapshot((res) => {
@@ -86,12 +83,12 @@ export default Vue.extend({
       });
     });
 
-    db.collection("Team").onSnapshot(res => {
+    db.collection("Team").onSnapshot((res) => {
       const changes = res.docChanges();
-      changes.forEach(item => {
-        this.teams.push(item.doc.data().nickname)
-      })
-    })
+      changes.forEach((item) => {
+        this.teams.push(item.doc.data().nickname);
+      });
+    });
   },
 });
 </script>

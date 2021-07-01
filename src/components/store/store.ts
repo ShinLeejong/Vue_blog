@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Vuex, { Store } from "vuex";
-import { storage } from '../../firebase.js';
+import { storage } from "../../firebase.js";
 import Guest from "../../assets/team_avatars/Guest.jpg"; // index.d.ts
 
 Vue.use(Vuex); // Register
@@ -8,12 +8,12 @@ Vue.use(Vuex); // Register
 interface StoreState {
   geoData: Record<string, never>;
   status: {
-    isLoggedIn: boolean,
+    isLoggedIn: boolean;
     name: {
-      stringValue: string
-    },
-    avatar: "*.jpg"
-  }
+      stringValue: string;
+    };
+    avatar: "*.jpg";
+  };
 }
 
 export const store: Store<StoreState> = new Vuex.Store({
@@ -32,8 +32,8 @@ export const store: Store<StoreState> = new Vuex.Store({
       name: {
         stringValue: "Guest",
       },
-      avatar: Guest
-    }
+      avatar: Guest,
+    },
   },
   getters: {
     getGeoInfo: (geoData) => geoData,
@@ -46,15 +46,15 @@ export const store: Store<StoreState> = new Vuex.Store({
       storage
         .ref(`Team/${payload.profilePicture.stringValue}`)
         .getDownloadURL()
-        .then(url => {
+        .then((url) => {
           const upload = payload;
           upload.avatar = url;
           upload.isLoggedIn = true;
           state.status = upload;
         })
-        .catch(err => console.error(err));
+        .catch((err) => console.error(err));
       // state.status.avatar
-    }
+    },
   },
   actions: {
     getGeoAndWeather: (context) => {
@@ -71,7 +71,7 @@ export const store: Store<StoreState> = new Vuex.Store({
     },
 
     updateStatus: (context, payload) => {
-      return context.commit('updateStatus', payload);
-    }
+      return context.commit("updateStatus", payload);
+    },
   },
 });

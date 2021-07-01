@@ -23,7 +23,7 @@
           <v-form ref="form">
             <v-text-field
               label="별명"
-              v-model.lazy="data.name"
+              v-model.lazy="data.nickname"
               placeholder="별명"
               prepend-icon="mdi-id-card"
               required
@@ -67,33 +67,53 @@ export default {
     };
   },
   methods: {
-    submit() {
+    submit: async function() {
       const stuff = {
         nickname: this.data.nickname,
         password: this.data.password,
         date: new Date(),
       };
-      if (stuff?.nickname === ''
+      if (stuff.nickname === ''
             || stuff.password === '') {
                 alert("입력되지 않은 내용이 있습니다.\n");
                 return;
             }
       if (this.$refs.form.validate()) {
         this.loading = true;
-        db.collection("Personal data")
-          .add(stuff)
-          .then(() => {
-            alert("로그인에 성공하였습니다!");
+        const ref = db.collection("Team");
+        const getData = await ref.where('nickname', '==', stuff.nickname).get();
+        if(getData.empty) {
+            alert("입력하신 별명과 일치하는 계정이 존재하지 않습니다.");
+            this.loading = false;
+            return;
+        }
+        const doc = getData.docs[0];
+        const {_delegate: {_document: {data: {value: {mapValue: {fields}}}}}} = doc;
+        console.log(fields);
+        if(fields.password.stringValue !== stuff.password) {
+            alert("비밀번호가 일치하지 않습니다.");
+            this.loading = false;
+            return;
+        } else {
             this.loading = false;
             this.dialog = false;
             this.login.text = "Sign out";
             this.isLoggedIn = true;
-          })
-          .catch(() => {
-            alert("정보를 확인해주세요.");
-            this.data.nickname = '';
-            this.data.password = '';
-          })
+        }
+        // db.collection("Login Tries")
+        //   .add(stuff)
+        //   .then(() => {
+        //     alert("로그인에 성공하였습니다!");
+        //     this.loading = false;
+        //     this.dialog = false;
+        //     this.login.text = "Sign out";
+        //     this.isLoggedIn = true;
+        //   })
+        //   .catch(() => {
+        //     alert("정보를 확인해주세요.");
+        //     this.data.nickname = '';
+        //     this.data.password = '';
+        //   })
       } else {
         alert("메시지를 전송할 조건을 만족하지 않습니다.");
       }
@@ -102,7 +122,8 @@ export default {
         if(this.isLoggedIn === true) {
             e.preventDefault();
             alert("로그아웃 되었습니다.");
-            location.reload();
+            if(window?.location) window.location.replace("/");
+            else location.reload();
         }
     }
   },

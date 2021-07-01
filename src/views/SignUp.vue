@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-dialog max-width="28rem" v-model.lazy="dialog">
+    <v-dialog max-width="28rem" v-model="dialog">
       <template v-slot:activator="{ on }">
         <v-btn text v-on="on" class="error">회원가입</v-btn>
       </template>

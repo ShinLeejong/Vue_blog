@@ -23,17 +23,17 @@
               prepend-icon="mdi-id-card"
             ></v-text-field>
             <v-layout xs12 md6 lg4 sm3>
-            <v-text-field
-              label="별명"
-              v-model.lazy="team.nickname"
-              placeholder="후에 아이디처럼 사용됩니다."
-              prepend-icon="mdi-format-title"
-              :readonly="readonly_nickname"
-              :loading="validating"
-            ></v-text-field>
-            <v-btn class="primary" @click="onValidateIdBtn">중복 확인</v-btn>   
+              <v-text-field
+                label="별명"
+                v-model.lazy="team.nickname"
+                placeholder="후에 아이디처럼 사용됩니다."
+                prepend-icon="mdi-format-title"
+                :readonly="readonly_nickname"
+                :loading="validating"
+              ></v-text-field>
+              <v-btn class="primary" @click="onValidateIdBtn">중복 확인</v-btn>
             </v-layout>
-            <span id="validateResult" class="offset-md-1"></span>           
+            <span id="validateResult" class="offset-md-1"></span>
             <v-text-field
               label="비밀번호"
               :type="'password'"

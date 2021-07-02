@@ -20,7 +20,6 @@
               prepend-icon="mdi-pencil-box-outline"
               readonly
             >
-
             </v-text-field>
             <v-text-field
               label="제목"
@@ -37,7 +36,7 @@
             <v-row justify="center" class="mt-2">
               <v-btn text class="success" @click="submit" :loading="loading"
                 >추가</v-btn
-              >              
+              >
             </v-row>
           </v-form>
         </v-card-text>
@@ -63,11 +62,15 @@ export default {
     submit: function () {
       if (this.$refs.form.validate()) {
         this.loading = true;
+        const date = new Date();
         const stuff = {
           title: this.title,
           content: this.content,
-          date: new Date(),
+          date_year: date.getFullYear(),
+          date_month: date.getMonth() + 1,
+          date_day: date.getDate(),
           author: this.author,
+          date,
         };
         db.collection("Board")
           .add(stuff)

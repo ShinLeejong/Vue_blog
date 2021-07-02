@@ -4,7 +4,7 @@
       <Lee />
       <v-col :class="[isMobile ? 'my-4' : 'mx-12 my-12']">
         <v-card :class="[isMobile ? 'mx-auto mb-8' : 'mb-8']" min-width="320">
-          <v-card-title class="mx-2 mb-2"> Teams </v-card-title>
+          <v-card-title class="mx-2 mb-2">Crew Members</v-card-title>
           <v-divider class="mx-4"></v-divider>
           <div class="v-list-item-group" role="listbox">
             <div
@@ -61,7 +61,7 @@
       </v-col>
       <v-col class="my-12">
         <v-card :class="[isMobile ? 'mx-auto mb-8' : 'mb-8']" min-width="320">
-          <v-card-title class="mx-2 mb-2"> Board </v-card-title>
+          <v-card-title class="mx-2 mb-2">Recent Board Posts</v-card-title>
           <v-divider class="mx-4"></v-divider>
           <div class="v-list-item-group">
             <div
@@ -72,21 +72,40 @@
             >
               <v-btn rounded block class="pa-1">
                 <v-row>
-                  <v-card border="right" :class="['pa-2 col-md-3', isMobile ? 'none' : 'd-flex align-center']">
-                    <v-chip small color="purple" v-if="board.author.stringValue === '이종뚜' && !isMobile">
+                  <v-card
+                    border="right"
+                    :class="[
+                      'pa-2 col-md-3',
+                      isMobile ? 'none' : 'd-flex align-center',
+                    ]"
+                  >
+                    <v-chip
+                      small
+                      color="purple"
+                      v-if="board.author.stringValue === '이종뚜' && !isMobile"
+                    >
                       대장
                     </v-chip>
-                      &nbsp;{{board.author.stringValue}}   
+                    &nbsp;{{ board.author.stringValue }}
                   </v-card>
-                  <v-card class="pa-2 col-md-6 d-flex align-center">
-                    {{board.title.stringValue.length > 8 ?
-                      board.title.stringValue.slice(0, 9) + "..." :
-                      board.title.stringValue}}
+                  <v-card :class="['pa-2 col-md-6 d-flex align-center', isMobile ? 'col-md-7' : 'col-md-6']">
+                    {{
+                      board.title.stringValue.length > 16
+                        ? board.title.stringValue.slice(0, 16) + "..."
+                        : board.title.stringValue
+                    }}
                   </v-card>
-                  <v-card :class="['pa-2 col-md-3', isMobile ? 'none' : 'd-flex align-center']">
-                    {{board.date}}
+                  <v-card
+                    :class="[
+                      'pa-2 col-md-3',
+                      isMobile ? 'none' : 'd-flex align-center',
+                    ]"
+                  >
+                    {{ board.date_year.integerValue + "년 " +
+                        board.date_month.integerValue + "월 " +
+                        board.date_day.integerValue + "일" }}
                   </v-card>
-                </v-row>                
+                </v-row>
               </v-btn>
             </div>
           </div>
@@ -104,7 +123,6 @@
 <script>
 import Lee from "./Lee.vue";
 import { db, storage } from "../firebase.js";
-import timestameValueFormatter from '../components/timestampValueFormatter.js';
 
 export default {
   data() {
@@ -169,32 +187,48 @@ export default {
     });
 
     // Notice
-    if(this.init === false) {
-      const noticeRef = db.collection("Notice");
-      const getNotices = noticeRef.orderBy("date").limit(4).get();
-      getNotices.then(res => {
-        res.docs.forEach(ele => {
-          const {_delegate: {_document: {data: {value: {mapValue: {fields}}}}}} = ele;
+    const noticeRef = db.collection("Notice");
+    const getNotices = noticeRef.orderBy("date").limit(4).get();
+    getNotices
+      .then((res) => {
+        res.docs.forEach((ele) => {
+          const {
+            _delegate: {
+              _document: {
+                data: {
+                  value: {
+                    mapValue: { fields },
+                  },
+                },
+              },
+            },
+          } = ele;
           this.notices.push(fields);
-        })
-      }).catch(err => console.error(err));      
-    }
- 
+        });
+      })
+      .catch((err) => console.error(err));
 
     // Board
-    if(this.init === false) {
-      const boardRef = db.collection("Board");
-      const getBoards = boardRef.orderBy("date").limit(4).get();
-      getBoards.then(res => {
-        res.docs.forEach(ele => {
-          const {_delegate: {_document: {data: {value: {mapValue: {fields}}}}}} = ele;
-          fields.date = timestameValueFormatter(fields.date.timestampValue);
+    const boardRef = db.collection("Board");
+    const getBoards = boardRef.orderBy("date").limit(6).get();
+    getBoards
+      .then((res) => {
+        res.docs.forEach((ele) => {
+          const {
+            _delegate: {
+              _document: {
+                data: {
+                  value: {
+                    mapValue: { fields },
+                  },
+                },
+              },
+            },
+          } = ele;
           this.boards.push(fields);
-        })
-      }).catch(err => console.error(err));      
-    }
-
-    this.init = true;
+        });
+      })
+      .catch((err) => console.error(err));
   },
 };
 </script>
@@ -202,5 +236,4 @@ export default {
 .none {
   display: none;
 }
-
 </style>

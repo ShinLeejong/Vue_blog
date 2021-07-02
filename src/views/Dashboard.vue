@@ -55,7 +55,47 @@
               :key="notice.id.integerValue"
               role="listitem"
               class="v-list-item"
-            ></div>
+            >
+              <v-btn rounded block class="pa-1">
+                <v-row>
+                  <v-card
+                    border="right"
+                    :class="[
+                      'pa-2 col-md-2',
+                      isMobile ? 'none' : 'd-flex align-center',
+                    ]"
+                  >
+                    <v-chip
+                      small
+                      color="purple"
+                      v-if="!isMobile"
+                    >
+                      대장
+                    </v-chip>
+                  </v-card>
+                  <v-card
+                    :class="[
+                      'pa-2 d-flex align-center',
+                      isMobile ? 'col-md-8' : 'col-md-7',
+                    ]"
+                  >
+                    {{
+                      notice.title.stringValue.length > 16
+                        ? notice.title.stringValue.slice(0, 16) + "..."
+                        : notice.title.stringValue
+                    }}
+                  </v-card>
+                  <v-card
+                    :class="[
+                      'pa-2 col-md-3',
+                      isMobile ? 'none' : 'd-flex align-center',
+                    ]"
+                  >
+                    {{ `${notice.date_year.integerValue}.${notice.date_month.integerValue}.${notice.date_day.integerValue}` }}
+                  </v-card>
+                </v-row>
+              </v-btn>
+            </div>
           </div>
         </v-card>
       </v-col>

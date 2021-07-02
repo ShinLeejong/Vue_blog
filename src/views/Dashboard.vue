@@ -88,7 +88,12 @@
                     </v-chip>
                     &nbsp;{{ board.author.stringValue }}
                   </v-card>
-                  <v-card :class="['pa-2 col-md-6 d-flex align-center', isMobile ? 'col-md-7' : 'col-md-6']">
+                  <v-card
+                    :class="[
+                      'pa-2 col-md-6 d-flex align-center',
+                      isMobile ? 'col-md-7' : 'col-md-6',
+                    ]"
+                  >
                     {{
                       board.title.stringValue.length > 16
                         ? board.title.stringValue.slice(0, 16) + "..."
@@ -101,9 +106,14 @@
                       isMobile ? 'none' : 'd-flex align-center',
                     ]"
                   >
-                    {{ board.date_year.integerValue + "년 " +
-                        board.date_month.integerValue + "월 " +
-                        board.date_day.integerValue + "일" }}
+                    {{
+                      board.date_year.integerValue +
+                      "년 " +
+                      board.date_month.integerValue +
+                      "월 " +
+                      board.date_day.integerValue +
+                      "일"
+                    }}
                   </v-card>
                 </v-row>
               </v-btn>

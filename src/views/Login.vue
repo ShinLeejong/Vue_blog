@@ -37,25 +37,14 @@
             required
           ></v-text-field>
           <v-row class="mx-6">
-            <v-checkbox
-              v-model="rememberID"
-              :label="'아이디 저장'"
-              >
+            <v-checkbox v-model="rememberID" :label="'아이디 저장'">
             </v-checkbox>
             <v-spacer></v-spacer>
-            <v-checkbox
-              v-model="rememberPW"
-              :label="'비밀번호 저장'"
-              >
+            <v-checkbox v-model="rememberPW" :label="'비밀번호 저장'">
             </v-checkbox>
           </v-row>
           <v-row justify="center">
-            <v-btn
-              text
-              class="success mb-4"
-              @click="submit"
-              :loading="loading"
-            >
+            <v-btn text class="success mb-4" @click="submit" :loading="loading">
               로그인
             </v-btn>
           </v-row>

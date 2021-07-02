@@ -1,42 +1,37 @@
 <template>
-  <div class="stuffs my-5">
+  <div class="notices my-5">
     <h1 class="subheading grey--text ml-6">Notice</h1>
 
     <v-container class="my-5">
       <v-expansion-panels>
         <v-expansion-panel
-          v-for="stuff in stuffs.slice(0 + 6 * (page - 1), 6 + 6 * (page - 1))"
-          :key="stuff.title"
+          v-for="notice in notices.slice(0 + 6 * (page - 1), 6 + 6 * (page - 1))"
+          :key="notice.title"
         >
           <v-expansion-panel-header>
-            <v-card-text>
-              {{ stuff.title }}
+            <v-card-text class="pa-6">
+              {{ notice.title }}
             </v-card-text>
             <v-card-text class="d-flex justify-end">
-              저자: {{ stuff.author }}
+              저자: {{ notice.author }}
             </v-card-text>
           </v-expansion-panel-header>
+          <v-divider></v-divider>
           <v-expansion-panel-content>
             <v-card flat>
-              <v-card-text class="pa-4">
+              <v-card-text class="pa-4 pt-12 pl-8">
                 <div>
                   <p>
-                    {{ stuff.content }}
+                    {{ notice.content }}
                   </p>
                 </div>
               </v-card-text>
             </v-card>
+            <v-divider class="mb-4 grey"></v-divider>
             <v-card flat>
               <v-card-text class="px-4 py-0 grey--text">
-                <div
-                  :class="
-                    stuff.masterpiece === '걸작' ? 'blue--text' : 'red--text'
-                  "
-                >
-                  {{ stuff.masterpiece === "걸작" ? "걸작" : "쓰레기" }}
-                </div>
-                <div class="font-weight-bold">due by {{ stuff.date }}</div>
-                <div>{{ stuff.author }}</div>
+                <div class="font-weight-bold">공지일: {{ notice.date }}</div>
+                <div>이종뚜, Shin Leejong</div>
               </v-card-text>
             </v-card>
           </v-expansion-panel-content>
@@ -46,21 +41,22 @@
         <v-btn class="ma-2" @click="page = 1">1</v-btn>
         <v-btn class="ma-2" @click="page = 2">2</v-btn>
       </v-container>
-      <v-btn v-if="show">글쓰기</v-btn>
+      <PostNotice />
       <!-- todo -->
     </v-container>
   </div>
 </template>
 
 <script>
-/* eslint-disable */
+import PostNotice from './PostNotice.vue';
+
 export default {
   data() {
     return {
       page: 1,
-      stuffs: [
+      notices: [
         {
-          title: "My First Vue stuff with Vuetify",
+          title: "My First Vue notice with Vuetify",
           author: "Shin Leejong",
           date: "2021-06-24",
           masterpiece: "걸작",
@@ -118,14 +114,17 @@ export default {
       ],
     };
   },
+  components: {
+    PostNotice
+  },
   computed: {
-    myStuffs() {
-      return this.stuffs.filter(
-        (stuff) => stuff.author === "신이종" || "Shin Leejong"
+    mynotices() {
+      return this.notices.filter(
+        (notice) => notice.author === "신이종" || "Shin Leejong"
       );
     },
     show() {
-      return this.$store.state.status.isLoggedIn;
+      return this.$store.state.status.name.stringValue === '신이종';
     }
   },
 };

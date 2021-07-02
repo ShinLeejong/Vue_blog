@@ -36,10 +36,23 @@
             prepend-icon="mdi-form-textbox-password"
             required
           ></v-text-field>
+          <v-row class="mx-6">
+            <v-checkbox
+              v-model="rememberID"
+              :label="'아이디 저장'"
+              >
+            </v-checkbox>
+            <v-spacer></v-spacer>
+            <v-checkbox
+              v-model="rememberPW"
+              :label="'비밀번호 저장'"
+              >
+            </v-checkbox>
+          </v-row>
           <v-row justify="center">
             <v-btn
               text
-              class="success ma-4 mt-12"
+              class="success mb-4"
               @click="submit"
               :loading="loading"
             >
@@ -69,6 +82,8 @@ export default {
         icon: "mdi-exit-to-app",
       },
       isLoggedIn: false,
+      rememberID: false,
+      rememberPW: false,
     };
   },
   methods: {
@@ -100,6 +115,20 @@ export default {
             return;
         } 
 
+        // Login confirmed, now look up checkboxes to store id
+          if(this.rememberID === true) {
+            localStorage.setItem("storedID", this.data.nickname);
+          } else {
+            localStorage.setItem("storedID", "");
+          }
+          if(this.rememberPW === true) {
+            localStorage.setItem("storedPW", this.data.password);
+          } else {
+            localStorage.setItem("storedPW", "");
+          }
+
+        // localstorage logic done
+
         this.$store.dispatch('updateStatus', fields);
         this.loading = false;
         this.dialog = false;
@@ -118,6 +147,12 @@ export default {
             else location.reload();
         }
     }
+  },
+  created() {
+    this.data.nickname = localStorage.getItem("storedID") || '';
+    if(this.data.nickname !== '') this.rememberID = true;
+    this.data.password = localStorage.getItem("storedPW") || '';
+    if(this.data.password !== '') this.rememberPW = true;
   },
 };
 </script>

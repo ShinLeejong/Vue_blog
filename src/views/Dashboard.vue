@@ -47,7 +47,7 @@
           </div>
         </v-card>
         <v-card :class="[isMobile ? 'mx-auto mb-8' : 'mb-8']" min-width="320">
-          <v-card-title class="mx-2 mb-2"> Board </v-card-title>
+          <v-card-title class="mx-2 mb-2"> Notice </v-card-title>
           <v-divider class="mx-4"></v-divider>
           <div class="v-list-item-group">
             <div
@@ -61,7 +61,7 @@
       </v-col>
       <v-col class="mx-6 my-12">
         <v-card :class="[isMobile ? 'mx-auto mb-8' : 'mb-8']" min-width="320">
-          <v-card-title class="mx-2 mb-2"> Notice </v-card-title>
+          <v-card-title class="mx-2 mb-2"> Board </v-card-title>
           <v-divider class="mx-4"></v-divider>
           <div class="v-list-item-group">
             <div
@@ -69,7 +69,23 @@
               :key="board.id"
               role="listitem"
               class="v-list-item"
-            ></div>
+            >
+              <template>
+                <v-container>
+                  <v-row>
+                    <v-card class="pa-2" outlined tile>
+                      {{board.author.stringValue}}
+                    </v-card>
+                    <v-card class="pa-2" outlined tile>
+                      {{board.title.stringValue}}
+                    </v-card>
+                    <v-card class="pa-2" outlined tile>
+                      {{board.date}}
+                    </v-card>
+                  </v-row>
+                </v-container>
+              </template>
+            </div>
           </div>
         </v-card>
         <v-card :class="[isMobile ? 'mx-auto mb-8' : 'mb-8']" min-width="320">
@@ -85,6 +101,8 @@
 <script>
 import Lee from "./Lee.vue";
 import { db, storage } from "../firebase.js";
+import timestameValueFormatter from '../components/timestampValueFormatter.js';
+
 export default {
   data() {
     return {
@@ -147,37 +165,26 @@ export default {
     });
 
     // Notice
-
     const noticeRef = db.collection("Notice");
-    const getNotices = noticeRef.orderBy("Date").limit(4).get();
-    console.log("getNotices : ", getNotices);
-
-    // db.collection("Notice").onSnapshot((res) => {
-    //   const changes = res.docChanges();
-    //   changes.forEach((item) => {
-    //     if (item.type === "added") {
-    //       this.boards.push({
-    //         ...item.doc.data(),
-    //       });
-    //     }});
-    // });
+    const getNotices = noticeRef.orderBy("date").limit(4).get();
+    getNotices.then(res => {
+      res.docs.forEach(ele => {
+        const {_delegate: {_document: {data: {value: {mapValue: {fields}}}}}} = ele;
+        this.notices.push(fields);
+      })
+    }).catch(err => console.error(err));
 
     // Board
-
     const boardRef = db.collection("Board");
-    const getBoards = boardRef.orderBy("Date").limit(4).get();
-    console.log("getBoards : ", getBoards);
-
-
-    // db.collection("Board").onSnapshot((res) => {
-    //   const changes = res.docChanges();
-    //   changes.forEach((item) => {
-    //     if (item.type === "added") {
-    //       this.boards.push({
-    //         ...item.doc.data(),
-    //       });
-    //     }});
-    // });
+    const getBoards = boardRef.orderBy("date").limit(4).get();
+    getBoards.then(res => {
+      res.docs.forEach(ele => {
+        const {_delegate: {_document: {data: {value: {mapValue: {fields}}}}}} = ele;
+        fields.date = timestameValueFormatter(fields.date.timestampValue);
+        this.boards.push(fields);
+      })
+    }).catch(err => console.error(err));
+    
   },
 };
 </script>

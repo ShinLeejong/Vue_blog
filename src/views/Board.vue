@@ -71,7 +71,7 @@ export default Vue.extend({
     },
   },
   created() {
-    db.collection("boards").onSnapshot((res) => {
+    db.collection("Board").onSnapshot((res) => {
       const changes = res.docChanges();
       changes.forEach((item) => {
         if (item.type === "added") {

@@ -53,7 +53,7 @@
 
     <v-navigation-drawer app v-model="drawer" class="success">
       <v-layout column align-center>
-        <v-flex class="mt-5">
+        <v-flex class="mt-12">
           <v-avatar size="100" class="center">
             <img :src="status.avatar" alt="" />
           </v-avatar>
@@ -70,7 +70,7 @@
           &#8451;
         </span>
       </v-flex>
-      <v-list>
+      <v-list class="mt-4">
         <v-list-item
           v-for="link in links"
           :key="link.text"

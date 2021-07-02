@@ -52,7 +52,7 @@
           <div class="v-list-item-group">
             <div
               v-for="notice in notices"
-              :key="notice.id"
+              :key="notice.id.integerValue"
               role="listitem"
               class="v-list-item"
             ></div>
@@ -66,7 +66,7 @@
           <div class="v-list-item-group">
             <div
               v-for="board in boards"
-              :key="board.id"
+              :key="board.title.stringValue"
               role="listitem"
               class="v-list-item d-flex align-center"
             >
@@ -198,7 +198,7 @@ export default {
 
     // Notice
     const noticeRef = db.collection("Notice");
-    const getNotices = noticeRef.orderBy("date").limit(4).get();
+    const getNotices = noticeRef.orderBy("id").limit(4).get();
     getNotices
       .then((res) => {
         res.docs.forEach((ele) => {
@@ -220,7 +220,7 @@ export default {
 
     // Board
     const boardRef = db.collection("Board");
-    const getBoards = boardRef.orderBy("date").limitToFirst(6).get();
+    const getBoards = boardRef.orderBy("date").limit(6).get();
     getBoards
       .then((res) => {
         res.docs.forEach((ele) => {

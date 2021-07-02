@@ -147,8 +147,26 @@ export default {
     });
 
     // Notice
+    db.collection("Notice").onSnapshot((res) => {
+      const changes = res.docChanges();
+      changes.forEach((item) => {
+        if (item.type === "added") {
+          this.boards.push({
+            ...item.doc.data(),
+          });
+        }});
+    });
 
     // Board
+    db.collection("Board").onSnapshot((res) => {
+      const changes = res.docChanges();
+      changes.forEach((item) => {
+        if (item.type === "added") {
+          this.boards.push({
+            ...item.doc.data(),
+          });
+        }});
+    });
   },
 };
 </script>

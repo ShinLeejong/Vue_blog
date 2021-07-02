@@ -37,7 +37,12 @@
             required
           ></v-text-field>
           <v-row justify="center">
-            <v-btn text class="success ma-2" @click="submit" :loading="loading">
+            <v-btn
+              text
+              class="success ma-4 mt-12"
+              @click="submit"
+              :loading="loading"
+            >
               로그인
             </v-btn>
           </v-row>
@@ -48,7 +53,6 @@
 </template>
 <script>
 import { db } from "../firebase.js";
-import { store } from "../components/store/store";
 // 나이 will be auto-generated in logic part
 export default {
   /* eslint-disable */

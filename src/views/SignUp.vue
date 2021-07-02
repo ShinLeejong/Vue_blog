@@ -22,12 +22,18 @@
               v-model.lazy="team.name"
               prepend-icon="mdi-id-card"
             ></v-text-field>
+            <v-layout xs12 md6 lg4 sm3>
             <v-text-field
               label="별명"
               v-model.lazy="team.nickname"
               placeholder="후에 아이디처럼 사용됩니다."
               prepend-icon="mdi-format-title"
+              :readonly="readonly_nickname"
+              :loading="validating"
             ></v-text-field>
+            <v-btn class="primary" @click="onValidateIdBtn">중복 확인</v-btn>   
+            </v-layout>
+            <span id="validateResult" class="offset-md-1"></span>           
             <v-text-field
               label="비밀번호"
               :type="'password'"
@@ -43,7 +49,7 @@
             <v-layout xs12 md6 lg4 sm3>
               <v-text-field
                 label="프로필 사진"
-                prepend-icon="mdi-lock-open-check-outline"
+                prepend-icon="mdi-face-recognition"
                 readonly
               >
               </v-text-field>
@@ -162,8 +168,10 @@ export default {
         role: '',
         sex: '',
       },
+        validating: false,
         loading: false,
         dialog: false,
+        readonly_nickname: false,
         photo: {
           name: '',
         },
@@ -207,6 +215,25 @@ export default {
     },
     onPickFile: function () {
       this.$refs.fileInput.click();
+    },
+    onValidateIdBtn: async function () {
+      const nickname = this.team.nickname;
+      this.validating = true;
+      const ref = db.collection("Team");
+      const getData = await ref.where('nickname', '==', nickname).get();
+      if(getData._delegate.docs.length !== 0) {
+        alert("중복되는 별명입니다.\n" +
+                "다른 별명을 정해주세요.") 
+      } else {
+        const result = window.confirm("사용할 수 있는 별명입니다. \n" +  
+                                        "이 별명을 사용하시겠습니까?");
+        if(result) {
+          this.readonly_nickname = true;
+          alert(`${nickname} 으로 선택되었습니다.`);
+        }
+      }
+      this.validating = false;
+      return;
     },
     onProfilePictureChange: function (e) {
       const {target: {files}} = e;

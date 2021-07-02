@@ -9,8 +9,9 @@
       <v-app-bar-nav-icon
         class="grey--text"
         @click="onNavIconClicked"
-        alt="
-        app-bar-nav-icon"
+        aria-selected="true"
+        aria-labelledby="v-app-bar-nav-icon"
+        role="opens nav bar"
       >
       </v-app-bar-nav-icon>
       <v-app-bar-title class="text-capitalize app-bar-title-navbar">
@@ -89,9 +90,7 @@
       <v-list>
         <v-list-item class="v-list-item-setting" @click="onSettingClicked">
           <v-list-item-action>
-            <v-icon class="white--text">
-              mdi-image-filter-tilt-shift
-            </v-icon>
+            <v-icon class="white--text"> mdi-image-filter-tilt-shift </v-icon>
           </v-list-item-action>
           <v-list-item-content>
             <v-list-item-title class="white--text">
@@ -151,8 +150,8 @@ export default {
       this.submitDone = false;
     },
     onSettingClicked: function () {
-      console.log("HI")
-    }
+      console.log("HI");
+    },
   },
   computed: {
     randomColor() {

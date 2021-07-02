@@ -117,6 +117,7 @@ export default {
         text: "See the whole team members...",
         route: "/team",
       },
+      init: false,
     };
   },
   components: {
@@ -168,27 +169,32 @@ export default {
     });
 
     // Notice
-    const noticeRef = db.collection("Notice");
-    const getNotices = noticeRef.orderBy("date").limit(4).get();
-    getNotices.then(res => {
-      res.docs.forEach(ele => {
-        const {_delegate: {_document: {data: {value: {mapValue: {fields}}}}}} = ele;
-        this.notices.push(fields);
-      })
-    }).catch(err => console.error(err));
+    if(this.init === false) {
+      const noticeRef = db.collection("Notice");
+      const getNotices = noticeRef.orderBy("date").limit(4).get();
+      getNotices.then(res => {
+        res.docs.forEach(ele => {
+          const {_delegate: {_document: {data: {value: {mapValue: {fields}}}}}} = ele;
+          this.notices.push(fields);
+        })
+      }).catch(err => console.error(err));      
+    }
+ 
 
     // Board
-    const boardRef = db.collection("Board");
-    const getBoards = boardRef.orderBy("date").limit(4).get();
-    getBoards.then(res => {
-      res.docs.forEach(ele => {
-        const {_delegate: {_document: {data: {value: {mapValue: {fields}}}}}} = ele;
-        fields.date = timestameValueFormatter(fields.date.timestampValue);
-        // fields.chip;
-        this.boards.push(fields);
-      })
-    }).catch(err => console.error(err));
-    
+    if(this.init === false) {
+      const boardRef = db.collection("Board");
+      const getBoards = boardRef.orderBy("date").limit(4).get();
+      getBoards.then(res => {
+        res.docs.forEach(ele => {
+          const {_delegate: {_document: {data: {value: {mapValue: {fields}}}}}} = ele;
+          fields.date = timestameValueFormatter(fields.date.timestampValue);
+          this.boards.push(fields);
+        })
+      }).catch(err => console.error(err));      
+    }
+
+    this.init = true;
   },
 };
 </script>

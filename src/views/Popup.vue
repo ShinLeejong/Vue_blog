@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-dialog max-width="20rem" v-model="dialog" v-if="show">
+    <v-dialog max-width="24rem" v-model="dialog" v-if="show">
       <template v-slot:activator="{ on }">
         <v-btn text v-on="on" class="error">Add new stuff</v-btn>
       </template>
@@ -15,6 +15,14 @@
         <v-card-text>
           <v-form class="pa-3" ref="form">
             <v-text-field
+              label="글쓴이"
+              v-model="author"
+              prepend-icon="mdi-pencil-box-outline"
+              readonly
+            >
+
+            </v-text-field>
+            <v-text-field
               label="제목"
               v-model.lazy="title"
               prepend-icon="mdi-table-of-contents"
@@ -26,9 +34,11 @@
               prepend-icon="mdi-content-paste"
               :rules="rules"
             ></v-textarea>
-            <v-btn text class="success" @click="submit" :loading="loading"
-              >추가</v-btn
-            >
+            <v-row justify="center" class="mt-2">
+              <v-btn text class="success" @click="submit" :loading="loading"
+                >추가</v-btn
+              >              
+            </v-row>
           </v-form>
         </v-card-text>
       </v-card>
@@ -56,8 +66,10 @@ export default {
         const stuff = {
           title: this.title,
           content: this.content,
+          date: new Date(),
+          author: this.author,
         };
-        db.collection("stuffs")
+        db.collection("Board")
           .add(stuff)
           .then((data) => {
             console.log(data);
@@ -65,6 +77,7 @@ export default {
             this.dialog = false;
             this.title = "";
             this.content = "";
+            console.log(this.author);
             this.$emit("stuffSubmitted");
             alert("추가되었습니다!");
           });
@@ -74,10 +87,13 @@ export default {
     },
   },
   computed: {
+    author() {
+      return this.$store.state.status.nickname.stringValue;
+    },
     show() {
-      return this.$store.state.status.isLoggedIn
+      return this.$store.state.status.isLoggedIn;
     }
-  }
+  },
 };
 </script>
 <style></style>

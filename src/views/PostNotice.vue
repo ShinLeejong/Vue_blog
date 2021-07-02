@@ -69,17 +69,20 @@ export default {
           date_day: date.getDate(),
           date,
         };
-        db.collection("Notice")
-          .add(stuff)
-          .then((data) => {
-            console.log(data);
-            this.loading = false;
-            this.dialog = false;
-            this.title = "";
-            this.content = "";
-            this.$emit("stuffSubmitted");
-            alert("추가되었습니다!");
-          });
+        db.collection('Notice').get().then(snapshot => {
+            stuff.id = snapshot.size + 1;
+            db.collection("Notice")
+            .add(stuff)
+            .then((data) => {
+                console.log(data);
+                this.loading = false;
+                this.dialog = false;
+                this.title = "";
+                this.content = "";
+                this.$emit("stuffSubmitted");
+                alert("추가되었습니다!");
+            });            
+        });
       } else {
         alert("게시물을 추가할 조건을 만족하지 않습니다.");
       }

@@ -5,15 +5,15 @@
     <v-container class="my-5">
       <v-expansion-panels>
         <v-expansion-panel
-          v-for="notice in notices.slice(0 + 6 * (page - 1), 6 + 6 * (page - 1))"
-          :key="notice.title"
+          v-for="notice in notices"
+          :key="notice.id"
         >
           <v-expansion-panel-header>
             <v-card-text class="pa-6">
-              {{ notice.title }}
+              {{ notice.title.stringValue }}
             </v-card-text>
             <v-card-text class="d-flex justify-end">
-              저자: {{ notice.author }}
+              저자: 이종뚜
             </v-card-text>
           </v-expansion-panel-header>
           <v-divider></v-divider>
@@ -22,7 +22,7 @@
               <v-card-text class="pa-4 pt-12 pl-8">
                 <div>
                   <p>
-                    {{ notice.content }}
+                    {{ notice.content.stringValue }}
                   </p>
                 </div>
               </v-card-text>
@@ -30,7 +30,9 @@
             <v-divider class="mb-4 grey"></v-divider>
             <v-card flat>
               <v-card-text class="px-4 py-0 grey--text">
-                <div class="font-weight-bold">공지일: {{ notice.date }}</div>
+                <div class="font-weight-bold">
+                  공지일: {{ `${notice.date_year.integerValue}년 ${notice.date_month.integerValue}월 ${notice.date_day.integerValue}일`}}
+                </div>
                 <div>이종뚜, Shin Leejong</div>
               </v-card-text>
             </v-card>
@@ -49,69 +51,14 @@
 
 <script>
 import PostNotice from './PostNotice.vue';
+import { db } from '../firebase.js';
 
 export default {
   data() {
     return {
       page: 1,
-      notices: [
-        {
-          title: "My First Vue notice with Vuetify",
-          author: "Shin Leejong",
-          date: "2021-06-24",
-          masterpiece: "걸작",
-          content: "이거 생각보다 재밌네 ㅋㅋ",
-        },
-        {
-          title: "Vuetify is so awesome",
-          author: "Shin Leejong",
-          date: "2021-06-23",
-          masterpiece: "걸작",
-          content: "Vuetify 진짜 좋다",
-        },
-        {
-          title: "한글로도 뭔가 적어야지",
-          author: "신이종",
-          date: "2021-06-24",
-          masterpiece: "쓰레기",
-          content: "영어로만 적으면 섭섭해",
-        },
-        {
-          title: "미래에서 온 소년",
-          author: "신이종",
-          date: "2022-06-24",
-          masterpiece: "걸작",
-          content: "2022년에는 차가 날아다녀요",
-        },
-        {
-          title: "A Cowboy From The Past",
-          author: "Lee Yein",
-          date: "2020-02-02",
-          masterpiece: "걸작",
-          content: "Ddagudak-Ddagudak",
-        },
-        {
-          title: "다음의 결산정리 사항에 대하여",
-          author: "이니뚜",
-          date: "2020-03-04",
-          masterpiece: "걸작",
-          content: "회계를 너무 좋아하는 예인이",
-        },
-        {
-          title: "에베벨베레벨베렙ㄼㄹ",
-          author: "이예인",
-          date: "2020-04-03",
-          masterpiece: "쓰레기",
-          content: "아직도 옹알이를 하는 예인이",
-        },
-        {
-          title: "A stock for the purpose of long-term investment",
-          author: "Lee Niddo",
-          date: "1997-03-29",
-          masterpiece: "쓰레기",
-          content: "Yein loves money",
-        },
-      ],
+      total_page: 0,
+      notices: [],
     };
   },
   components: {
@@ -126,6 +73,19 @@ export default {
     show() {
       return this.$store.state.status.name.stringValue === '신이종';
     }
+  },
+  created() {
+    const noticeRef = db.collection("Notice");
+    noticeRef.get().then(async (snap) => {
+      this.total_page = Math.floor(snap.size / 6 + 1);
+      const getNotices = await noticeRef.where('id', '<=', this.page * 6).get();
+      getNotices._delegate.docs.forEach(ele => {
+        this.notices.push({
+          ...ele._document.data.value.mapValue.fields,
+        })
+      })
+    });
+    console.log(this.notices)
   },
 };
 </script>

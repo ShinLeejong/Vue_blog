@@ -220,7 +220,7 @@ export default {
 
     // Board
     const boardRef = db.collection("Board");
-    const getBoards = boardRef.orderBy("date").limit(6).get();
+    const getBoards = boardRef.orderBy("date").limitToFirst(6).get();
     getBoards
       .then((res) => {
         res.docs.forEach((ele) => {

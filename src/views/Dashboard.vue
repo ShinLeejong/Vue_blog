@@ -59,7 +59,7 @@
           </div>
         </v-card>
       </v-col>
-      <v-col class="mx-6 my-12">
+      <v-col class="my-12">
         <v-card :class="[isMobile ? 'mx-auto mb-8' : 'mb-8']" min-width="320">
           <v-card-title class="mx-2 mb-2"> Board </v-card-title>
           <v-divider class="mx-4"></v-divider>
@@ -68,23 +68,26 @@
               v-for="board in boards"
               :key="board.id"
               role="listitem"
-              class="v-list-item"
+              class="v-list-item d-flex align-center"
             >
-              <template>
-                <v-container>
-                  <v-row>
-                    <v-card class="pa-2" outlined tile>
-                      {{board.author.stringValue}}
-                    </v-card>
-                    <v-card class="pa-2" outlined tile>
-                      {{board.title.stringValue}}
-                    </v-card>
-                    <v-card class="pa-2" outlined tile>
-                      {{board.date}}
-                    </v-card>
-                  </v-row>
-                </v-container>
-              </template>
+              <v-btn rounded block class="pa-1">
+                <v-row>
+                  <v-card border="right" :class="['pa-2 col-md-3', isMobile ? 'none' : 'd-flex align-center']">
+                    <v-chip small color="purple" v-if="board.author.stringValue === '이종뚜' && !isMobile">
+                      대장
+                    </v-chip>
+                      &nbsp;{{board.author.stringValue}}   
+                  </v-card>
+                  <v-card class="pa-2 col-md-6 d-flex align-center">
+                    {{board.title.stringValue.length > 8 ?
+                      board.title.stringValue.slice(0, 9) + "..." :
+                      board.title.stringValue}}
+                  </v-card>
+                  <v-card :class="['pa-2 col-md-3', isMobile ? 'none' : 'd-flex align-center']">
+                    {{board.date}}
+                  </v-card>
+                </v-row>                
+              </v-btn>
             </div>
           </div>
         </v-card>
@@ -181,6 +184,7 @@ export default {
       res.docs.forEach(ele => {
         const {_delegate: {_document: {data: {value: {mapValue: {fields}}}}}} = ele;
         fields.date = timestameValueFormatter(fields.date.timestampValue);
+        // fields.chip;
         this.boards.push(fields);
       })
     }).catch(err => console.error(err));
@@ -188,4 +192,9 @@ export default {
   },
 };
 </script>
-<style></style>
+<style>
+.none {
+  display: none;
+}
+
+</style>

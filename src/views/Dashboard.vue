@@ -147,26 +147,37 @@ export default {
     });
 
     // Notice
-    db.collection("Notice").onSnapshot((res) => {
-      const changes = res.docChanges();
-      changes.forEach((item) => {
-        if (item.type === "added") {
-          this.boards.push({
-            ...item.doc.data(),
-          });
-        }});
-    });
+
+    const noticeRef = db.collection("Notice");
+    const getNotices = noticeRef.orderBy("Date").limit(4).get();
+    console.log("getNotices : ", getNotices);
+
+    // db.collection("Notice").onSnapshot((res) => {
+    //   const changes = res.docChanges();
+    //   changes.forEach((item) => {
+    //     if (item.type === "added") {
+    //       this.boards.push({
+    //         ...item.doc.data(),
+    //       });
+    //     }});
+    // });
 
     // Board
-    db.collection("Board").onSnapshot((res) => {
-      const changes = res.docChanges();
-      changes.forEach((item) => {
-        if (item.type === "added") {
-          this.boards.push({
-            ...item.doc.data(),
-          });
-        }});
-    });
+
+    const boardRef = db.collection("Board");
+    const getBoards = boardRef.orderBy("Date").limit(4).get();
+    console.log("getBoards : ", getBoards);
+
+
+    // db.collection("Board").onSnapshot((res) => {
+    //   const changes = res.docChanges();
+    //   changes.forEach((item) => {
+    //     if (item.type === "added") {
+    //       this.boards.push({
+    //         ...item.doc.data(),
+    //       });
+    //     }});
+    // });
   },
 };
 </script>

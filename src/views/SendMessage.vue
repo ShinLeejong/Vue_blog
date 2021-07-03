@@ -3,7 +3,7 @@
     <v-dialog max-width="32rem" v-model="dialog">
       <template v-slot:activator="{ on }">
         <v-btn text v-on="on" class="purple white--text ma-2 ml-4"
-          >메시지 보내기</v-btn
+          >쪽지 보내기</v-btn
         >
       </template>
       <v-card>

@@ -29,7 +29,7 @@
         <div class="grey--text">spinburgjexer@gmail.com</div>
       </v-row>
       <div class="mt-3 mx-2">Lee's Blog의 개발자입니다.</div>
-      <div class="mx-2">부족한 점 하단을 통해 많은 메시지 보내주세요.</div>
+      <div class="mx-2">부족한 점 하단을 통해 많은 쪽지 보내주세요.</div>
     </v-card-text>
     <v-divider class="mx-4"></v-divider>
     <v-card-title class="mx-2">취미</v-card-title>
@@ -47,7 +47,9 @@
       </v-chip-group>
     </v-card-text>
     <v-divider class="mx-4"></v-divider>
-    <SendMessage />
+    <v-row justify="center" class="mt-1 mb-1">
+      <SendMessage />  
+    </v-row>
   </v-card>
 </template>
 <script>

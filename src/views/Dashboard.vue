@@ -65,11 +65,7 @@
                       isMobile ? 'none' : 'd-flex align-center',
                     ]"
                   >
-                    <v-chip
-                      small
-                      color="purple"
-                      v-if="!isMobile"
-                    >
+                    <v-chip small color="purple" v-if="!isMobile">
                       대장
                     </v-chip>
                   </v-card>
@@ -91,7 +87,9 @@
                       isMobile ? 'none' : 'd-flex align-center',
                     ]"
                   >
-                    {{ `${notice.date_year.integerValue}.${notice.date_month.integerValue}.${notice.date_day.integerValue}` }}
+                    {{
+                      `${notice.date_year.integerValue}.${notice.date_month.integerValue}.${notice.date_day.integerValue}`
+                    }}
                   </v-card>
                 </v-row>
               </v-btn>

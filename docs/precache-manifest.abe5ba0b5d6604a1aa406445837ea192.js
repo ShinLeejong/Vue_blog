@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "def4a52aa29c964b2cca",
+    "revision": "f48902458820aa95a5a5",
     "url": "/Vue_blog/css/app.4139c875.css"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Vue_blog/css/chunk-152bd9ba.504f56ba.css"
   },
   {
-    "revision": "b4e1467b19a9f5aadb5c",
+    "revision": "4ebd647b429ea7cab02f",
     "url": "/Vue_blog/css/chunk-3b7f74cb.606a46d3.css"
   },
   {
@@ -24,20 +24,20 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/Vue_blog/img/Guest.92ed984e.jpg"
   },
   {
-    "revision": "d538bafc099451531f417413dc8a4afe",
+    "revision": "67e64b892435883a1a73441b532c648f",
     "url": "/Vue_blog/index.html"
   },
   {
-    "revision": "def4a52aa29c964b2cca",
-    "url": "/Vue_blog/js/app.4ddcdb18.js"
+    "revision": "f48902458820aa95a5a5",
+    "url": "/Vue_blog/js/app.a43f0f66.js"
   },
   {
     "revision": "cccb41bf3ef696ad8d29",
     "url": "/Vue_blog/js/chunk-152bd9ba.dc89eb8f.js"
   },
   {
-    "revision": "b4e1467b19a9f5aadb5c",
-    "url": "/Vue_blog/js/chunk-3b7f74cb.8336700a.js"
+    "revision": "4ebd647b429ea7cab02f",
+    "url": "/Vue_blog/js/chunk-3b7f74cb.91bada5f.js"
   },
   {
     "revision": "c8d08e50d52d4ac8808a",

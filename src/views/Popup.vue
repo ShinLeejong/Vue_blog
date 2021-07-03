@@ -69,6 +69,8 @@ export default {
           date_year: date.getFullYear(),
           date_month: date.getMonth() + 1,
           date_day: date.getDate(),
+          date_hour: date.getHours(),
+          date_minute: date.getMinutes(),
           author: this.author,
           date,
         };

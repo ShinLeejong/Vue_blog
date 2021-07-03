@@ -24,7 +24,7 @@
       </v-flex>
       <v-card
         flat
-        class="silver lighten-5 pa-3"
+        class="silver lighten-5 pa-3 board-v-card"
         v-for="board in boards"
         :key="board.id"
       >
@@ -39,7 +39,18 @@
           </v-flex>
           <v-flex xs6 sm6 md3>
             <div class="caption grey--text">Date</div>
-            <div>{{ board.date }}</div>
+            <div :class="isMobile ? 'none': ''">
+              {{ board.date_year }}년&nbsp;
+              {{ board.date_month }}월&nbsp;
+                {{ board.date_day }}일&nbsp;
+                {{ board.date_hour }}시&nbsp;
+                {{ board.date_minute }}분
+            </div>
+            <div :class="[isMobile ? '': 'none']">
+              {{ board.date_month }}월&nbsp;
+                {{ board.date_day }}일&nbsp;
+                {{ board.date_hour }}:{{ board.date_minute }}
+            </div>
           </v-flex>
         </v-layout>
       </v-card>
@@ -70,6 +81,24 @@ export default Vue.extend({
       return this.boards.filter((ele) => ele.author === selection);
     },
   },
+  computed: {
+    isMobile() {
+      switch (this.$vuetify.breakpoint.name) {
+        case "xs":
+          return true;
+        case "sm":
+          return true;
+        case "md":
+          return false;
+        case "lg":
+          return false;
+        case "xl":
+          return false;
+        default:
+          return false;
+      }
+    },
+  },
   created() {
     db.collection("Board").onSnapshot((res) => {
       const changes = res.docChanges();
@@ -92,3 +121,19 @@ export default Vue.extend({
   },
 });
 </script>
+
+<style>
+  .board-v-card:hover {
+    opacity: 0.6;
+  }
+
+  .board-v-card::after {
+    display: block;
+    content: '';
+    position: absolute;
+    width: 95%;
+    height: 1px;
+    top: 98%;
+    background: silver;
+  }
+</style>

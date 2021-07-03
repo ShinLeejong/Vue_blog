@@ -42,7 +42,7 @@
       </v-expansion-panels>
       <v-container>
         <v-row v-for="(page, idx) in total_page" :key="page" class="mt-2">
-          <v-btn class="ma-2" @click="page = idx + 1">{{idx + 1}}</v-btn>      
+          <v-btn class="ma-2" @click="page = idx + 1">{{ idx + 1 }}</v-btn>
         </v-row>
       </v-container>
       <PostNotice />

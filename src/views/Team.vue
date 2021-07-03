@@ -5,17 +5,17 @@
     <v-container class="my-5">
       <v-layout row wrap>
         <v-flex xs12 sm6 md4 lg3 v-for="mate in teams" :key="mate.nickname">
-          <v-card class="text-center ma-3">
+          <v-card class="text-center ma-3 team-card"
+            @click.stop="onCardClicked(mate.nickname)">
             <v-responsive class="pt-4">
-                <v-avatar
-                  size="104"
-                  class="purple lighten-3 team-avatar"
-                  @click.stop="onAvatarClicked(mate.nickname)"
-                >
-                  <v-avatar size="100">
-                    <img :src="mate.avatar" :alt="mate.name + '\'s avatar'" />
-                  </v-avatar>
+              <v-avatar
+                size="104"
+                class="purple lighten-3"
+              >
+                <v-avatar size="100">
+                  <img :src="mate.avatar" :alt="mate.name + '\'s avatar'" />
                 </v-avatar>
+              </v-avatar>
               <v-dialog v-model="dialog" max-width="480">
                 <v-card
                   :loading="loading"
@@ -29,7 +29,7 @@
                       indeterminate
                     ></v-progress-linear>
                   </template>
-                  <v-responsive :aspect-ratio="3/2">
+                  <v-responsive :aspect-ratio="3 / 2">
                     <v-img height="320" :src="selected.avatar"></v-img>
                   </v-responsive>
 
@@ -112,10 +112,10 @@
               <div class="grey--text">{{ mate.hobby }}</div>
             </v-card-text>
             <v-card-actions>
-              <v-btn text color="grey" class="justify-start">
+              <v-row class="mx-2 mb-1">
                 <v-icon small left>mdi-email</v-icon>
-                <span class="text-lowercase">{{ mate.email }}</span>
-              </v-btn>
+                <span class="text-lowercase grey--text">{{ mate.email }}</span>
+              </v-row>
             </v-card-actions>
           </v-card>
         </v-flex>
@@ -148,7 +148,7 @@ export default {
     SignUp,
   },
   methods: {
-    onAvatarClicked: function (nickname) {
+    onCardClicked: function (nickname) {
       this.selected = {};
       this.dialog = true;
       const teamRef = db.collection("Team");
@@ -233,7 +233,7 @@ export default {
 };
 </script>
 <style>
-.team-avatar:hover {
+.team-card:hover {
   opacity: 0.8;
 }
 </style>

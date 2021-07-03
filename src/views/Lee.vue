@@ -7,8 +7,8 @@
         indeterminate
       ></v-progress-linear>
     </template>
-    <v-responsive :aspect-ratio="4/3">
-      <v-img height="240" :src="Lee_avatar"></v-img>      
+    <v-responsive :aspect-ratio="4 / 3">
+      <v-img height="240" :src="Lee_avatar"></v-img>
     </v-responsive>
 
     <v-card-title class="mx-2 mb-2">Lee, Shin Leejong</v-card-title>

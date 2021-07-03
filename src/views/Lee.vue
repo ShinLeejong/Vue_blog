@@ -59,7 +59,7 @@ import SendMessage from "./SendMessage.vue";
 export default {
   data: () => ({
     loading: false,
-    selection: 1,
+    selection: 0,
     Lee_avatar: "",
   }),
 

@@ -11,7 +11,15 @@
         <v-flex xs6 md1 class="d-flex ml-6 mb-4 align-center">
           <v-tooltip top>
             <template v-slot:activator="{ on }">
-              <v-btn color="pink" v-on:click="team === '' ? alert('골라 볼 멤버를 먼저 선택해주세요.') : sort(team)" v-on="on">
+              <v-btn
+                color="pink"
+                v-on:click="
+                  team === ''
+                    ? alert('골라 볼 멤버를 먼저 선택해주세요.')
+                    : sort(team)
+                "
+                v-on="on"
+              >
                 <v-icon>mdi-folder</v-icon>
               </v-btn>
             </template>
@@ -43,17 +51,14 @@
           </v-flex>
           <v-flex xs6 sm6 md3>
             <div class="caption grey--text">Date</div>
-            <div :class="isMobile ? 'none': ''">
-              {{ board.date_year }}년&nbsp;
-              {{ board.date_month }}월&nbsp;
-                {{ board.date_day }}일&nbsp;
-                {{ board.date_hour }}시&nbsp;
-                {{ board.date_minute }}분
+            <div :class="isMobile ? 'none' : ''">
+              {{ board.date_year }}년&nbsp; {{ board.date_month }}월&nbsp;
+              {{ board.date_day }}일&nbsp; {{ board.date_hour }}시&nbsp;
+              {{ board.date_minute }}분
             </div>
-            <div :class="[isMobile ? '': 'none']">
-              {{ board.date_month }}월&nbsp;
-                {{ board.date_day }}일&nbsp;
-                {{ board.date_hour }}:{{ board.date_minute }}
+            <div :class="[isMobile ? '' : 'none']">
+              {{ board.date_month }}월&nbsp; {{ board.date_day }}일&nbsp;
+              {{ board.date_hour }}:{{ board.date_minute }}
             </div>
           </v-flex>
         </v-layout>
@@ -73,7 +78,7 @@ export default Vue.extend({
     return {
       boards: [],
       submitDone: false,
-      teams: ["모두 보기",],
+      teams: ["모두 보기"],
       team: "",
     };
   },
@@ -82,41 +87,42 @@ export default Vue.extend({
   },
   methods: {
     alert(prop) {
-      alert(prop)
+      alert(prop);
     },
     sort: function (selection) {
       const boardRef = db.collection("Board");
       this.boards = [];
-      if(selection === "모두 보기") {
-        boardRef.onSnapshot(res => {
+      if (selection === "모두 보기") {
+        boardRef.onSnapshot((res) => {
           const changes = res.docChanges();
-          changes.forEach(item => {
+          changes.forEach((item) => {
             this.boards.push({
               ...item.doc.data(),
-            })
-          })
-        })
+            });
+          });
+        });
       } else {
-        boardRef.where('author', '==', selection)
+        boardRef
+          .where("author", "==", selection)
           .get()
-          .then(ele => {
-          if(ele.size === 0) {
-            alert("이 사람은 아직 작성한 글이 없어요!");
-            return this.sort("모두 보기");
-          }
-          ele.docs.forEach(board => {
-            const {
-              _delegate: {
-                _document: {
-                  data: {
-                    value: {
-                      mapValue: { fields },
+          .then((ele) => {
+            if (ele.size === 0) {
+              alert("이 사람은 아직 작성한 글이 없어요!");
+              return this.sort("모두 보기");
+            }
+            ele.docs.forEach((board) => {
+              const {
+                _delegate: {
+                  _document: {
+                    data: {
+                      value: {
+                        mapValue: { fields },
+                      },
                     },
                   },
                 },
-              },
-            } = board;
-            this.boards.push({
+              } = board;
+              this.boards.push({
                 date_year: fields.date_year.integerValue,
                 date_month: fields.date_month.integerValue,
                 date_day: fields.date_day.integerValue,
@@ -124,12 +130,12 @@ export default Vue.extend({
                 date_minute: fields.date_minute.integerValue,
                 title: fields.title.stringValue,
                 author: fields.author.stringValue,
+              });
+              if (this.boards.length === 0) {
+                alert("이 사람은 아직 작성한 글이 없네요.");
+              }
             });
-            if(this.boards.length === 0) {
-              alert("이 사람은 아직 작성한 글이 없네요.");
-            }
           });
-      });
       }
     },
   },
@@ -175,17 +181,17 @@ export default Vue.extend({
 </script>
 
 <style>
-  .board-v-card:hover {
-    opacity: 0.6;
-  }
+.board-v-card:hover {
+  opacity: 0.6;
+}
 
-  .board-v-card::after {
-    display: block;
-    content: '';
-    position: absolute;
-    width: 95%;
-    height: 1px;
-    top: 98%;
-    background: silver;
-  }
+.board-v-card::after {
+  display: block;
+  content: "";
+  position: absolute;
+  width: 95%;
+  height: 1px;
+  top: 98%;
+  background: silver;
+}
 </style>

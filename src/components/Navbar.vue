@@ -97,21 +97,22 @@
               My Settings
             </v-list-item-title>
           </v-list-item-content>
-          <v-dialog
-            v-model="settingDialog"
-            max-width="400"
-           >
-            <v-card :loading="settingLoading" max-width="400" class="pt-4 px-4 pb-8">
+          <!-- Dialog of Setting -->
+          <v-dialog v-model="settingDialog" max-width="400">
+            <v-card
+              :loading="settingLoading"
+              max-width="400"
+              class="pt-4 px-4 pb-8"
+            >
               <v-list-item>
                 <v-list-item-title class="text-center">
                   설정
                 </v-list-item-title>
               </v-list-item>
-                <v-card>
-                  Hi
-                </v-card>
+              <v-card> Hi </v-card>
             </v-card>
           </v-dialog>
+          <!-- Dialog of Setting -->
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
@@ -177,7 +178,7 @@ export default {
       switch (random) {
         case 5:
           colorOne = "error";
-          colorTwo = "pink";
+          colorTwo = "pink darken-2";
           break;
         case 4:
           colorOne = "indigo";
@@ -196,12 +197,12 @@ export default {
           colorTwo = "primary";
           break;
         case 0:
-          colorOne = "pink";
+          colorOne = "pink lighten-2";
           colorTwo = "info";
           break;
         default:
           colorOne = "error";
-          colorTwo = "pink";
+          colorTwo = "pink darken-2";
       }
       return [colorOne, colorTwo];
     },

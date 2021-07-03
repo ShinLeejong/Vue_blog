@@ -4,7 +4,7 @@ import { store } from "./store/store";
 
 const onSuccess = (position): void => {
   const {
-    coords: { latitude , longitude },
+    coords: { latitude, longitude },
   } = position;
   const URL = `http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${WEATHER_API_KEY}&units=metric`;
   axios

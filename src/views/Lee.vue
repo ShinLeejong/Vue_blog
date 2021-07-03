@@ -48,7 +48,7 @@
     </v-card-text>
     <v-divider class="mx-4"></v-divider>
     <v-row justify="center" class="mt-1 mb-1">
-      <SendMessage />  
+      <SendMessage />
     </v-row>
   </v-card>
 </template>

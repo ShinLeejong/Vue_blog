@@ -7,16 +7,21 @@
         <v-flex xs12 sm6 md4 lg3 v-for="mate in teams" :key="mate.nickname">
           <v-card class="text-center ma-3">
             <v-responsive class="pt-4">
-              <v-avatar size="104" class="purple lighten-3 team-avatar" @click.stop="onAvatarClicked(mate.nickname)">
+              <v-avatar
+                size="104"
+                class="purple lighten-3 team-avatar"
+                @click.stop="onAvatarClicked(mate.nickname)"
+              >
                 <v-avatar size="100">
                   <img :src="mate.avatar" :alt="mate.name + '\'s avatar'" />
                 </v-avatar>
               </v-avatar>
-              <v-dialog
-                v-model="dialog"
-                max-width="480"
-              >
-                <v-card :loading="loading" max-width="480" class="pt-4 px-4 pb-8">
+              <v-dialog v-model="dialog" max-width="480">
+                <v-card
+                  :loading="loading"
+                  max-width="480"
+                  class="pt-4 px-4 pb-8"
+                >
                   <template slot="progress">
                     <v-progress-linear
                       color="deep-purple"
@@ -27,32 +32,54 @@
 
                   <v-img height="320" :src="selected.avatar"></v-img>
 
-                  <v-card-title class="mx-2 mb-2">{{selected.nickname}}</v-card-title>
-                  <v-card-subtitle class="mx-2 mb-2">{{selected.name}}, {{selected.age}}세</v-card-subtitle>
+                  <v-card-title class="mx-2 mb-2">{{
+                    selected.nickname
+                  }}</v-card-title>
+                  <v-card-subtitle class="mx-2 mb-2"
+                    >{{ selected.name }}, {{ selected.age }}세</v-card-subtitle
+                  >
                   <v-card-text>
                     <v-row align="center" class="mx-0 mb-2">
                       <v-icon left>mdi-gender-male-female</v-icon>
-                      <div class="grey--text">{{selected.sex}}({{selected.sex === "Male" ? "남성" : "여성"}})</div>
+                      <div class="grey--text">
+                        {{ selected.sex }}({{
+                          selected.sex === "Male" ? "남성" : "여성"
+                        }})
+                      </div>
                     </v-row>
-                    <v-row align="center" class="mx-0 mb-2" v-if="selected.address">
+                    <v-row
+                      align="center"
+                      class="mx-0 mb-2"
+                      v-if="selected.address"
+                    >
                       <v-icon left>mdi-location-enter</v-icon>
-                      <div class="grey--text">{{selected.address}}에 거주</div>
+                      <div class="grey--text">
+                        {{ selected.address }}에 거주
+                      </div>
                     </v-row>
                     <v-row align="center" class="mx-0 my-2">
                       <v-icon left>mdi-cake-variant</v-icon>
-                      <div class="grey--text">{{selected.birth}}</div>
+                      <div class="grey--text">{{ selected.birth }}</div>
                     </v-row>
                     <v-row align="center" class="mx-0 my-2">
                       <v-icon left>mdi-email</v-icon>
-                      <div class="grey--text">{{selected.email}}</div>
+                      <div class="grey--text">{{ selected.email }}</div>
                     </v-row>
                     <v-row align="center" class="mx-0 my-2">
                       <v-icon left>mdi-fire</v-icon>
-                      <div class="grey--text">팀 내에서 {{selected.role}}을(를) 맡고 있음</div>
+                      <div class="grey--text">
+                        팀 내에서 {{ selected.role }}을(를) 맡고 있음
+                      </div>
                     </v-row>
                     <v-row align="center" class="mx-0 my-2">
                       <v-icon left>mdi-content-copy</v-icon>
-                      <div class="grey--text">{{selected.introduce ? selected.introduce : "작성된 자기소개가 없습니다."}}</div>
+                      <div class="grey--text">
+                        {{
+                          selected.introduce
+                            ? selected.introduce
+                            : "작성된 자기소개가 없습니다."
+                        }}
+                      </div>
                     </v-row>
                   </v-card-text>
                   <v-divider class="mx-4"></v-divider>
@@ -63,14 +90,11 @@
                       active-class="deep-purple accent-4 white--text"
                       column
                     >
-                      <v-chip color="primary">{{selected.hobby}}</v-chip>
+                      <v-chip color="primary">{{ selected.hobby }}</v-chip>
                     </v-chip-group>
                   </v-card-text>
                   <v-row justify="center">
-                    <v-btn
-                      color="info"
-                      text
-                      @click="dialog = false">
+                    <v-btn color="info" text @click="dialog = false">
                       나가기
                     </v-btn>
                   </v-row>
@@ -123,47 +147,48 @@ export default {
     SignUp,
   },
   methods: {
-    onAvatarClicked: function(nickname) {
+    onAvatarClicked: function (nickname) {
       this.selected = {};
       this.dialog = true;
       const teamRef = db.collection("Team");
-      teamRef.where('nickname', '==', nickname)
+      teamRef
+        .where("nickname", "==", nickname)
         .get()
-        .then(ele => {
-            const {
-              _delegate: {
-                _document: {
-                  data: {
-                    value: {
-                      mapValue: { fields: member },
-                    },
+        .then((ele) => {
+          const {
+            _delegate: {
+              _document: {
+                data: {
+                  value: {
+                    mapValue: { fields: member },
                   },
                 },
-              },  
-            } = ele.docs[0];
-            console.log(member);
-            storage
-              .ref(`Team/${member.profilePicture.stringValue}`)
-              .getDownloadURL()
-              .then(url => {
-                const avatar = url;
-                this.selected = {
-                  age: member.age.integerValue,//
-                  birth: member.birth.stringValue,
-                  address: member.address?.stringValue,//
-                  email: member.email.stringValue,//
-                  hobby: member.hobby.stringValue,//
-                  name: member.name.stringValue,//
-                  nickname: member.nickname.stringValue,//
-                  role: member.role.stringValue,//
-                  sex: member.sex.stringValue,//
-                  introduce: member.introduce?.stringValue,
-                  avatar//
-                };
-              })
-              .catch(err => console.log(err));
-        })
-    }
+              },
+            },
+          } = ele.docs[0];
+          console.log(member);
+          storage
+            .ref(`Team/${member.profilePicture.stringValue}`)
+            .getDownloadURL()
+            .then((url) => {
+              const avatar = url;
+              this.selected = {
+                age: member.age.integerValue, //
+                birth: member.birth.stringValue,
+                address: member.address?.stringValue, //
+                email: member.email.stringValue, //
+                hobby: member.hobby.stringValue, //
+                name: member.name.stringValue, //
+                nickname: member.nickname.stringValue, //
+                role: member.role.stringValue, //
+                sex: member.sex.stringValue, //
+                introduce: member.introduce?.stringValue,
+                avatar, //
+              };
+            })
+            .catch((err) => console.log(err));
+        });
+    },
   },
 
   computed: {
@@ -208,7 +233,7 @@ export default {
 };
 </script>
 <style>
-  .team-avatar:hover {
-    opacity: 0.8;
-  }
+.team-avatar:hover {
+  opacity: 0.8;
+}
 </style>

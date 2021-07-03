@@ -4,7 +4,10 @@
 
     <v-container class="my-5">
       <v-expansion-panels>
-        <v-expansion-panel v-for="notice in notices" :key="notice.id.stringValue">
+        <v-expansion-panel
+          v-for="notice in notices"
+          :key="notice.id.stringValue"
+        >
           <v-expansion-panel-header>
             <v-card-text class="pa-6">
               {{ notice.title.stringValue }}
@@ -38,8 +41,9 @@
         </v-expansion-panel>
       </v-expansion-panels>
       <v-container>
-        <v-btn class="ma-2" @click="page = 1">1</v-btn>
-        <v-btn class="ma-2" @click="page = 2">2</v-btn>
+        <v-row v-for="(page, idx) in total_page" :key="page" class="mt-2">
+          <v-btn class="ma-2" @click="page = idx + 1">{{idx + 1}}</v-btn>      
+        </v-row>
       </v-container>
       <PostNotice />
       <!-- todo -->

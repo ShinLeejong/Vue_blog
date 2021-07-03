@@ -2,9 +2,9 @@ import axios from "axios";
 import { WEATHER_API_KEY } from "../constants";
 import { store } from "./store/store";
 
-const onSuccess = (position) => {
+const onSuccess = (position): void => {
   const {
-    coords: { latitude, longitude },
+    coords: { latitude , longitude },
   } = position;
   const URL = `http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${WEATHER_API_KEY}&units=metric`;
   axios
@@ -15,10 +15,10 @@ const onSuccess = (position) => {
     .catch(() => "Error");
 };
 
-const onFail = () => {
+const onFail = (): void => {
   console.log("위치 정보를 불러올 수 없습니다.");
 };
 
-export const getGeoInfo = () => {
+export const getGeoInfo = (): void => {
   navigator.geolocation.getCurrentPosition(onSuccess, onFail);
 };

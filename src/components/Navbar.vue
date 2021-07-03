@@ -103,9 +103,8 @@
   </div>
 </template>
 <script>
-import { getGeoInfo } from "./weather.js";
+import { getGeoInfo } from "./weather.ts";
 import Login from "./../views/Login.vue";
-// import { mapGetters } from 'vuex';
 
 export default {
   data() {

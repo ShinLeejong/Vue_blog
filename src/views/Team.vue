@@ -4,14 +4,38 @@
 
     <v-container class="my-5">
       <v-layout row wrap>
-        <v-flex xs12 sm6 md4 lg3 v-for="mate in teams" :key="mate.name">
+        <v-flex xs12 sm6 md4 lg3 v-for="mate in teams" :key="mate.nickname">
           <v-card class="text-center ma-3">
             <v-responsive class="pt-4">
-              <v-avatar size="104" class="purple lighten-3">
+              <v-avatar size="104" class="purple lighten-3 team-avatar" @click.stop="onAvatarClicked(mate.nickname)">
                 <v-avatar size="100">
                   <img :src="mate.avatar" :alt="mate.name + '\'s avatar'" />
                 </v-avatar>
               </v-avatar>
+              <v-dialog
+                v-model="dialog"
+                max-width="240"
+              >
+                <v-card>
+                  <v-card-title>
+                    <v-avatar size="104" class="purple lighten-3 team-avatar">
+                      <v-avatar size="100">
+                        <img :src="selected.avatar" :alt="mate.name + '\'s avatar'" />
+                      </v-avatar>
+                    </v-avatar>
+                    {{selected.name}}님의 정보
+                  </v-card-title>
+                  <v-card-text>
+                    {{selected.name}}
+                  </v-card-text>
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn text @click="dialog = false">
+                      확인
+                    </v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
             </v-responsive>
             <v-card-text>
               <div class="subheading">{{ mate.name }}</div>
@@ -23,11 +47,10 @@
               <div class="grey--text">{{ mate.hobby }}</div>
             </v-card-text>
             <v-card-actions>
-              <v-btn text color="grey">
+              <v-btn text color="grey" class="justify-start">
                 <v-icon small left>mdi-email</v-icon>
                 <span class="text-lowercase">{{ mate.email }}</span>
               </v-btn>
-              <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
         </v-flex>
@@ -50,10 +73,46 @@ export default {
   data() {
     return {
       teams: [],
+      dialog: false,
+      selected: {},
     };
   },
   components: {
     SignUp,
+  },
+  methods: {
+    onAvatarClicked: function(nickname) {
+      this.selected = {};
+      this.dialog = true;
+      const teamRef = db.collection("Team");
+      teamRef.where('nickname', '==', nickname)
+        .get()
+        .then(ele => {
+            const {
+              _delegate: {
+                _document: {
+                  data: {
+                    value: {
+                      mapValue: { fields: member },
+                    },
+                  },
+                },
+              },  
+            } = ele.docs[0];
+            this.selected = {
+              age: member.age.integerValue,
+              birth: member.birth.stringValue,
+              email: member.email.stringValue,
+              hobby: member.hobby.stringValue,
+              name: member.name.stringValue,
+              nickname: member.nickname.stringValue,
+              role: member.role.stringValue,
+              sex: member.sex.stringValue,
+            };
+        })
+    }
+  },
+  computed: {
   },
   created() {
     db.collection("Team").onSnapshot((res) => {
@@ -78,3 +137,8 @@ export default {
   },
 };
 </script>
+<style>
+  .team-avatar:hover {
+    opacity: 0.8;
+  }
+</style>

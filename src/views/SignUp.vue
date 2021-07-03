@@ -135,11 +135,14 @@
               label="취미"
               v-model.lazy="team.hobby"
               prepend-icon="mdi-play"
+              class="mb-8"
             ></v-text-field>
-            <v-btn text class="error ma-2" @click="reset">리셋</v-btn>
-            <v-btn text class="success ma-2" @click="submit" :loading="loading"
-              >등록</v-btn
-            >
+              <v-row justify="center">
+              <v-btn text class="error ma-2" @click="reset">리셋</v-btn>
+              <v-btn text class="success ma-2" @click="submit" :loading="loading"
+                >등록</v-btn
+              >
+            </v-row>
           </v-form>
         </v-card-text>
       </v-card>

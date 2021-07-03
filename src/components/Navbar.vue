@@ -5,7 +5,7 @@
       <v-btn text color="white" @click="snackbarBtnClicked" right>Close</v-btn>
     </v-snackbar>
 
-    <v-app-bar app :color="randomColor" dark>
+    <v-app-bar app :color="randomColor[0]" dark>
       <v-app-bar-nav-icon
         class="grey--text"
         @click="onNavIconClicked"
@@ -51,7 +51,7 @@
       <Login />
     </v-app-bar>
 
-    <v-navigation-drawer app v-model="drawer" class="success">
+    <v-navigation-drawer app v-model="drawer" :class="randomColor[1]">
       <v-layout column align-center>
         <v-flex class="mt-12">
           <v-avatar size="100" class="center">
@@ -94,9 +94,24 @@
           </v-list-item-action>
           <v-list-item-content>
             <v-list-item-title class="white--text">
-              Settings
+              My Settings
             </v-list-item-title>
           </v-list-item-content>
+          <v-dialog
+            v-model="settingDialog"
+            max-width="400"
+           >
+            <v-card :loading="settingLoading" max-width="400" class="pt-4 px-4 pb-8">
+              <v-list-item>
+                <v-list-item-title class="text-center">
+                  설정
+                </v-list-item-title>
+              </v-list-item>
+                <v-card>
+                  Hi
+                </v-card>
+            </v-card>
+          </v-dialog>
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
@@ -136,6 +151,8 @@ export default {
           route: "/team",
         },
       ],
+      settingDialog: false,
+      settingLoading: false,
     };
   },
   components: {
@@ -149,36 +166,44 @@ export default {
       this.submitDone = false;
     },
     onSettingClicked: function () {
-      console.log("HI");
+      this.settingDialog = true;
     },
   },
   computed: {
     randomColor() {
       const random = Math.floor(Math.random() * 6);
-      let color;
+      let colorOne;
+      let colorTwo;
       switch (random) {
         case 5:
-          color = "error";
+          colorOne = "error";
+          colorTwo = "pink";
           break;
         case 4:
-          color = "indigo";
+          colorOne = "indigo";
+          colorTwo = "error";
           break;
         case 3:
-          color = "success";
+          colorOne = "success";
+          colorTwo = "indigo";
           break;
         case 2:
-          color = "primary";
+          colorOne = "primary";
+          colorTwo = "success";
           break;
         case 1:
-          color = "info";
+          colorOne = "info";
+          colorTwo = "primary";
           break;
         case 0:
-          color = "deeppurple";
+          colorOne = "pink";
+          colorTwo = "info";
           break;
         default:
-          color = "dark";
+          colorOne = "error";
+          colorTwo = "pink";
       }
-      return color;
+      return [colorOne, colorTwo];
     },
     isMobile() {
       switch (this.$vuetify.breakpoint.name) {

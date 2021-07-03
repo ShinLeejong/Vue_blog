@@ -69,7 +69,7 @@ export default Vue.extend({
     return {
       boards: [],
       submitDone: false,
-      teams: [],
+      teams: ["모두 보기",],
       team: "",
     };
   },
@@ -78,7 +78,52 @@ export default Vue.extend({
   },
   methods: {
     sort: function (selection) {
-      return this.boards.filter((ele) => ele.author === selection);
+      const boardRef = db.collection("Board");
+      this.boards = [];
+      if(selection === "모두 보기") {
+        boardRef.onSnapshot(res => {
+          const changes = res.docChanges();
+          changes.forEach(item => {
+            this.boards.push({
+              ...item.doc.data(),
+            })
+          })
+        })
+      } else {
+        boardRef.where('author', '==', selection)
+          .get()
+          .then(ele => {
+          if(ele.size === 0) {
+            alert("이 사람은 아직 작성한 글이 없어요!");
+            return this.sort("모두 보기");
+          }
+          ele.docs.forEach(board => {
+            const {
+              _delegate: {
+                _document: {
+                  data: {
+                    value: {
+                      mapValue: { fields },
+                    },
+                  },
+                },
+              },
+            } = board;
+            this.boards.push({
+                date_year: fields.date_year.integerValue,
+                date_month: fields.date_month.integerValue,
+                date_day: fields.date_day.integerValue,
+                date_hour: fields.date_hour.integerValue,
+                date_minute: fields.date_minute.integerValue,
+                title: fields.title.stringValue,
+                author: fields.author.stringValue,
+            });
+            if(this.boards.length === 0) {
+              alert("이 사람은 아직 작성한 글이 없네요.");
+            }
+          });
+      });
+      }
     },
   },
   computed: {

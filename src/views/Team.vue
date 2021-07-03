@@ -7,15 +7,15 @@
         <v-flex xs12 sm6 md4 lg3 v-for="mate in teams" :key="mate.nickname">
           <v-card class="text-center ma-3">
             <v-responsive class="pt-4">
-              <v-avatar
-                size="104"
-                class="purple lighten-3 team-avatar"
-                @click.stop="onAvatarClicked(mate.nickname)"
-              >
-                <v-avatar size="100">
-                  <img :src="mate.avatar" :alt="mate.name + '\'s avatar'" />
+                <v-avatar
+                  size="104"
+                  class="purple lighten-3 team-avatar"
+                  @click.stop="onAvatarClicked(mate.nickname)"
+                >
+                  <v-avatar size="100">
+                    <img :src="mate.avatar" :alt="mate.name + '\'s avatar'" />
+                  </v-avatar>
                 </v-avatar>
-              </v-avatar>
               <v-dialog v-model="dialog" max-width="480">
                 <v-card
                   :loading="loading"
@@ -29,8 +29,9 @@
                       indeterminate
                     ></v-progress-linear>
                   </template>
-
-                  <v-img height="320" :src="selected.avatar"></v-img>
+                  <v-responsive :aspect-ratio="3/2">
+                    <v-img height="320" :src="selected.avatar"></v-img>
+                  </v-responsive>
 
                   <v-card-title class="mx-2 mb-2">{{
                     selected.nickname
@@ -166,7 +167,6 @@ export default {
               },
             },
           } = ele.docs[0];
-          console.log(member);
           storage
             .ref(`Team/${member.profilePicture.stringValue}`)
             .getDownloadURL()

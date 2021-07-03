@@ -2,7 +2,7 @@
   <div>
     <v-dialog max-width="24rem" v-model="dialog" v-if="show">
       <template v-slot:activator="{ on }">
-        <v-btn text v-on="on" class="error">Add new stuff</v-btn>
+        <v-btn text v-on="on" class="error">글쓰기</v-btn>
       </template>
       <v-card>
         <v-list-item>
@@ -63,7 +63,7 @@ export default {
       if (this.$refs.form.validate()) {
         this.loading = true;
         const date = new Date();
-        const stuff = {
+        const post = {
           title: this.title,
           content: this.content,
           date_year: date.getFullYear(),
@@ -74,18 +74,18 @@ export default {
           author: this.author,
           date,
         };
-        db.collection("Board")
-          .add(stuff)
-          .then((data) => {
-            console.log(data);
+        const boardRef = db.collection("Board");
+        boardRef.get().then(snapshot => {
+          post.id = snapshot.size + 1;
+          boardRef.add(post).then(() => {
             this.loading = false;
             this.dialog = false;
             this.title = "";
             this.content = "";
-            console.log(this.author);
-            this.$emit("stuffSubmitted");
+            this.$emit("postSubmitted");
             alert("추가되었습니다!");
-          });
+          })
+        });
       } else {
         alert("게시물을 추가할 조건을 만족하지 않습니다.");
       }

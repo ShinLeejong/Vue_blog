@@ -61,7 +61,7 @@ export default {
       if (this.$refs.form.validate()) {
         this.loading = true;
         const date = new Date();
-        const stuff = {
+        const post = {
           title: this.title,
           content: this.content,
           date_year: date.getFullYear(),
@@ -70,11 +70,10 @@ export default {
           date,
         };
         db.collection('Notice').get().then(snapshot => {
-            stuff.id = snapshot.size + 1;
+            post.id = snapshot.size + 1;
             db.collection("Notice")
-            .add(stuff)
-            .then((data) => {
-                console.log(data);
+            .add(post)
+            .then(() => {
                 this.loading = false;
                 this.dialog = false;
                 this.title = "";

@@ -4,7 +4,7 @@
 
     <v-container class="my-5">
       <v-expansion-panels>
-        <v-expansion-panel v-for="notice in notices" :key="notice.id">
+        <v-expansion-panel v-for="notice in notices" :key="notice.id.stringValue">
           <v-expansion-panel-header>
             <v-card-text class="pa-6">
               {{ notice.title.stringValue }}
@@ -83,7 +83,6 @@ export default {
         });
       });
     });
-    console.log(this.notices);
   },
 };
 </script>

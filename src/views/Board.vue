@@ -11,7 +11,7 @@
         <v-flex xs6 md1 class="d-flex ml-6 mb-4 align-center">
           <v-tooltip top>
             <template v-slot:activator="{ on }">
-              <v-btn color="pink" v-on:click="sort(team)" v-on="on">
+              <v-btn color="pink" v-on:click="team === '' ? alert('골라 볼 멤버를 먼저 선택해주세요.') : sort(team)" v-on="on">
                 <v-icon>mdi-folder</v-icon>
               </v-btn>
             </template>
@@ -29,7 +29,11 @@
         :key="board.id"
       >
         <v-layout row wrap class="pa-3 boards">
-          <v-flex xs12 md6>
+          <v-flex xs12 md1>
+            <div class="caption grey--text">No</div>
+            <div>{{ board.id }}</div>
+          </v-flex>
+          <v-flex xs12 md5>
             <div class="caption grey--text">Title</div>
             <div>{{ board.title }}</div>
           </v-flex>
@@ -77,6 +81,9 @@ export default Vue.extend({
     Popup: popup,
   },
   methods: {
+    alert(prop) {
+      alert(prop)
+    },
     sort: function (selection) {
       const boardRef = db.collection("Board");
       this.boards = [];

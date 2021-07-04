@@ -29,23 +29,23 @@
             <!-- 설정 -->
             <!-- 개인 설정 -->
             <v-list-item v-if="selection === '개인 설정'">
-            <v-list-item-content class="">
-                <v-list-item-subtitle>
-                <p class="subheading ml-4">로그인 관리</p>
-                </v-list-item-subtitle>
-                <v-col>
-                <v-checkbox
-                    v-model="setting.personal.storeID"
-                    :label="'아이디 저장'"
-                    class="ma-0 ml-4"
-                ></v-checkbox>
-                <v-checkbox
-                    v-model="setting.personal.storePW"
-                    :label="'비밀번호 저장'"
-                    class="ma-0 ml-4"
-                ></v-checkbox>
-                </v-col>
-            </v-list-item-content>
+                <v-list-item-content class="">
+                    <v-list-item-subtitle>
+                    <p class="subheading ml-4">로그인 관리</p>
+                    </v-list-item-subtitle>
+                    <v-col>
+                    <v-checkbox
+                        v-model="setting.personal.storeID"
+                        :label="'아이디 저장'"
+                        class="ma-0 ml-4"
+                    ></v-checkbox>
+                    <v-checkbox
+                        v-model="setting.personal.storePW"
+                        :label="'비밀번호 저장'"
+                        class="ma-0 ml-4"
+                    ></v-checkbox>
+                    </v-col>
+                </v-list-item-content>
             </v-list-item>
             <!-- 개인 설정 -->
             <!-- 계정 설정 -->
@@ -57,9 +57,18 @@
             <!-- 계정 설정 -->
             <!-- UI -->
             <v-list-item class="my-2 mb-8" v-if="selection === 'UI'">
-                <v-list-item-title class="text-center mb-6">
-                    UI
-                </v-list-item-title>
+                <v-list-item-content class="">
+                    <v-list-item-subtitle>
+                        <p class="subheading ml-4">레이아웃 디자인</p>
+                    </v-list-item-subtitle>
+                    <v-col>
+                    <v-checkbox
+                        v-model="setting.personal.randomColor"
+                        :label="'색 변화 활성화'"
+                        class="ma-0 ml-4"
+                    ></v-checkbox>
+                    </v-col>
+                </v-list-item-content>
             </v-list-item>
             <!-- UI -->
             <!-- 설정 -->
@@ -74,6 +83,8 @@
 </template>
 
 <script>
+import getItem from "../components/localStorageGetter";
+
 export default {
   data() {
     return {
@@ -84,6 +95,7 @@ export default {
         personal: {
           storeID: false,
           storePW: false,
+          randomColor: false,
         },
         account: {},
         UI: {},
@@ -93,12 +105,13 @@ export default {
   methods: {
     onSettingClicked: function () {
       this.settingDialog = true;
-      this.setting.personal.storeID = localStorage.getItem("storedID")
+      this.setting.personal.storeID = getItem("storedID") !== ''
         ? true
         : false;
-      this.setting.personal.storePW = localStorage.getItem("storedPW")
+      this.setting.personal.storePW = getItem("storedPW") !== ''
         ? true
         : false;
+      this.setting.personal.randomColor = JSON.parse(getItem("randomColor"));
     },
     onSaveBtnClicked() {
       /* logic start */
@@ -112,7 +125,7 @@ export default {
             this.$store.state.status.nickname.stringValue
             );
         } else {
-            localStorage.setItem("storedID", "");
+            localStorage.setItem("storedID", '');
         }
         /* storedID end */
         /* storedPW start */
@@ -122,7 +135,7 @@ export default {
             this.$store.state.status.password.stringValue
             );
         } else {
-            localStorage.setItem("storedPW", "");
+            localStorage.setItem("storedPW", '');
         }
         /* storedPW end */
         /* personal end */
@@ -132,7 +145,16 @@ export default {
       }
       /* loggedIn part end */
       /* UI start */
-
+      /* storedID start */
+        if (this.setting.personal.randomColor === true) {
+          localStorage.setItem(
+            "randomColor",
+            true
+          );
+        } else {
+          localStorage.setItem("randomColor", false);
+        }
+      /* storedID end */
       /* UI end */
       /* logic end */
       this.settingDialog = false;

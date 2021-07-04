@@ -55,6 +55,7 @@
 </template>
 <script>
 import { db } from "../firebase.js";
+import getItem from "../components/localStorageGetter";
 // 나이 will be auto-generated in logic part
 export default {
   /* eslint-disable */
@@ -138,9 +139,13 @@ export default {
     }
   },
   created() {
-    this.data.nickname = localStorage.getItem("storedID") || '';
+    /* ID */
+    if(getItem("storedID").match(/[가-힣]/)) this.data.nickname = getItem("storedID") || '';
+    else this.data.nickname = JSON.parse(getItem("storedID")) || '';
     if(this.data.nickname !== '') this.rememberID = true;
-    this.data.password = localStorage.getItem("storedPW") || '';
+
+    /* PW */
+    this.data.password = getItem("storedPW") || '';
     if(this.data.password !== '') this.rememberPW = true;
   },
 };

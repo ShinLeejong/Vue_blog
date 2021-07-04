@@ -171,6 +171,7 @@
 <script>
 import Lee from "./Lee.vue";
 import { db, storage } from "../firebase.js";
+import isMobile from "../components/isMobile.ts";
 
 export default {
   data() {
@@ -178,6 +179,7 @@ export default {
       teams: [],
       notices: [],
       boards: [],
+      isMobile,
       link: {
         icon: "mdi-link",
         text: "See the whole team members...",
@@ -195,22 +197,6 @@ export default {
     },
   },
   computed: {
-    isMobile() {
-      switch (this.$vuetify.breakpoint.name) {
-        case "xs":
-          return true;
-        case "sm":
-          return true;
-        case "md":
-          return false;
-        case "lg":
-          return false;
-        case "xl":
-          return false;
-        default:
-          return false;
-      }
-    },
   },
   created() {
     // Teams

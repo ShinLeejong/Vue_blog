@@ -5,7 +5,7 @@
       <v-btn text color="white" @click="snackbarBtnClicked" right>Close</v-btn>
     </v-snackbar>
 
-    <v-app-bar app :color="randomColor[0]" dark>
+    <v-app-bar app :color="randomColor()" dark>
       <v-app-bar-nav-icon
         class="grey--text"
         @click="onNavIconClicked"
@@ -51,7 +51,7 @@
       <Login />
     </v-app-bar>
 
-    <v-navigation-drawer app v-model="drawer" :class="randomColor[1]">
+    <v-navigation-drawer app v-model="drawer" :class="randomColor()">
       <v-layout column align-center>
         <v-flex class="mt-12">
           <v-avatar size="100" class="center">
@@ -167,6 +167,8 @@
 <script>
 import { getGeoInfo } from "./weather.ts";
 import Login from "./../views/Login.vue";
+import randomColor from "./randomColor.ts";
+import isMobile from "./isMobile.ts";
 
 export default {
   data() {
@@ -175,6 +177,8 @@ export default {
       submitDone: false,
       geolocation: "",
       weather: "",
+      randomColor,
+      isMobile,
       geoInfos: {},
       selection: "개인 설정",
       settingSelectbar: ["개인 설정", "계정 설정", "UI"],
@@ -267,57 +271,6 @@ export default {
     },
   },
   computed: {
-    randomColor() {
-      const random = Math.floor(Math.random() * 6);
-      let colorOne;
-      let colorTwo;
-      switch (random) {
-        case 5:
-          colorOne = "error";
-          colorTwo = "pink darken-2";
-          break;
-        case 4:
-          colorOne = "indigo";
-          colorTwo = "error";
-          break;
-        case 3:
-          colorOne = "success";
-          colorTwo = "indigo";
-          break;
-        case 2:
-          colorOne = "primary";
-          colorTwo = "success";
-          break;
-        case 1:
-          colorOne = "info";
-          colorTwo = "primary";
-          break;
-        case 0:
-          colorOne = "pink lighten-2";
-          colorTwo = "info";
-          break;
-        default:
-          colorOne = "error";
-          colorTwo = "pink darken-2";
-      }
-      return [colorOne, colorTwo];
-    },
-    isMobile() {
-      switch (this.$vuetify.breakpoint.name) {
-        case "xs":
-          return true;
-        case "sm":
-          return true;
-        case "md":
-          return false;
-        case "lg":
-          return false;
-        case "xl":
-          return false;
-        default:
-          return false;
-      }
-    },
     status() {
       return this.$store.state.status;
     },

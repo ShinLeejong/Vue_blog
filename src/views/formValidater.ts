@@ -2,7 +2,7 @@ interface Stuff {
   name: string;
   nickname: string;
   password: string;
-  profilePicture: File;
+  profilePicture: string;
   role: string;
   sex: string;
   email: string;
@@ -27,8 +27,8 @@ export const formValidator = (stuff: Stuff) => {
   if (stuff.password.length < 4) {
     error += "비밀번호는 4자 이상이어야 합니다. \n";
   }
-  if (!stuff.profilePicture) {
-    error += "배경 사진은 반드시 입력되어야합니다. \n";
+  if (stuff.profilePicture === '/.jpg') {
+    error += "프로필 사진은 반드시 필요합니다. \n";
   }
   if (!stuff.role.length) {
     error += "역할을 적어주세요. \n";

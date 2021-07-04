@@ -64,7 +64,7 @@
                     <v-col>
                     <v-checkbox
                         v-model="setting.personal.randomColor"
-                        :label="'색 변화 활성화'"
+                        :label="'다양한 색 적용 활성화'"
                         class="ma-0 ml-4"
                     ></v-checkbox>
                     </v-col>

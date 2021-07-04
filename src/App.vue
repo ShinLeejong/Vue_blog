@@ -17,7 +17,7 @@ export default Vue.extend({
   name: "App",
   components: {
     Navbar,
-    Footer
+    Footer,
   },
   data: () => ({
     //

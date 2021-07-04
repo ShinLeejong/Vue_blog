@@ -123,7 +123,9 @@
                 :landscape="isMobile ? 'portrait' : 'landscape'"
               >
                 <v-spacer></v-spacer>
-                <v-btn text color="error" @click="$refs.dialog.save(null)"> 취소 </v-btn>
+                <v-btn text color="error" @click="$refs.dialog.save(null)">
+                  취소
+                </v-btn>
                 <v-btn
                   text
                   color="primary"

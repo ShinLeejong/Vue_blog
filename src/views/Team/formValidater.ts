@@ -27,7 +27,7 @@ export const formValidator = (stuff: Stuff) => {
   if (stuff.password.length < 4) {
     error += "비밀번호는 4자 이상이어야 합니다. \n";
   }
-  if (stuff.profilePicture === '/.jpg') {
+  if (stuff.profilePicture === "/.jpg") {
     error += "프로필 사진은 반드시 필요합니다. \n";
   }
   if (!stuff.role.length) {

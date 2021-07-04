@@ -20,6 +20,7 @@ export const store: Store<StoreState> = new Vuex.Store({
   strict: false,
   state: {
     geoData: {},
+    dialog: false,
     // products: [
     //   { name: "apple", price: 400 },
     //   { name: "banana", price: 320 },
@@ -39,10 +40,16 @@ export const store: Store<StoreState> = new Vuex.Store({
     getGeoInfo: (geoData) => geoData,
   },
   mutations: {
-    getWeather: (state, payload) => {
+    getWeather: (state, payload): void => {
       state.geoData = payload;
     },
-    updateStatus: (state, payload) => {
+    openDialog: (state): void => {
+      state.dialog = true;
+    },
+    closeDialog: (state): void => {
+      state.dialog = false;
+    },
+    updateStatus: (state, payload): void => {
       storage
         .ref(`Team/${payload.profilePicture.stringValue}`)
         .getDownloadURL()
@@ -57,7 +64,7 @@ export const store: Store<StoreState> = new Vuex.Store({
     },
   },
   actions: {
-    getGeoAndWeather: (context) => {
+    getGeoAndWeather: (context): void => {
       let datas;
       const doSomething = new Promise((resolve, reject) => {
         resolve(context.commit("geoAndWeather"));

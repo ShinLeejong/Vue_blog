@@ -196,8 +196,7 @@ export default {
       /* console.log("hmm"); */
     },
   },
-  computed: {
-  },
+  computed: {},
   created() {
     // Teams
     db.collection("Team").onSnapshot((res) => {

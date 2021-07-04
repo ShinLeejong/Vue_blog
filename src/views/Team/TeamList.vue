@@ -137,12 +137,17 @@ export default {
   methods: {
     onCardClicked: function (nickname) {
       this.dialog = true;
-      this.selected = {};
-      const teamRef = db.collection("Team");
-      teamRef
-        .where("nickname", "==", nickname)
-        .get()
-        .then((ele) => {
+      this.selected = this.teams[this.teams.findIndex(ele => ele.nickname === nickname)];
+    },
+    closeDialog() {
+      this.dialog = false;
+    },
+  },
+  created() {
+
+    const teamRef = db.collection("Team");
+    teamRef.get().then(res => {
+        res.docs.forEach(ele => {
           const {
             _delegate: {
               _document: {
@@ -153,53 +158,29 @@ export default {
                 },
               },
             },
-          } = ele.docs[0];
+          } = ele;
           storage
             .ref(`Team/${member.profilePicture.stringValue}`)
             .getDownloadURL()
             .then((url) => {
               const avatar = url;
-              this.selected = {
-                age: member.age.integerValue, //
-                birth: member.birth.stringValue,
-                address: member.address?.stringValue, //
-                email: member.email.stringValue, //
-                hobby: member.hobby.stringValue, //
-                name: member.name.stringValue, //
-                nickname: member.nickname.stringValue, //
-                role: member.role.stringValue, //
-                sex: member.sex.stringValue, //
-                introduce: member.introduce?.stringValue,
-                avatar, //
-              };
-            })
-            .catch((err) => console.log(err));
-        });
-    },
-    closeDialog() {
-      this.dialog = false;
-    },
-  },
-  created() {
-    db.collection("Team").onSnapshot((res) => {
-      const changes = res.docChanges();
-      let avatar;
-      changes.forEach((item) => {
-        if (item.type === "added") {
-          storage
-            .ref(`Team/${item.doc.data().profilePicture}`)
-            .getDownloadURL()
-            .then((url) => {
-              avatar = url;
               this.teams.push({
-                ...item.doc.data(),
+                age: member.age.integerValue,
+                birth: member.birth.stringValue,
+                address: member.address?.stringValue,
+                email: member.email.stringValue,
+                hobby: member.hobby.stringValue,
+                name: member.name.stringValue,
+                nickname: member.nickname.stringValue,
+                role: member.role.stringValue,
+                sex: member.sex.stringValue,
+                introduce: member.introduce?.stringValue,
                 avatar,
               });
             })
-            .catch((err) => console.error(err));
-        }
-      });
-    });
+            .catch((err) => console.log(err));
+        })
+    })
   },
 };
 </script>

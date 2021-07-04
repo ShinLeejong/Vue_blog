@@ -165,11 +165,13 @@
 <script>
 import { db, storage } from "../firebase.js";
 import { formValidator } from "./formValidater";
+import isMobile from "../components/isMobile.ts";
 // 나이 will be auto-generated in logic part
 export default {
   /* eslint-disable */
   data() {
     return {
+      isMobile: isMobile(),
       team: {
         birth: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
         email: '',

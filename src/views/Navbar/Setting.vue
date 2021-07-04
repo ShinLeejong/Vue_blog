@@ -50,9 +50,17 @@
             <!-- 개인 설정 -->
             <!-- 계정 설정 -->
             <v-list-item class="my-2 mb-8" v-if="selection === '계정 설정'">
-                <v-list-item-title class="text-center mb-6">
-                    계정 설정
-                </v-list-item-title>
+                <v-list-item-content class="">
+                    <v-list-item-subtitle>
+                        <p class="subheading ml-4">계정 설정</p>
+                    </v-list-item-subtitle>
+                    <v-col>
+                    <v-checkbox
+                        :label="'아직 결정된 계정 설정이 없습니다. 의견 많이 부탁드립니다.'"
+                        class="ma-0 ml-4"
+                    ></v-checkbox>
+                    </v-col>
+                </v-list-item-content>
             </v-list-item>
             <!-- 계정 설정 -->
             <!-- UI -->
@@ -159,8 +167,12 @@ export default {
       /* logic end */
       this.settingDialog = false;
       this.settingLoading = false;
-      alert("저장되었습니다. \n" + 
-            "일부 설정은 새로고침 후 적용됩니다.");
+      if('confirm' in window) {
+        const askRefresh = window?.confirm("저장되었습니다. \n" + 
+              "일부 설정은 새로고침 후 적용됩니다. \n" +
+              "지금 새로고침 하시겠습니까?");
+        if(askRefresh) location?.reload();        
+      }
     },
   },
   computed: {

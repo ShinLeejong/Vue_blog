@@ -159,6 +159,8 @@ export default {
       /* logic end */
       this.settingDialog = false;
       this.settingLoading = false;
+      alert("저장되었습니다. \n" + 
+            "일부 설정은 새로고침 후 적용됩니다.");
     },
   },
   computed: {

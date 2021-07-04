@@ -140,7 +140,8 @@ export default {
   },
   created() {
     /* ID */
-    if(getItem("storedID").match(/[가-힣]/)) this.data.nickname = getItem("storedID") || '';
+    // Check whether ID inside localStorage is valid token to parse or not
+    if(!getItem("storedID").match(/[a-zA-Z0-9]/)) this.data.nickname = getItem("storedID") || '';
     else this.data.nickname = JSON.parse(getItem("storedID")) || '';
     if(this.data.nickname !== '') this.rememberID = true;
 

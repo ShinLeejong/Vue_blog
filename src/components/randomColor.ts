@@ -1,4 +1,6 @@
 export default (): string => {
+    if(localStorage.getItem("randomColor") !== 'true') return "indigo";
+
     const random = Math.floor(Math.random() * 6);
     let color;
     switch (random) {

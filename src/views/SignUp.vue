@@ -114,6 +114,7 @@
                 year-icon="mdi-calendar-blank"
                 prev-icon="mdi-skip-previous"
                 next-icon="mdi-skip-next"
+                :landscape="isMobile ? 'portrait' : 'landscape'"
               >
                 <v-spacer></v-spacer>
                 <v-btn text color="error" @click="modal = false"> 취소 </v-btn>

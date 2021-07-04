@@ -130,7 +130,7 @@
 
 <script>
 import SignUp from "./SignUp.vue";
-import { db, storage } from "../firebase.js";
+import { db, storage } from "../../firebase.js";
 
 export default {
   // eslint-disable-next-line

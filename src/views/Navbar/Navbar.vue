@@ -94,11 +94,11 @@
   </div>
 </template>
 <script>
-import { getGeoInfo } from "./weather.ts";
-import Login from "./../views/Login.vue";
-import randomColor from "./randomColor.ts";
-import isMobile from "./isMobile.ts";
-import Setting from "../views/Setting.vue";
+import { getGeoInfo } from "../../components/weather.ts";
+import Login from "./Login.vue";
+import randomColor from "../../components/randomColor.ts";
+import isMobile from "../../components/isMobile.ts";
+import Setting from "./Setting.vue";
 
 export default {
   data() {

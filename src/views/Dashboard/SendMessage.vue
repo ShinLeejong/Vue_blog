@@ -74,7 +74,7 @@
   </div>
 </template>
 <script>
-import { db, storage } from "../firebase.js";
+import { db, storage } from "../../firebase.js";
 // 나이 will be auto-generated in logic part
 export default {
   /* eslint-disable */

@@ -54,7 +54,7 @@
   </v-card>
 </template>
 <script>
-import { storage } from "../firebase";
+import { storage } from "../../firebase";
 import SendMessage from "./SendMessage.vue";
 
 export default {

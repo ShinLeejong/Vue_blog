@@ -53,7 +53,7 @@
 
 <script>
 import PostNotice from "./PostNotice.vue";
-import { db } from "../firebase.js";
+import { db } from "../../firebase.js";
 
 export default {
   data() {

@@ -54,8 +54,8 @@
   </v-dialog>
 </template>
 <script>
-import { db } from "../firebase.js";
-import getItem from "../components/localStorageGetter";
+import { db } from "../../firebase.js";
+import getItem from "../../components/localStorageGetter";
 // 나이 will be auto-generated in logic part
 export default {
   /* eslint-disable */

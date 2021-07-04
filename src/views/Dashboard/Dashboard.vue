@@ -170,8 +170,8 @@
 </template>
 <script>
 import Lee from "./Lee.vue";
-import { db, storage } from "../firebase.js";
-import isMobile from "../components/isMobile.ts";
+import { db, storage } from "../../firebase.js";
+import isMobile from "../../components/isMobile.ts";
 
 export default {
   data() {

@@ -70,7 +70,7 @@
 
 <script>
 import Vue from "vue";
-import { db } from "../firebase.js";
+import { db } from "../../firebase.js";
 import popup from "./Popup.vue";
 
 export default Vue.extend({

@@ -83,7 +83,7 @@
 </template>
 
 <script>
-import getItem from "../components/localStorageGetter";
+import getItem from "../../components/localStorageGetter";
 
 export default {
   data() {

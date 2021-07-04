@@ -10,7 +10,7 @@
 
 <script lang="ts">
 import Vue from "vue";
-import Navbar from "./components/Navbar.vue";
+import Navbar from "./views/Navbar/Navbar.vue";
 import Footer from "./views/Footer.vue";
 
 export default Vue.extend({

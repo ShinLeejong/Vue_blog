@@ -21,6 +21,7 @@
               label="이름"
               v-model.lazy="team.name"
               prepend-icon="mdi-id-card"
+              clearable
             ></v-text-field>
             <v-layout xs12 md6 lg4 sm3>
               <v-text-field
@@ -30,6 +31,7 @@
                 prepend-icon="mdi-format-title"
                 :readonly="readonly_nickname"
                 :loading="validating"
+                clearable
               ></v-text-field>
               <v-btn class="primary" @click="onValidateIdBtn">중복 확인</v-btn>
             </v-layout>
@@ -39,12 +41,14 @@
               :type="'password'"
               v-model.lazy="team.password"
               prepend-icon="mdi-form-textbox-password"
+              clearable
             ></v-text-field>
             <v-text-field
               label="비밀번호 확인"
               :type="'password'"
               v-model.lazy="team.checkPassword"
               prepend-icon="mdi-lock-open-check-outline"
+              clearable
             ></v-text-field>
             <v-layout xs12 md6 lg4 sm3>
               <v-text-field
@@ -70,6 +74,7 @@
               label="내 역할"
               v-model.lazy="team.role"
               prepend-icon="mdi-play"
+              clearable
             ></v-text-field>
             <v-radio-group
               v-model.lazy="team.sex"
@@ -103,6 +108,7 @@
                   label="생일"
                   prepend-icon="mdi-calendar-range"
                   v-on="on"
+                  clearable
                 ></v-text-field>
               </template>
               <v-date-picker
@@ -117,7 +123,7 @@
                 :landscape="isMobile ? 'portrait' : 'landscape'"
               >
                 <v-spacer></v-spacer>
-                <v-btn text color="error" @click="modal = false"> 취소 </v-btn>
+                <v-btn text color="error" @click="$refs.dialog.save(null)"> 취소 </v-btn>
                 <v-btn
                   text
                   color="primary"
@@ -131,12 +137,14 @@
               label="이메일"
               v-model.lazy="team.email"
               prepend-icon="mdi-email"
+              clearable
             ></v-text-field>
             <v-text-field
               label="취미"
               v-model.lazy="team.hobby"
               prepend-icon="mdi-play"
               class="mb-8"
+              clearable
             ></v-text-field>
             <v-row justify="center">
               <v-btn text class="error ma-2" @click="reset">리셋</v-btn>

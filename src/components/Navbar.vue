@@ -178,7 +178,7 @@ export default {
       geolocation: "",
       weather: "",
       randomColor,
-      isMobile,
+      isMobile: isMobile(),
       geoInfos: {},
       selection: "개인 설정",
       settingSelectbar: ["개인 설정", "계정 설정", "UI"],

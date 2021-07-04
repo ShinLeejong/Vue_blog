@@ -1,1 +1,3 @@
-export default (): boolean => window.innerWidth < 500 ? true : false;
+export default (): boolean => {
+    return window.innerWidth < 500 ? true : false;
+}

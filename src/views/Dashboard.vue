@@ -179,7 +179,7 @@ export default {
       teams: [],
       notices: [],
       boards: [],
-      isMobile,
+      isMobile: isMobile(),
       link: {
         icon: "mdi-link",
         text: "See the whole team members...",

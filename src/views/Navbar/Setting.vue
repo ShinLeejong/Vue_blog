@@ -48,10 +48,18 @@
                 <p class="subheading ml-4">계정 설정</p>
               </v-list-item-subtitle>
               <v-col>
-                <v-checkbox
-                  :label="'아직 결정된 계정 설정이 없습니다. 의견 많이 부탁드립니다.'"
+                <v-text-field
+                  v-model="setting.account.location"
+                  :label="'내 주소'"
                   class="ma-0 ml-4"
-                ></v-checkbox>
+                ></v-text-field>
+              </v-col>
+              <v-col>
+                <v-textarea
+                  v-model="setting.account.introduce"
+                  :label="'자기소개'"
+                  class="ma-0 ml-4"
+                ></v-textarea>
               </v-col>
             </v-list-item-content>
           </v-list-item>
@@ -64,7 +72,7 @@
               </v-list-item-subtitle>
               <v-col>
                 <v-checkbox
-                  v-model="setting.personal.randomColor"
+                  v-model="setting.UI.randomColor"
                   :label="'다양한 색 적용 활성화'"
                   class="ma-0 ml-4"
                 ></v-checkbox>
@@ -96,10 +104,14 @@ export default {
         personal: {
           storeID: false,
           storePW: false,
+        },
+        account: {
+          location: '',
+          introduce: '',
+        },
+        UI: {
           randomColor: false,
         },
-        account: {},
-        UI: {},
       },
     };
   },
@@ -108,7 +120,7 @@ export default {
       this.settingDialog = true;
       this.setting.personal.storeID = getItem("storedID") !== "" ? true : false;
       this.setting.personal.storePW = getItem("storedPW") !== "" ? true : false;
-      this.setting.personal.randomColor = JSON.parse(getItem("randomColor"));
+      this.setting.UI.randomColor = JSON.parse(getItem("randomColor"));
     },
     onSaveBtnClicked() {
       /* logic start */
@@ -143,7 +155,7 @@ export default {
       /* loggedIn part end */
       /* UI start */
       /* storedID start */
-      if (this.setting.personal.randomColor === true) {
+      if (this.setting.UI.randomColor === true) {
         localStorage.setItem("randomColor", true);
       } else {
         localStorage.setItem("randomColor", false);

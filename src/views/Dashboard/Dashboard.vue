@@ -8,7 +8,7 @@
           <v-divider class="mx-4"></v-divider>
           <div class="v-list-item-group" role="listbox">
             <div
-              v-for="team in teams.slice(0, 2)"
+              v-for="team in teams"
               :key="team.nickname"
               role="listitem"
               class="v-list-item"
@@ -52,7 +52,7 @@
           <div class="v-list-item-group">
             <div
               v-for="notice in notices"
-              :key="notice.id.integerValue"
+              :key="notice.id"
               role="listitem"
               class="v-list-item"
             >
@@ -76,9 +76,9 @@
                     ]"
                   >
                     {{
-                      notice.title.stringValue.length > 16
-                        ? notice.title.stringValue.slice(0, 16) + "..."
-                        : notice.title.stringValue
+                      notice.title.length > 16
+                        ? notice.title.slice(0, 16) + "..."
+                        : notice.title
                     }}
                   </v-card>
                   <v-card
@@ -88,7 +88,7 @@
                     ]"
                   >
                     {{
-                      `${notice.date_year.integerValue}.${notice.date_month.integerValue}.${notice.date_day.integerValue}`
+                      `${notice.date_year}.${notice.date_month}.${notice.date_day}`
                     }}
                   </v-card>
                 </v-row>
@@ -104,7 +104,7 @@
           <div class="v-list-item-group">
             <div
               v-for="board in boards"
-              :key="board.title.stringValue"
+              :key="board.title"
               role="listitem"
               class="v-list-item d-flex align-center"
             >
@@ -120,11 +120,11 @@
                     <v-chip
                       small
                       color="purple"
-                      v-if="board.author.stringValue === '이종뚜' && !isMobile"
+                      v-if="board.author === '이종뚜' && !isMobile"
                     >
                       대장
                     </v-chip>
-                    &nbsp;{{ board.author.stringValue }}
+                    &nbsp;{{ board.author }}
                   </v-card>
                   <v-card
                     :class="[
@@ -133,9 +133,9 @@
                     ]"
                   >
                     {{
-                      board.title.stringValue.length > 16
-                        ? board.title.stringValue.slice(0, 16) + "..."
-                        : board.title.stringValue
+                      board.title.length > 16
+                        ? board.title.slice(0, 16) + "..."
+                        : board.title
                     }}
                   </v-card>
                   <v-card
@@ -145,11 +145,11 @@
                     ]"
                   >
                     {{
-                      board.date_year.integerValue +
+                      board.date_year +
                       "년 " +
-                      board.date_month.integerValue +
+                      board.date_month +
                       "월 " +
-                      board.date_day.integerValue +
+                      board.date_day +
                       "일"
                     }}
                   </v-card>
@@ -170,8 +170,8 @@
 </template>
 <script>
 import Lee from "./Lee.vue";
-import { db, storage } from "../../firebase.js";
 import isMobile from "../../components/isMobile.ts";
+import getFromFirebase from "../../components/getFromFirebase.ts";
 
 export default {
   data() {
@@ -197,71 +197,15 @@ export default {
     },
   },
   computed: {},
-  created() {
+  created: async function () {
     // Teams
-    db.collection("Team").onSnapshot((res) => {
-      const changes = res.docChanges();
-      let avatar;
-      changes.forEach((item) => {
-        if (item.type === "added") {
-          storage
-            .ref(`Team/${item.doc.data().profilePicture}`)
-            .getDownloadURL()
-            .then((url) => {
-              avatar = url;
-              this.teams.push({
-                ...item.doc.data(),
-                avatar,
-              });
-            })
-            .catch((err) => console.error(err));
-        }
-      });
-    });
+    this.teams = await getFromFirebase("Team", true, 'date', 2, 'desc');
 
     // Notice
-    const noticeRef = db.collection("Notice");
-    const getNotices = noticeRef.orderBy("id").limit(4).get();
-    getNotices
-      .then((res) => {
-        res.docs.forEach((ele) => {
-          const {
-            _delegate: {
-              _document: {
-                data: {
-                  value: {
-                    mapValue: { fields },
-                  },
-                },
-              },
-            },
-          } = ele;
-          this.notices.push(fields);
-        });
-      })
-      .catch((err) => console.error(err));
+    this.notices = await getFromFirebase("Notice", false, 'id', 4);
 
     // Board
-    const boardRef = db.collection("Board");
-    const getBoards = boardRef.orderBy("date").limit(6).get();
-    getBoards
-      .then((res) => {
-        res.docs.forEach((ele) => {
-          const {
-            _delegate: {
-              _document: {
-                data: {
-                  value: {
-                    mapValue: { fields },
-                  },
-                },
-              },
-            },
-          } = ele;
-          this.boards.push(fields);
-        });
-      })
-      .catch((err) => console.error(err));
+    this.boards = await getFromFirebase("Board", false, 'date', 6);
   },
 };
 </script>

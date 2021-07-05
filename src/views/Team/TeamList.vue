@@ -52,14 +52,73 @@
                   <div class="grey--text">{{ selected.birth }}</div>
                 </v-row>
                 <v-row align="center" class="mx-0 my-2">
-                  <v-icon left>mdi-email</v-icon>
-                  <div class="grey--text">{{ selected.email }}</div>
-                </v-row>
-                <v-row align="center" class="mx-0 my-2">
                   <v-icon left>mdi-fire</v-icon>
                   <div class="grey--text">
                     팀 내에서 {{ selected.role }}을(를) 맡고 있음
                   </div>
+                </v-row>
+                <v-row align="center" class="mx-0 my-2">
+                  <v-tooltip top>
+                    <template v-slot:activator="{ on }">
+                      <v-btn text v-on="on" class="px-2" @click.stop="modal = true">
+                        <v-icon left>mdi-email</v-icon>
+                        <div class="grey--text text-lowercase">{{ selected.email }}</div>
+                      </v-btn>
+                    </template>
+                    <span>이메일을 보내려면 클릭</span>
+                  </v-tooltip>
+                  <v-dialog persistent v-model="modal" max-width="320">
+                    <v-card>
+                      <v-card-title class="text-h5 text-center">
+                        이메일 전송
+                      </v-card-title>
+                      <v-card-text>
+                        <v-form class="pa-1" ref="form">
+                          <h5 readonly>
+                           받는 사람: {{selected.nickname}}({{selected.name}})
+                          </h5>
+                          <h5 readonly>
+                           받는 주소: {{selected.email}}
+                          </h5>
+                          <v-text-field
+                           label="작성자 이름"
+                           v-model.lazy="email.name"
+                           >
+                          </v-text-field>
+                          <v-text-field
+                           label="작성자 이메일"
+                           v-model.lazy="email.address"
+                           >
+                          </v-text-field>
+                          <v-text-field
+                           label="제목"
+                           v-model.lazy="email.title"
+                           >
+                          </v-text-field>
+                          <v-textarea
+                           label="내용"
+                           v-model.lazy="email.content"
+                           >
+                          </v-textarea>
+                        </v-form>
+                      </v-card-text>
+                      <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn
+                          color="error"
+                          @click="onResetClicked"
+                         >리셋</v-btn>
+                        <v-btn
+                          color="info"
+                          @click="modal = false"
+                         >취소</v-btn>
+                        <v-btn
+                          color="success"
+                          @click="onEmailSubmit"
+                         >전송</v-btn>
+                      </v-card-actions>
+                    </v-card>
+                  </v-dialog>
                 </v-row>
                 <v-row align="center" class="mx-0 my-2">
                   <v-icon left>mdi-content-copy</v-icon>
@@ -110,13 +169,14 @@
 </template>
 
 <script>
-import { db, storage } from "../../firebase.js";
+import getFromFirebase from "../../components/getFromFirebase";
 
 export default {
   data() {
     return {
       dialog: false,
       loading: false,
+      modal: false,
       selection: 0,
       teams: [],
       selected: {
@@ -132,55 +192,40 @@ export default {
         introduce: "",
         hobby: "",
       },
+      email: {
+        name: '',
+        address: '',
+      },
     };
   },
   methods: {
     onCardClicked: function (nickname) {
       this.dialog = true;
-      this.selected = this.teams[this.teams.findIndex(ele => ele.nickname === nickname)];
+      this.selected =
+        this.teams[this.teams.findIndex((ele) => ele.nickname === nickname)];
     },
     closeDialog() {
       this.dialog = false;
     },
+    onResetClicked() {
+      console.log("Reset")
+    },
+    onEmailSubmit() {
+      const emailRegExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+      if(!this.email.address.match(emailRegExp)) return alert("보내는 사람의 이메일 주소가 올바르지 않습니다.");
+      if(!this.email.receiverAddress.match(emailRegExp)) return alert("받는 사람의 이메일 주소가 올바르지 않습니다.");
+      if(this.$refs.form.validate()) {
+        console.log("submitted successfully!")
+      }
+    },
   },
   created() {
-
-    const teamRef = db.collection("Team");
-    teamRef.get().then(res => {
-        res.docs.forEach(ele => {
-          const {
-            _delegate: {
-              _document: {
-                data: {
-                  value: {
-                    mapValue: { fields: member },
-                  },
-                },
-              },
-            },
-          } = ele;
-          storage
-            .ref(`Team/${member.profilePicture.stringValue}`)
-            .getDownloadURL()
-            .then((url) => {
-              const avatar = url;
-              this.teams.push({
-                age: member.age.integerValue,
-                birth: member.birth.stringValue,
-                address: member.address?.stringValue,
-                email: member.email.stringValue,
-                hobby: member.hobby.stringValue,
-                name: member.name.stringValue,
-                nickname: member.nickname.stringValue,
-                role: member.role.stringValue,
-                sex: member.sex.stringValue,
-                introduce: member.introduce?.stringValue,
-                avatar,
-              });
-            })
-            .catch((err) => console.log(err));
-        })
-    })
+    this.teams = getFromFirebase("Team", true);
+    console.log(this.$store.state.status.isLoggedIn)
+    if(this.$store.state.status.isLoggedIn) {
+      this.email.name = this.$store.state.status.nickname.stringValue;
+      this.email.address = this.$store.state.status.email.stringValue;
+    }
   },
 };
 </script>

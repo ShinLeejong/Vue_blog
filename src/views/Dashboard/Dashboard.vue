@@ -29,9 +29,14 @@
                         <div id="team_hobby">{{ team.hobby }}을(를) 좋아함</div>
                       </v-list-item-subtitle>
                     </v-list-item-content>
-                    <v-list-item-avatar size="120" color="grey">
-                      <img :src="team.avatar" :alt="team.name + '\'s avatar'" />
-                    </v-list-item-avatar>
+                    <v-badge
+                      overlap
+                      :color="teamColor(team.nickname, team.sex)"
+                      :icon="teamBadge(team.nickname, team.sex)">
+                      <v-list-item-avatar size="120" color="grey">
+                        <img :src="team.avatar" :alt="team.name + '\'s avatar'" />
+                      </v-list-item-avatar>                      
+                    </v-badge>
                   </v-list-item>
                 </v-card>
               </template>
@@ -192,8 +197,15 @@ export default {
     Lee,
   },
   methods: {
-    Team_more_clicked() {
-      /* console.log("hmm"); */
+    teamColor(nickname, sex) {
+      if(nickname === "이종뚜") return 'red';
+      if(nickname === "이니뚜") return 'blue';
+      return sex === 'Male' ? 'yellow' : 'green'
+    },
+    teamBadge(nickname, sex) {
+      if(nickname === '이종뚜') return 'mdi-crown'; 
+      if(nickname === '이니뚜') return 'mdi-chess-queen';
+      return sex === 'Male' ? 'mdi-face-man' : 'mdi-face-woman';
     },
   },
   computed: {},

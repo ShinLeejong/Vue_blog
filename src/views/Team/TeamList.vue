@@ -6,11 +6,16 @@
         @click.stop="onCardClicked(mate.nickname)"
       >
         <v-responsive class="pt-4">
-          <v-avatar size="104" class="purple lighten-3">
-            <v-avatar size="100">
-              <img :src="mate.avatar" :alt="mate.name + '\'s avatar'" />
+          <v-badge
+            overlap
+           :color="teamColor(mate.nickname, mate.sex)"
+           :icon="teamBadge(mate.nickname, mate.sex)">
+            <v-avatar size="102" :class="teamColor(mate.nickname, mate.sex)">
+              <v-avatar size="100">
+                <img :src="mate.avatar" :alt="mate.name + '\'s avatar'" />
+              </v-avatar>
             </v-avatar>
-          </v-avatar>
+          </v-badge>
           <v-dialog
             v-model="dialog"
             max-width="480"
@@ -219,6 +224,16 @@ export default {
     },
     closeDialog() {
       this.dialog = false;
+    },
+    teamColor(nickname, sex) {
+      if(nickname === "이종뚜") return 'red';
+      if(nickname === "이니뚜") return 'blue';
+      return sex === 'Male' ? 'yellow' : 'green'
+    },
+    teamBadge(nickname, sex) {
+      if(nickname === '이종뚜') return 'mdi-crown'; 
+      if(nickname === '이니뚜') return 'mdi-chess-queen';
+      return sex === 'Male' ? 'mdi-face-man' : 'mdi-face-woman';
     },
     onResetClicked(submitted = false) {
       if(submitted || window.confirm("정말 초기화하시겠습니까? \n" + "수신인 정보를 제외하고 모두 초기화됩니다.")) {

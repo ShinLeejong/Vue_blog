@@ -74,12 +74,17 @@
                       </v-card-title>
                       <v-card-text>
                         <v-form class="pa-1 emailForm">
+                          <input type="hidden" name="to_name" :value="selected.nickname" />
+                          <input type="hidden" name="to_email" :value="selected.email" />
                           <h5 readonly>
                            받는 사람: {{selected.nickname}}({{selected.name}})
                           </h5>
                           <h5 readonly>
                            받는 주소: {{selected.email}}
                           </h5>
+                          <input type="hidden" name="from_name" :value="email.name" />
+                          <input type="hidden" name="reply_to" :value="email.address" />
+                          <input type="hidden" name="from_email" :value="email.address" />
                           <v-text-field
                            label="작성자 이름"
                            v-model.lazy="email.name"
@@ -95,8 +100,10 @@
                            v-model.lazy="email.title"
                            >
                           </v-text-field>
+                          <input type="hidden" name="message" :value="email.content" />
                           <v-textarea
                            label="내용"
+                           name="message_html"
                            v-model.lazy="email.content"
                            >
                           </v-textarea>
@@ -218,10 +225,10 @@ export default {
       const emailForm = document.querySelector(".emailForm");
       if(!this.email.address.match(emailRegExp)) return alert("보내는 사람의 이메일 주소가 올바르지 않습니다.");
       if(!this.selected.email.match(emailRegExp)) return alert("받는 사람의 이메일 주소가 올바르지 않습니다.");
-      
+      console.log(this.selected.email);
       emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, emailForm, EMAILJS_USER_ID)
         .then(res => console.log("success", res))
-        .catch(err => console.error(err))
+        .catch(err => console.error(JSON.stringify(err)))
     },
   },
   created() {

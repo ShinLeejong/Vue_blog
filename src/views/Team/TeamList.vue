@@ -97,6 +97,7 @@
                           </v-text-field>
                           <v-text-field
                            label="제목"
+                           name="title"
                            v-model.lazy="email.title"
                            >
                           </v-text-field>
@@ -113,7 +114,7 @@
                         <v-spacer></v-spacer>
                         <v-btn
                           color="error"
-                          @click="onResetClicked"
+                          @click="onResetClicked(false)"
                          >리셋</v-btn>
                         <v-btn
                           color="info"
@@ -204,7 +205,9 @@ export default {
       },
       email: {
         name: '',
+        title: '',
         address: '',
+        content: '',
       },
     };
   },
@@ -217,17 +220,25 @@ export default {
     closeDialog() {
       this.dialog = false;
     },
-    onResetClicked() {
-      console.log("Reset")
+    onResetClicked(submitted = false) {
+      if(submitted || window.confirm("정말 초기화하시겠습니까? \n" + "수신인 정보를 제외하고 모두 초기화됩니다.")) {
+        this.email.name = '';
+        this.email.title = '';
+        this.email.address = '';
+        this.email.content = '';    
+      } else return;
     },
     onEmailSubmit() {
       const emailRegExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
       const emailForm = document.querySelector(".emailForm");
       if(!this.email.address.match(emailRegExp)) return alert("보내는 사람의 이메일 주소가 올바르지 않습니다.");
       if(!this.selected.email.match(emailRegExp)) return alert("받는 사람의 이메일 주소가 올바르지 않습니다.");
-      console.log(this.selected.email);
       emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, emailForm, EMAILJS_USER_ID)
-        .then(res => console.log("success", res))
+        .then(() => {
+          alert(`${this.selected.nickname}님에게 이메일 전송을 완료하였습니다. \n` + 
+                `전송한 이메일 : ${this.selected.email}`);
+          this.onResetClicked(true);
+        })
         .catch(err => console.error(JSON.stringify(err)))
     },
   },

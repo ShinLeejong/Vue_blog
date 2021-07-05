@@ -73,7 +73,7 @@
                         이메일 전송
                       </v-card-title>
                       <v-card-text>
-                        <v-form class="pa-1" ref="form">
+                        <v-form class="pa-1 emailForm">
                           <h5 readonly>
                            받는 사람: {{selected.nickname}}({{selected.name}})
                           </h5>
@@ -170,6 +170,9 @@
 
 <script>
 import getFromFirebase from "../../components/getFromFirebase";
+import emailjs from "emailjs-com";
+import { EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, EMAILJS_USER_ID } from '../../constants';
+import { init as email_js_init} from 'emailjs-com';
 
 export default {
   data() {
@@ -212,16 +215,18 @@ export default {
     },
     onEmailSubmit() {
       const emailRegExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+      const emailForm = document.querySelector(".emailForm");
       if(!this.email.address.match(emailRegExp)) return alert("보내는 사람의 이메일 주소가 올바르지 않습니다.");
-      if(!this.email.receiverAddress.match(emailRegExp)) return alert("받는 사람의 이메일 주소가 올바르지 않습니다.");
-      if(this.$refs.form.validate()) {
-        console.log("submitted successfully!")
-      }
+      if(!this.selected.email.match(emailRegExp)) return alert("받는 사람의 이메일 주소가 올바르지 않습니다.");
+      
+      emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, emailForm, EMAILJS_USER_ID)
+        .then(res => console.log("success", res))
+        .catch(err => console.error(err))
     },
   },
   created() {
+    email_js_init(EMAILJS_USER_ID);
     this.teams = getFromFirebase("Team", true);
-    console.log(this.$store.state.status.isLoggedIn)
     if(this.$store.state.status.isLoggedIn) {
       this.email.name = this.$store.state.status.nickname.stringValue;
       this.email.address = this.$store.state.status.email.stringValue;
